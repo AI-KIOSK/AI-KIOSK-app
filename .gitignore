@@ -18,6 +18,8 @@ web-build/
 
 # Metro
 .metro-health-check*
+.DS_Store
+.enviroment.js
 
 # debug
 npm-debug.*
