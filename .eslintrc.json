@@ -5,6 +5,7 @@
     },
     "extends": [
         "eslint:recommended",
+        "universe",
         "plugin:react/recommended",
         "plugin:prettier/recommended",
         "plugin:react-hooks/recommended" 
