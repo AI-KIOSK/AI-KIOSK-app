@@ -1,14 +1,19 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import Information from '@screens/Information';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <RecoilRoot>
-      <NavigationContainer></NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="information" component={Information} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </RecoilRoot>
   );
 }
