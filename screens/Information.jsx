@@ -16,10 +16,12 @@ function Information() {
         <Label>AI Kiosk 사용하기</Label>
       </Button>
 
-      <Button onPress={() => navigate('home')}>
-        <Label>일반 키오스크</Label>
+      <Button onPress={() => navigate('seniorHome')}>
+        <Label>노인 키오스크</Label>
         <Label>사용하기</Label>
       </Button>
+
+      
     </Container>
   );
 }
