@@ -25,8 +25,6 @@ function Information() {
         <Label>노인 키오스크</Label>
         <Label>사용하기</Label>
       </Button>
-
-      
     </Container>
   );
 }
