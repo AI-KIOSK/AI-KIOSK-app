@@ -11,11 +11,8 @@ import { useModal } from '@hooks/common';
 function SignUpCompletedModal() {
   const phoneNum = '4722';
   const {modal, hideModal} = useModal('signupCompleteModal');
-  const {openModal} = useModal('earningpointsModal');
-
-  const pressBack = () => {
-    hideModal();
-    openModal();
+  const pressConfirm = () => {
+    setShow(false);
   };
 
   return (
@@ -29,7 +26,7 @@ function SignUpCompletedModal() {
           <TitleText>{phoneNum} 님!</TitleText>
         </PhoneNumContainer>
         <ButtonContainer>
-          <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF"/>
+          <RectButton onPress={hideModal} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF"/>
         </ButtonContainer>
       </ModalTemplate>
     </Modal>

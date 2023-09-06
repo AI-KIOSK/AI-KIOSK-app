@@ -1,9 +1,6 @@
 import MenuIcon from '@components/common/MenuIcon';
 import SignUpCompletedModal from '@components/modal/auth/SignUpCompletedModal';
 import SignUpModal from '@components/modal/auth/SignUpModal';
-import PaymentCompletedModal from '@components/modal/payment/PaymentCompletedModal';
-import PaymentModal from '@components/modal/payment/PaymentModal';
-import EarningPointsModal from '@components/modal/point/EarningPointsModal';
 import { useModal } from '@hooks/common';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -15,7 +12,7 @@ import styled from 'styled-components';
 
 function OrderSection() {
 
-  const {openModal} = useModal('earningpointsModal');
+  const {openModal} = useModal('signupModal');
   const items = useMemo(
     () => [
       {
@@ -80,9 +77,6 @@ function OrderSection() {
       </ContainedMenuView>
       <ButtonContainer>
         <OrderButton onPress={openModal}>
-          <EarningPointsModal/>
-          <PaymentModal/>
-          <PaymentCompletedModal/>
           <SignUpModal />
           <SignUpCompletedModal/>
           <ButtonLabel>결제하기</ButtonLabel>
