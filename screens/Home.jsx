@@ -1,8 +1,11 @@
 import MenuScrollList from '@components/home/MenuScrollList';
 import OrderSection from '@components/home/OrderSection';
+import SignUpCompletedModal from '@components/modal/auth/SignUpCompletedModal';
+import SignUpModal from '@components/modal/auth/SignUpModal';
 import MenuSelectModal from '@components/modal/menu/MenuSelectModal';
-import { OrderCompleteModal } from '@components/modal/order';
 import OrderConfirmModal from '@components/modal/order/OrderConfirmModal';
+import { PaymentCompletedModal, PaymentModal } from '@components/modal/payment';
+import EarningPointsModal from '@components/modal/point/EarningPointsModal';
 import React from 'react';
 import styled from 'styled-components/native';
 
@@ -14,7 +17,11 @@ function Home(props) {
 
       <MenuSelectModal />
       <OrderConfirmModal />
-      <OrderCompleteModal />
+      <EarningPointsModal />
+      <PaymentModal />
+      <PaymentCompletedModal />
+      <SignUpModal />
+      <SignUpCompletedModal />
     </Container>
   );
 }

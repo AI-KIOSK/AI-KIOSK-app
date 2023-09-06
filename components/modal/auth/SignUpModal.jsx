@@ -1,13 +1,12 @@
-import React, { useMemo } from 'react';
-import { Modal, TextInput } from 'react-native';
-import ModalTemplate from '../../../styles/ModalTemplate';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { SignUp, SignUpCompleted } from 'recoil/ModalState';
-import RectButton from '../common/RectButton';
 import { useModal } from '@hooks/common';
+import React, { useMemo } from 'react';
+import { Modal } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { styled } from 'styled-components';
+
+import ModalTemplate from '../../../styles/ModalTemplate';
+import RectButton from '../common/RectButton';
 
 function SignUpModal() {
   const genderItems = useMemo(
@@ -31,8 +30,8 @@ function SignUpModal() {
     [],
   );
 
-  const {modal, hideModal} = useModal('signupModal');
-  const {openModal} = useModal('signupCompleteModal');
+  const { modal, hideModal } = useModal('signupModal');
+  const { openModal } = useModal('signupCompleteModal');
 
   const pressSignUp = () => {
     hideModal();
@@ -56,13 +55,13 @@ function SignUpModal() {
                 <NormalText>-</NormalText>
               </PhoneSection>
               <PhoneSection>
-                <InputBox maxLength={4} keyboardType="numeric"/>
+                <InputBox maxLength={4} keyboardType="numeric" />
               </PhoneSection>
               <PhoneSection>
                 <NormalText>-</NormalText>
               </PhoneSection>
               <PhoneSection>
-                <InputBox maxLength={4} keyboardType="numeric"/>
+                <InputBox maxLength={4} keyboardType="numeric" />
               </PhoneSection>
             </PhoneNumber>
           </PhoneContainer>

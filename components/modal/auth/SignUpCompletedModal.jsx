@@ -1,19 +1,15 @@
+import { useModal } from '@hooks/common';
 import React from 'react';
 import { Modal } from 'react-native';
-import ModalTemplate from 'styles/ModalTemplate';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
+import ModalTemplate from 'styles/ModalTemplate';
+
 import RectButton from '../common/RectButton';
-import { useRecoilState } from 'recoil';
-import { SignUpCompleted } from 'recoil/ModalState';
-import { useModal } from '@hooks/common';
 
 function SignUpCompletedModal() {
   const phoneNum = '4722';
-  const {modal, hideModal} = useModal('signupCompleteModal');
-  const pressConfirm = () => {
-    setShow(false);
-  };
+  const { modal, hideModal } = useModal('signupCompleteModal');
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -26,7 +22,7 @@ function SignUpCompletedModal() {
           <TitleText>{phoneNum} 님!</TitleText>
         </PhoneNumContainer>
         <ButtonContainer>
-          <RectButton onPress={hideModal} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF"/>
+          <RectButton onPress={hideModal} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF" />
         </ButtonContainer>
       </ModalTemplate>
     </Modal>
