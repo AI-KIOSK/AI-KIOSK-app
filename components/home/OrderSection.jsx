@@ -1,6 +1,7 @@
 import MenuIcon from '@components/common/MenuIcon';
 import SignUpCompletedModal from '@components/modal/auth/SignUpCompletedModal';
 import SignUpModal from '@components/modal/auth/SignUpModal';
+import { useModal } from '@hooks/common';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as wp, widthPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -10,6 +11,8 @@ import { SignUp } from 'recoil/ModalState';
 import styled from 'styled-components';
 
 function OrderSection() {
+
+  const {openModal} = useModal('signupModal');
   const items = useMemo(
     () => [
       {
@@ -36,7 +39,6 @@ function OrderSection() {
     [],
   );
 
-  const [show, setShow] = useRecoilState(SignUp);
 
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
@@ -74,7 +76,7 @@ function OrderSection() {
         />
       </ContainedMenuView>
       <ButtonContainer>
-        <OrderButton onPress={pressButton}>
+        <OrderButton onPress={openModal}>
           <SignUpModal />
           <SignUpCompletedModal/>
           <ButtonLabel>결제하기</ButtonLabel>

@@ -7,6 +7,7 @@ import { styled } from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { SignUp, SignUpCompleted } from 'recoil/ModalState';
 import RectButton from '../common/RectButton';
+import { useModal } from '@hooks/common';
 
 function SignUpModal() {
   const genderItems = useMemo(
@@ -30,20 +31,16 @@ function SignUpModal() {
     [],
   );
 
-  const [showSignUpModal, setShowSignUpModal] = useRecoilState(SignUp);
-  const [showSignUpCompletedModal, setShowSignUpCompletedModal] = useRecoilState(SignUpCompleted);
-
-  const pressCancel = () => {
-    setShowSignUpModal(false);
-  };
+  const {modal, hideModal} = useModal('signupModal');
+  const {openModal} = useModal('signupCompleteModal');
 
   const pressSignUp = () => {
-    setShowSignUpModal(false);
-    setShowSignUpCompletedModal(true);
+    hideModal();
+    openModal();
   };
 
   return (
-    <Modal visible={showSignUpModal} animationType="slide" transparent={true}>
+    <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
         <TitleContainer>
           <TitleText>회원가입</TitleText>
@@ -81,7 +78,7 @@ function SignUpModal() {
           </GenderContainer>
         </SignUpContainer>
         <ButtonContainer>
-          <RectButton onPress={pressCancel} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
+          <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
           <RectButton onPress={pressSignUp} text={'회원가입'} fontColor="#FFA3A3" backColor="#FEF4F4" />
         </ButtonContainer>
       </ModalTemplate>
