@@ -16,7 +16,7 @@ function Information() {
         <Label>AI Kiosk 사용하기</Label>
       </Button>
 
-      <Button onPress={() => navigate('home')}>
+      <Button onPress={() => navigate('camera')}>
         <Label>일반 키오스크</Label>
         <Label>사용하기</Label>
       </Button>
