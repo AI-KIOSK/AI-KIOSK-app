@@ -9,6 +9,10 @@ const useModal = (modalId) => {
     setModal((prev) => ({ ...prev, visible: true }));
   };
 
+  const openOtherModal = () => {
+    setModal((prev) => ({ ...prev, visible: true }));
+  };
+
   const hideModal = () => {
     setModal((prev) => ({ ...prev, visible: false }));
   };
@@ -17,7 +21,7 @@ const useModal = (modalId) => {
     resetModal();
   };
 
-  return { modal, setModal, openModal, hideModal, closeModal };
+  return { modal, setModal, openModal, openOtherModal, hideModal, closeModal };
 };
 
 export { useModal };
