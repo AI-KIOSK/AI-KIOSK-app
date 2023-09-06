@@ -13,13 +13,14 @@ function Information() {
       </Info>
 
       <Button onPress={() => navigate('home')}>
-        <Label>AI Kiosk 사용하기</Label>
-      </Button>
-
-      <Button onPress={() => navigate('camera')}>
         <Label>일반 키오스크</Label>
         <Label>사용하기</Label>
       </Button>
+
+      <Button onPress={() => navigate('camera')}>
+        <Label>AI Kiosk 사용하기</Label>
+      </Button>
+
     </Container>
   );
 }
