@@ -10,13 +10,18 @@ import ModalTemplate from 'styles/ModalTemplate';
 
 export default function OrderConfirmModal() {
   const { modal, hideModal: hideOrderConfirmModal } = useModal('orderConfirmModal');
-  const { openModal: openPaymentModal } = useModal('earningpointsModal');
+  const { openModal: openEarningPointsModal } = useModal('earningpointsModal');
+  const { openModal: openPaymentModal } = useModal('paymentModal');
 
   const onPressOrder = () => {
     hideOrderConfirmModal();
     openPaymentModal();
   };
 
+  const onPressPoint = () => {
+    hideOrderConfirmModal();
+    openEarningPointsModal();
+  };
   return (
     <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideOrderConfirmModal}>
       <ModalTemplate>
@@ -33,7 +38,8 @@ export default function OrderConfirmModal() {
               color={'blue'}
               onPress={hideOrderConfirmModal}
             />
-            <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'red'} onPress={onPressOrder} />
+            <ModalActionButton title={'적립하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={onPressPoint} />
+            <ModalActionButton title={'결제하기'} width={wp(70)} height={hp(6)} color={'red'} onPress={onPressOrder} />
           </ButtonSection>
         </Container>
       </ModalTemplate>
@@ -68,9 +74,10 @@ const OrderResultText = styled.Text`
 `;
 
 const ButtonSection = styled.View`
-  width: 100%;
+  width: ${wp(70)}px;
 
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-content: space-around;
   flex-direction: row;
+  flex-wrap: wrap;
 `;
