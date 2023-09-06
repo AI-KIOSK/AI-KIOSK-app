@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
+  const [capturedImage, setCapturedImage] = useState(null);
 
   const cameraRef = useRef(null);
   const { navigate } = useNavigation();
@@ -28,18 +29,13 @@ function FaceRecognition() {
   }
 
   const takePictureHandler = async () => {
-    // cameraRef가 없으면 해당 함수가 실행되지 않게 가드
     if (!cameraRef.current) return;
 
-    // takePictureAsync를 통해 사진을 찍습니다.
-    // 찍은 사진은 base64 형식으로 저장합니다.
-    await cameraRef.current
-      .takePictureAsync({
-        base64: true,
-      })
-      .then((data) => {
-        setCapturedImage(data);
-      });
+    const photo = await cameraRef.current.takePictureAsync({
+      base64: true,
+    });
+
+    setCapturedImage(photo);
   };
 
   return (
@@ -49,13 +45,17 @@ function FaceRecognition() {
       </CameraContainer>
       <ButtonContainer>
         <Button onPress={takePictureHandler}>
-          <Label>인식 시작</Label>
+          <Label>사진 찍기</Label>
         </Button>
-
         <Button onPress={() => navigate('information')}>
           <Label>뒤로가기</Label>
         </Button>
       </ButtonContainer>
+      {capturedImage && (
+        <ImagePreviewContainer>
+          <ImagePreview source={{ uri: capturedImage.uri }} />
+        </ImagePreviewContainer>
+      )}
     </Container>
   );
 }
@@ -82,10 +82,8 @@ const ButtonContainer = styled.View`
 const Button = styled.TouchableOpacity`
   width: ${wp(32)}px;
   height: ${hp(6)}px;
-
   justify-content: center;
   align-items: center;
-
   background-color: #d9d9d9;
   border-color: #265183;
   border-width: 3px;
@@ -94,6 +92,16 @@ const Button = styled.TouchableOpacity`
 
 const Label = styled.Text`
   font-size: ${RFValue(12)}px;
+`;
+
+const ImagePreviewContainer = styled.View`
+  flex: 4;
+  align-items: center;
+`;
+
+const ImagePreview = styled.Image`
+  width: ${wp(80)}px;
+  height: ${hp(40)}px;
 `;
 
 export default FaceRecognition;
