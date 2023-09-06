@@ -1,31 +1,31 @@
-import React from 'react';
-import ModalTemplate from '../../../styles/ModalTemplate';
-import {Modal, StyleSheet, Text, View, TextInput} from "react-native";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { styled } from 'styled-components';
-import Numpad from "../point/Numpad";
-import RectButton from '../common/RectButton';
 import { useModal } from '@hooks/common';
+import React from 'react';
+import { Modal } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { styled } from 'styled-components';
 
+import ModalTemplate from '../../../styles/ModalTemplate';
+import RectButton from '../common/RectButton';
+import Numpad from '../point/Numpad';
 
 function EarningPointsModal() {
-    const {modal, hideModal} = useModal('earningpointsModal');
-    const {openModal} = useModal('paymentModal');
-    const {openOtherModal} = useModal('signupModal');
+  const { modal, hideModal } = useModal('earningpointsModal');
+  const { openModal } = useModal('paymentModal');
+  const { openModal: openOtherModal } = useModal('signupModal');
 
-    const pressPayment = () => {
-      hideModal();
-      openModal();
-    };
+  const pressPayment = () => {
+    hideModal();
+    openModal();
+  };
 
-    const pressSignUp = () => {
-        hideModal();
-        openOtherModal();
-    };
+  const pressSignUp = () => {
+    hideModal();
+    openOtherModal();
+  };
 
-    return (
-      <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
+  return (
+    <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
         <TitleContainer>
           <TitleText>적립하기</TitleText>
@@ -39,21 +39,19 @@ function EarningPointsModal() {
             <PhoneNumberText>-</PhoneNumberText>
             <PhoneNumberText></PhoneNumberText>
           </PhoneNumberPrint>
-          <Numpad/>
+          <Numpad />
         </EarningPointContainer>
         <ButtonContainer_1>
-            <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
-            <RectButton onPress={pressPayment} text={'결제하기'} fontColor="#FFA3A3" backColor="#DBEDFF" />
+          <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
+          <RectButton onPress={pressPayment} text={'결제하기'} fontColor="#FFA3A3" backColor="#DBEDFF" />
         </ButtonContainer_1>
         <ButtonContainer_2>
           <RectButton onPress={pressSignUp} text={'회원가입'} fontColor="#FFA3A3" backColor="#FEF4F4" />
         </ButtonContainer_2>
       </ModalTemplate>
     </Modal>
-    );
+  );
 }
-
-
 
 const TitleContainer = styled.View`
   flex: 0.8;
@@ -69,9 +67,9 @@ const TitleText = styled.Text`
 `;
 const PhoneNumberPrint = styled.View`
   margin-top: 30px;
-  justifyContent: space-around;
-  width: wp(50);
-  flexDirection: row;
+  justifycontent: space-around;
+  width: ${wp(50)}px;
+  flexdirection: row;
   margin-bottom: 160px;
 `;
 
@@ -82,13 +80,11 @@ const EarningPointContainer = styled.View`
   margin: 90px;
 `;
 
-
 const PhoneNumberText = styled.Text`
   color: #002b85;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
 `;
-
 
 const Row = styled.View`
   flex-direction: row;
@@ -107,7 +103,6 @@ const ButtonContainer_1 = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  
 `;
 
 const ButtonContainer_2 = styled.View`

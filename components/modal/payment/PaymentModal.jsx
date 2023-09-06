@@ -1,87 +1,82 @@
-import React, { useMemo } from 'react';
-import { Modal, TextInput } from 'react-native';
-import ModalTemplate from '../../../styles/ModalTemplate';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
-import RectButton from '../common/RectButton';
 import { useModal } from '@hooks/common';
+import React, { useMemo } from 'react';
+import { Modal } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { styled } from 'styled-components';
 
+import ModalTemplate from '../../../styles/ModalTemplate';
+import RectButton from '../common/RectButton';
 
-function PaymentModal(){
-    const paymentPlans = useMemo(
-        () => [
-            {
-              id: 'card',
-              value: 'card',
-              name: '카드',
-            },
-            {
-              id: 'kakaopay',
-              value: 'kakaopay',
-              name: '카카오페이',
-            },
-          ],
-          [],
+function PaymentModal() {
+  const paymentPlans = useMemo(
+    () => [
+      {
+        id: 'card',
+        value: 'card',
+        name: '카드',
+      },
+      {
+        id: 'kakaopay',
+        value: 'kakaopay',
+        name: '카카오페이',
+      },
+    ],
+    [],
+  );
 
-    );
+  const { modal, hideModal } = useModal('paymentModal');
+  const { openModal } = useModal('paymentCompletedModal');
 
-    const {modal, hideModal} = useModal('paymentModal');
-    const {openModal} = useModal('paymentCompletedModal');
-  
-    const pressPayment = () => {
-      hideModal();
-      openModal();
-    };
+  const pressPayment = () => {
+    hideModal();
+    openModal();
+  };
 
-
-      return (
-        <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
-          <ModalTemplate>
+  return (
+    <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
+      <ModalTemplate>
+        <TitleContainer>
+          <TitleText>결제내역</TitleText>
+        </TitleContainer>
+        <PaymentContainer>
+          <Row>
+            <TitleText>주문 금액</TitleText>
+            <NormalText> 16000원 </NormalText>
+          </Row>
+          <PointContainer>
             <TitleContainer>
-              <TitleText>결제내역</TitleText>
+              <TitleText>적립포인트</TitleText>
             </TitleContainer>
-            <PaymentContainer>
-              <Row>
-                <TitleText>주문 금액</TitleText>
-                <NormalText> 16000원 </NormalText>
-              </Row>
-                <PointContainer>
-                    <TitleContainer>
-                        <TitleText>적립포인트</TitleText>
-                    </TitleContainer>
-                    <Row>
-                        <NormalText>보유</NormalText>
-                        <NormalText>1000</NormalText>
-                    </Row>
-                    <Row>
-                        <NormalText>사용</NormalText>
-                        <InputBox maxLength={8} keyboardType="numeric"/>
-                        <NormalText>point</NormalText>
-                    </Row>
-                </PointContainer>
-              <PaymentPlanContainer>
-                <TitleText>결제수단</TitleText>
-                <Row>
-                  {paymentPlans.map((item) => (
-                    <PaymentPlanItem key={item.id}>
-                      <NormalText>{item.name}</NormalText>
-                    </PaymentPlanItem>
-                  ))}
-                </Row>
-              </PaymentPlanContainer>
-            </PaymentContainer>
-            <ButtonContainer>
-              <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
-              <RectButton onPress={pressPayment} text={'결제하기'} fontColor="#FFA3A3" backColor="#FEF4F4" />
-            </ButtonContainer>
-          </ModalTemplate>
-        </Modal>
-      );
+            <Row>
+              <NormalText>보유</NormalText>
+              <NormalText>1000</NormalText>
+            </Row>
+            <Row>
+              <NormalText>사용</NormalText>
+              <InputBox maxLength={8} keyboardType="numeric" />
+              <NormalText>point</NormalText>
+            </Row>
+          </PointContainer>
+          <PaymentPlanContainer>
+            <TitleText>결제수단</TitleText>
+            <Row>
+              {paymentPlans.map((item) => (
+                <PaymentPlanItem key={item.id}>
+                  <NormalText>{item.name}</NormalText>
+                </PaymentPlanItem>
+              ))}
+            </Row>
+          </PaymentPlanContainer>
+        </PaymentContainer>
+        <ButtonContainer>
+          <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
+          <RectButton onPress={pressPayment} text={'결제하기'} fontColor="#FFA3A3" backColor="#FEF4F4" />
+        </ButtonContainer>
+      </ModalTemplate>
+    </Modal>
+  );
 }
-
-
 
 const TitleContainer = styled.View`
   flex: 0.8;
@@ -103,19 +98,19 @@ const PaymentContainer = styled.View`
 `;
 
 const PointContainer = styled.View`
-    flex: 3;
-    justify-content: center;
-    align-items: center;
+  flex: 3;
+  justify-content: center;
+  align-items: center;
 `;
 
 const InputBox = styled.TextInput`
-    color: #002b85;
-    border-width: 3px;
-    flex-direction: row;
-    border-color: #002b85;
-    padding: 0px 10px;
-    justify-content: space-around;
-    align-items: center;
+  color: #002b85;
+  border-width: 3px;
+  flex-direction: row;
+  border-color: #002b85;
+  padding: 0px 10px;
+  justify-content: space-around;
+  align-items: center;
   font-size: ${RFValue(16)}px;
 `;
 
@@ -154,6 +149,4 @@ const ButtonContainer = styled.View`
   align-items: center;
 `;
 
-
 export default PaymentModal;
-

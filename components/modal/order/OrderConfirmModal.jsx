@@ -9,10 +9,16 @@ import { styled } from 'styled-components/native';
 import ModalTemplate from 'styles/ModalTemplate';
 
 export default function OrderConfirmModal() {
-  const { modal, hideModal } = useModal('orderConfirmModal');
+  const { modal, hideModal: hideOrderConfirmModal } = useModal('orderConfirmModal');
+  const { openModal: openPaymentModal } = useModal('earningpointsModal');
+
+  const onPressOrder = () => {
+    hideOrderConfirmModal();
+    openPaymentModal();
+  };
 
   return (
-    <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideModal}>
+    <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideOrderConfirmModal}>
       <ModalTemplate>
         <Container>
           <Title>주문 목록</Title>
@@ -20,8 +26,14 @@ export default function OrderConfirmModal() {
           <OrderResultText>총 수량 3개</OrderResultText>
           <OrderResultText>총 결제 금액 36,000원</OrderResultText>
           <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'blue'} onPress={hideModal} />
-            <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'red'} />
+            <ModalActionButton
+              title={'취소'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'blue'}
+              onPress={hideOrderConfirmModal}
+            />
+            <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'red'} onPress={onPressOrder} />
           </ButtonSection>
         </Container>
       </ModalTemplate>
