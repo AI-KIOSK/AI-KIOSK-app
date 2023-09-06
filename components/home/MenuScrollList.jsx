@@ -1,11 +1,14 @@
 import MenuIcon from '@components/common/MenuIcon';
+import { useModal } from '@hooks/common';
 import React, { useMemo } from 'react';
 import { FlatList } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styled from 'styled-components';
 
-function MenuScrollList(props) {
+function MenuScrollList() {
+  const { openModal } = useModal('menuSelectModal');
+
   const menuItems = useMemo(
     () => [
       {
@@ -56,8 +59,8 @@ function MenuScrollList(props) {
           numColumns={4}
           data={menuItems}
           renderItem={({ item }) => (
-            <Menu>
-              <MenuIcon key={item.id} image={item.img} label={item.name} />
+            <Menu onPress={openModal} key={item.id}>
+              <MenuIcon image={item.img} label={item.name} />
             </Menu>
           )}
         />

@@ -1,18 +1,14 @@
 import MenuIcon from '@components/common/MenuIcon';
-import SignUpCompletedModal from '@components/modal/auth/SignUpCompletedModal';
-import SignUpModal from '@components/modal/auth/SignUpModal';
 import { useModal } from '@hooks/common';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { heightPercentageToDP as wp, widthPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useRecoilState } from 'recoil';
-import { SignUp } from 'recoil/ModalState';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 function OrderSection() {
+  const { openModal } = useModal('orderConfirmModal');
 
-  const {openModal} = useModal('signupModal');
   const items = useMemo(
     () => [
       {
@@ -39,7 +35,6 @@ function OrderSection() {
     [],
   );
 
-
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
 
@@ -50,10 +45,6 @@ function OrderSection() {
   const prevMenuSets = useCallback(() => {
     if (offset > 0) setOffset((prev) => prev - 1);
   }, [offset]);
-
-  const pressButton = () => {
-    setShow(true);
-  };
 
   return (
     <Container>
@@ -77,8 +68,6 @@ function OrderSection() {
       </ContainedMenuView>
       <ButtonContainer>
         <OrderButton onPress={openModal}>
-          <SignUpModal />
-          <SignUpCompletedModal/>
           <ButtonLabel>결제하기</ButtonLabel>
         </OrderButton>
       </ButtonContainer>
