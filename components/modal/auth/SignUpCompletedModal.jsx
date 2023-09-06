@@ -6,17 +6,17 @@ import { styled } from 'styled-components';
 import RectButton from '../common/RectButton';
 import { useRecoilState } from 'recoil';
 import { SignUpCompleted } from 'recoil/ModalState';
+import { useModal } from '@hooks/common';
 
 function SignUpCompletedModal() {
   const phoneNum = '4722';
-  const [show, setShow] = useRecoilState(SignUpCompleted);
-
+  const {modal, hideModal} = useModal('signupCompleteModal');
   const pressConfirm = () => {
     setShow(false);
   };
 
   return (
-    <Modal visible={show} animationType="slide" transparent={true}>
+    <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
         <TitleContainer>
           <TitleText>회원가입 완료</TitleText>
@@ -26,7 +26,7 @@ function SignUpCompletedModal() {
           <TitleText>{phoneNum} 님!</TitleText>
         </PhoneNumContainer>
         <ButtonContainer>
-          <RectButton onPress={pressConfirm} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF"/>
+          <RectButton onPress={hideModal} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF"/>
         </ButtonContainer>
       </ModalTemplate>
     </Modal>
