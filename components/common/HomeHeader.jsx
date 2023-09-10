@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { useRecoilState } from 'recoil';
+import { Category } from 'recoil/Category';
 import styled from 'styled-components';
 
 function HomeHeader(props) {
@@ -12,7 +14,7 @@ function HomeHeader(props) {
         menu: '커피',
       },
       {
-        id: 'non-coffee',
+        id: 'non_coffee',
         menu: '논커피',
       },
       {
@@ -31,11 +33,18 @@ function HomeHeader(props) {
     [],
   );
 
+  const [category, setCategory] = useRecoilState(Category);
+
+  const categoryHandler = (id) => {
+    setCategory(id);
+  };
+  console.log(category);
+
   return (
     <Container>
       <Entypo name="home" size={RFValue(30)} color={'black'} />
       {menuItems.map((item) => (
-        <Button key={item.id}>
+        <Button key={item.id} onPress={() => categoryHandler(item.id)}>
           <Label>{item.menu}</Label>
         </Button>
       ))}
