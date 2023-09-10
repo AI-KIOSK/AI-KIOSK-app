@@ -1,14 +1,14 @@
+import { useNavigation } from '@react-navigation/native';
+import { Camera } from 'expo-camera';
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text } from 'react-native';
-import { Camera } from 'expo-camera';
-import styled from 'styled-components';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components';
 
 function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.front);
+  const [type] = useState(Camera.Constants.Type.front);
   const [capturedImage, setCapturedImage] = useState(null);
 
   const cameraRef = useRef(null);

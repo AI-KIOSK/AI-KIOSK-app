@@ -6,8 +6,8 @@ const SignUp = atom({
 });
 
 const SignUpCompleted = atom({
-    key: 'signupCompleted',
-    default: false,
-})
+  key: 'signupCompleted',
+  default: false,
+});
 
-export {SignUp, SignUpCompleted};
+export { SignUp, SignUpCompleted };
