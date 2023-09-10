@@ -1,10 +1,23 @@
-import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { FlatList } from 'react-native';
-import styled from 'styled-components';
-import SeniorMenu from './SeniorMenu';
 import { RFValue } from 'react-native-responsive-fontsize';
+import styled from 'styled-components';
 
-function SeniorMenuList({currentPage, menuItemsToShow}) {
+import SeniorMenu from './SeniorMenu';
+
+SeniorMenuList.propTypes = {
+  menuItemsToShow: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      img: PropTypes.number,
+      price: PropTypes.number,
+    }),
+  ),
+};
+
+function SeniorMenuList({ menuItemsToShow }) {
   return (
     <Container>
       <ListContainer>

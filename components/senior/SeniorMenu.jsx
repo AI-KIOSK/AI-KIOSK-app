@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
+
 import SeniorButton from './SeniorButton';
 
 SeniorMenu.propTypes = {
@@ -42,7 +43,7 @@ function SeniorMenu({ name, img }) {
       </Info>
       <BtnGroup>
         <SeniorButton label={'설명'} borderColor="#154D93" backColor="#DBEDFF" radius={10} />
-        <SeniorButton label={'옵션선택'} borderColor="#154D93" backColor="#DBEDFF" radius={10} />
+        <SeniorButton label={'맞춤선택'} borderColor="#154D93" backColor="#DBEDFF" radius={10} />
       </BtnGroup>
     </Container>
   );
@@ -114,7 +115,7 @@ const CounterButton = styled.TouchableOpacity`
 const CounterButtonText = styled.Text`
   font-size: ${RFValue(16)}px;
   font-weight: bold;
-  color: 'black';
+  color: #000;
 `;
 
 const BtnGroup = styled.View`
