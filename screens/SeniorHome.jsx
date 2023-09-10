@@ -76,7 +76,7 @@ function SeniorHome() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const menuItemsToShow = menuItems.slice(startIndex, endIndex);
-  console.log(currentPage + " / " + totalPages);
+  console.log(currentPage + ' / ' + totalPages);
 
   const handleNextPage = () => {
     // 다음 페이지로 이동
@@ -93,7 +93,6 @@ function SeniorHome() {
       <SeniorMenuList currentPage={currentPage} menuItemsToShow={menuItemsToShow} />
       <SeniorSubInfo onNextPage={handleNextPage} onPrevPage={handlePrevPage} />
       <OrderConfirmModal />
-
     </Container>
   );
 }
