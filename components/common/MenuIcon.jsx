@@ -1,8 +1,8 @@
-import React from 'react';
-import { styled } from 'styled-components';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { styled } from 'styled-components';
 
 MenuIcon.propTypes = {
   image: PropTypes.number,
@@ -30,7 +30,6 @@ const MenuImage = styled.Image`
 `;
 
 const Label = styled.Text`
-  
   margin-top: ${RFValue(4)}px;
   font-size: ${RFValue(8)}px;
   font-weight: 700;

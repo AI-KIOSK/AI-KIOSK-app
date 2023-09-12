@@ -78,7 +78,7 @@ const Container = styled.View`
   width: 100%;
   height: 25%;
 
-  background-color: #A9907E;
+  background-color: #a9907e;
   border-radius: 8px;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -128,12 +128,11 @@ const OrderButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  border: 3px solid #675D50;
-  background-color: #F3DEBA;
+  border: 3px solid #675d50;
+  background-color: #f3deba;
 `;
 
 const ButtonLabel = styled.Text`
-
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;

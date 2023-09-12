@@ -42,46 +42,46 @@ function SignUpModal() {
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
-      <Container>
-        <TitleContainer>
-          <TitleText>회원가입</TitleText>
-        </TitleContainer>
-        <SignUpContainer>
-          <PhoneContainer>
-            <TitleText>전화번호</TitleText>
-            <PhoneNumber>
-              <PhoneSection>
-                <NormalText>010</NormalText>
-              </PhoneSection>
-              <PhoneSection>
-                <NormalText>-</NormalText>
-              </PhoneSection>
-              <PhoneSection>
-                <InputBox maxLength={4} keyboardType="numeric" />
-              </PhoneSection>
-              <PhoneSection>
-                <NormalText>-</NormalText>
-              </PhoneSection>
-              <PhoneSection>
-                <InputBox maxLength={4} keyboardType="numeric" />
-              </PhoneSection>
-            </PhoneNumber>
-          </PhoneContainer>
-          <GenderContainer>
-            <TitleText>성별</TitleText>
-            <Row>
-              {genderItems.map((item) => (
-                <GenderItem key={item.id}>
-                  <NormalText>{item.name}</NormalText>
-                </GenderItem>
-              ))}
-            </Row>
-          </GenderContainer>
-        </SignUpContainer>
-        <ButtonSection>
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-          <ModalActionButton title={'회원가입'} width={wp(25)} height={hp(6)} color={'sign'} onPress={pressSignUp} />
-        </ButtonSection>
+        <Container>
+          <TitleContainer>
+            <TitleText>회원가입</TitleText>
+          </TitleContainer>
+          <SignUpContainer>
+            <PhoneContainer>
+              <TitleText>전화번호</TitleText>
+              <PhoneNumber>
+                <PhoneSection>
+                  <NormalText>010</NormalText>
+                </PhoneSection>
+                <PhoneSection>
+                  <NormalText>-</NormalText>
+                </PhoneSection>
+                <PhoneSection>
+                  <InputBox maxLength={4} keyboardType="numeric" />
+                </PhoneSection>
+                <PhoneSection>
+                  <NormalText>-</NormalText>
+                </PhoneSection>
+                <PhoneSection>
+                  <InputBox maxLength={4} keyboardType="numeric" />
+                </PhoneSection>
+              </PhoneNumber>
+            </PhoneContainer>
+            <GenderContainer>
+              <TitleText>성별</TitleText>
+              <Row>
+                {genderItems.map((item) => (
+                  <GenderItem key={item.id}>
+                    <NormalText>{item.name}</NormalText>
+                  </GenderItem>
+                ))}
+              </Row>
+            </GenderContainer>
+          </SignUpContainer>
+          <ButtonSection>
+            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+            <ModalActionButton title={'회원가입'} width={wp(25)} height={hp(6)} color={'sign'} onPress={pressSignUp} />
+          </ButtonSection>
         </Container>
       </ModalTemplate>
     </Modal>
@@ -104,13 +104,12 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-
   font-weight: bold;
   font-size: ${RFValue(20)}px;
 `;
 
 const SignUpContainer = styled.View`
-width: 100%;
+  width: 100%;
 
   justify-content: center;
   align-items: center;
@@ -124,7 +123,7 @@ const PhoneContainer = styled.View`
 const PhoneNumber = styled.View`
   flex-direction: row;
   border-radius: 8px;
-  background-color: #F3DEBA;
+  background-color: #f3deba;
   padding: 0px 20px;
   justify-content: space-around;
   align-items: center;
@@ -157,7 +156,7 @@ const GenderItem = styled.TouchableOpacity`
   width: ${wp(16)}px;
   height: ${hp(5)}px;
   border-color: #000000;
-  background-color: #ABC4AA;
+  background-color: #abc4aa;
   justify-content: center;
   align-items: center;
 `;
@@ -178,6 +177,5 @@ const ButtonSection = styled.View`
   align-items: center;
   margin-top: 200px;
 `;
-
 
 export default SignUpModal;

@@ -63,7 +63,7 @@ const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  background-color: #ABC4AA;
+  background-color: #abc4aa;
 
   width: ${wp(12)}px;
   height: ${hp(4)}px;

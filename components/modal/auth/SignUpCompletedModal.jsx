@@ -1,11 +1,11 @@
+import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
-import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import RectButton from '../common/RectButton';
 
@@ -16,7 +16,7 @@ function SignUpCompletedModal() {
 
   const pressBack = () => {
     hideModal();
-    openModal();  
+    openModal();
   };
 
   return (
@@ -30,7 +30,7 @@ function SignUpCompletedModal() {
           <TitleText>{phoneNum} 님!</TitleText>
         </PhoneNumContainer>
         <ButtonSection>
-            <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
+          <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
         </ButtonSection>
       </ModalTemplate>
     </Modal>
@@ -55,14 +55,12 @@ const PhoneNumContainer = styled.View`
   align-items: center;
 `;
 
-
 const ButtonSection = styled.View`
-flex: 2;
+  flex: 2;
 
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 `;
-
 
 export default SignUpCompletedModal;

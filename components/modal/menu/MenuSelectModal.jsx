@@ -27,9 +27,9 @@ function MenuSelectModal() {
               <MenuLabel>아메리카노</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
-                <AntDesign name={'caretdown'} size={24} color={"#F3DEBA"}/>
+                <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} />
                 <QuantityLabel>1</QuantityLabel>
-                <AntDesign name={'caretup'} size={24} color={"#F3DEBA"}/>
+                <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} />
               </QunatityOptionView>
               <OptionButtonView>
                 <HotOrIceSelectButton option="HOT" />
@@ -85,7 +85,6 @@ const MenuOptionView = styled.View`
 `;
 
 const MenuLabel = styled.Text`
-  
   font-size: ${RFValue(24)}px;
   width: 100%;
   font-weight: 700;
@@ -99,7 +98,6 @@ const QunatityOptionView = styled.View`
 `;
 
 const QuantityLabel = styled.Text`
- 
   font-size: ${RFValue(18)}px;
   font-weight: 700;
 `;
@@ -110,14 +108,6 @@ const OptionButtonView = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-`;
-
-const OptionButton = styled.TouchableOpacity`
-  width: 35%;
-  height: 44px;
-  border: 3px solid #002b85;
-  border-radius: 10px;
-  flex-shrink: 0;
 `;
 
 const ButtonSection = styled.View`
