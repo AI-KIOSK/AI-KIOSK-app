@@ -5,4 +5,9 @@ const Category = atom({
   default: 'coffee',
 });
 
-export { Category };
+const Temperature = atom({
+  key: 'temperature',
+  default: 'hot',
+});
+
+export { Category, Temperature };
