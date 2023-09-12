@@ -22,8 +22,9 @@ const Container = styled.View`
   width: ${wp(80)}px;
   height: ${hp(80)}px;
   background-color: white;
-  border-color: #002b85;
+  border-color: #ABC4AA;
   border-width: 5px;
+  border-radius: 8px;
 `;
 
 export default ModalTemplate;

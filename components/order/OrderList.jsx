@@ -44,7 +44,7 @@ export default function OrderList() {
 
 const Container = styled.View`
   width: 100%;
-  height: ${hp(40)}px;
+  height: ${hp(45)}px;
 
   padding: ${wp(3)}px;
 `;

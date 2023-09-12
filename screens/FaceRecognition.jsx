@@ -84,10 +84,10 @@ const Button = styled.TouchableOpacity`
   height: ${hp(6)}px;
   justify-content: center;
   align-items: center;
-  background-color: #d9d9d9;
-  border-color: #265183;
+  background-color: #ABC4AA;
+  border-color: #000000;
   border-width: 3px;
-  border-radius: 24px;
+  border-radius: 8px;
 `;
 
 const Label = styled.Text`

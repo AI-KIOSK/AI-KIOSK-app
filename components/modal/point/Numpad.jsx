@@ -33,20 +33,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: wp(50),
+
   },
   row: {
     flexDirection: 'row',
   },
   column: {
     borderWidth: 1,
-    width: wp(8),
-    height: wp(8),
+    borderRadius: '8px',
+    margin: wp(0.3),
+    width: wp(9),
+    height: wp(9),
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#F3DEBA',
   },
   text: {
-    fontSize: RFValue(32),
-    color: '#002B85',
+    fontSize: RFValue(27),
+    color: '#675D50',
   },
 });
 

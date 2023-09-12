@@ -21,7 +21,7 @@ function ModalActionButton({ title, color, width, height, onPress }) {
 
 const Container = styled.TouchableOpacity`
   border-width: 3px;
-
+  border-radius: 8px;
   justify-content: center;
   align-items: center;
 
@@ -31,14 +31,14 @@ const Container = styled.TouchableOpacity`
   `}
 
   ${({ color }) =>
-    color === 'red'
+    color === 'cancel'
       ? `
-    background: #FEF4F4;
-    border-color: #FFA3A3;
+    background: #ABC4AA;
+    border-color: #F3DEBA;
   `
       : `
-    background: #DBEDFF;
-    border-color: #002B85;
+    background: #675D50;
+    border-color: #F3DEBA;
   `}
 `;
 
@@ -46,12 +46,12 @@ const Title = styled.Text`
   font-size: ${RFValue(20)}px;
   font-weight: 700;
   ${({ color }) =>
-    color === 'red'
+    color === 'cancel'
       ? `
-      color: #FEC3C3;
+      color: #000000;
   `
       : `
-      color: #002B85;
+      color: #ffffff;
   `}
 `;
 

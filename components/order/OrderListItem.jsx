@@ -27,12 +27,12 @@ export default function OrderListItem({ order }) {
       </MenuImageView>
       <MenuOptionView>
         <MenuLabel>{menu}</MenuLabel>
-        <AntDesign name={'close'} size={RFValue(16)} />
+        <AntDesign name={'closesquareo'} size={RFValue(16)} color={"#818181"}/>
         <QunatityOptionView>
-          <QuantityLabel>수량</QuantityLabel>
-          <AntDesign name={'minuscircleo'} size={RFValue(16)} />
+          <QuantityLabel></QuantityLabel>
+          <AntDesign name={'caretdown'} size={RFValue(16)} color={"#F3DEBA"}/>
           <QuantityLabel>{quantity}</QuantityLabel>
-          <AntDesign name={'pluscircleo'} size={RFValue(16)} />
+          <AntDesign name={'caretup'} size={RFValue(16)} color={"#F3DEBA"}/>
         </QunatityOptionView>
         <TextView>
           <TotalPriceText>{quantity * price}원</TotalPriceText>
@@ -51,7 +51,7 @@ const Container = styled.View`
   justify-content: space-between;
 
   border-bottom-width: 1px;
-  border-bottom-color: #002b85;
+  border-bottom-color: #000000;
 `;
 
 const MenuImageView = styled.View`
@@ -59,6 +59,7 @@ const MenuImageView = styled.View`
   height: 100%;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
 `;
 
 const MenuOptionView = styled.View`
@@ -71,7 +72,7 @@ const MenuOptionView = styled.View`
 `;
 
 const MenuLabel = styled.Text`
-  color: #002b85;
+  
   font-size: ${RFValue(18)}px;
   width: 93%;
   font-weight: 700;
@@ -88,7 +89,7 @@ const QunatityOptionView = styled.View`
 `;
 
 const QuantityLabel = styled.Text`
-  color: #002b85;
+  
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;
@@ -98,7 +99,7 @@ const TextView = styled.View`
 `;
 
 const TotalPriceText = styled.Text`
-  color: #002b85;
+  
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;

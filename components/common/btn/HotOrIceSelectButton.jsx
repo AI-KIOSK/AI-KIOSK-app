@@ -21,23 +21,25 @@ const Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  width: ${wp(18)}px;
+  width: ${wp(13)}px;
   height: ${hp(4)}px;
-  border-radius: ${wp(18)}px;
+  border-radius: ${wp(13)}px;
   flex-shrink: 0;
 
   ${({ option }) =>
     option === 'HOT'
       ? `
     border: 3px solid #FEC3C4;
+    border-radius: 8px;
   `
       : `
     border: 3px solid #002b85;
+    border-radius: 8px;
   `}
 `;
 
 const ButtonText = styled.Text`
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(13)}px;
   ${({ option }) =>
     option === 'HOT'
       ? `

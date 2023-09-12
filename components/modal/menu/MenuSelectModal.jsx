@@ -27,9 +27,9 @@ function MenuSelectModal() {
               <MenuLabel>아메리카노</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
-                <AntDesign name={'minuscircleo'} size={24} />
+                <AntDesign name={'caretdown'} size={24} color={"#F3DEBA"}/>
                 <QuantityLabel>1</QuantityLabel>
-                <AntDesign name={'pluscircleo'} size={24} />
+                <AntDesign name={'caretup'} size={24} color={"#F3DEBA"}/>
               </QunatityOptionView>
               <OptionButtonView>
                 <HotOrIceSelectButton option="HOT" />
@@ -43,8 +43,8 @@ function MenuSelectModal() {
           <MenuOptionList label="유료 옵션" />
 
           <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'blue'} onPress={hideModal} />
-            <ModalActionButton title={'음료담기'} width={wp(25)} height={hp(6)} color={'red'} />
+            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+            <ModalActionButton title={'음료담기'} width={wp(25)} height={hp(6)} color={'#675D50'} />
           </ButtonSection>
         </Container>
       </ModalTemplate>
@@ -85,7 +85,7 @@ const MenuOptionView = styled.View`
 `;
 
 const MenuLabel = styled.Text`
-  color: #002b85;
+  
   font-size: ${RFValue(24)}px;
   width: 100%;
   font-weight: 700;
@@ -99,7 +99,7 @@ const QunatityOptionView = styled.View`
 `;
 
 const QuantityLabel = styled.Text`
-  color: #002b85;
+ 
   font-size: ${RFValue(18)}px;
   font-weight: 700;
 `;

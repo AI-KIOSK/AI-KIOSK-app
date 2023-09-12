@@ -10,6 +10,12 @@ import RectButton from '../common/RectButton';
 function PaymentCompletedModal() {
   const orderNum = '14';
   const { modal, hideModal } = useModal('paymentCompletedModal');
+  const { openModal } = useModal('information');
+
+  const pressBack = () => {
+    hideModal();
+    openModal();
+  };
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -22,8 +28,9 @@ function PaymentCompletedModal() {
           <TitleText>{orderNum} 번</TitleText>
         </OrderNumContainer>
         <ButtonContainer>
-          <RectButton onPress={hideModal} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF" />
+          <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#000000" backColor="#ABC4AA" />
         </ButtonContainer>
+        
       </ModalTemplate>
     </Modal>
   );
@@ -32,12 +39,12 @@ function PaymentCompletedModal() {
 const TitleContainer = styled.View`
   flex: 0.8;
   justify-content: center;
-  align-items: flex-start;
-  padding-left: 30px;
+  align-items: center;
+  padding-top: 30px;
 `;
 
 const TitleText = styled.Text`
-  color: #002b85;
+  color: #675D50;
   font-weight: bold;
   font-size: ${RFValue(23)}px;
 `;

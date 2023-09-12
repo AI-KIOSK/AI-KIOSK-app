@@ -63,11 +63,11 @@ const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  background-color: #dbedff;
+  background-color: #ABC4AA;
 
   width: ${wp(12)}px;
   height: ${hp(4)}px;
-  border-radius: 30px;
+  border-radius: 8px;
 `;
 
 const Label = styled.Text`

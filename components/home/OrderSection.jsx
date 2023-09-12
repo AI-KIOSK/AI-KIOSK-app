@@ -52,7 +52,7 @@ function OrderSection() {
         <Title>담은 메뉴</Title>
       </TitleView>
       <ContainedMenuView>
-        <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
+        <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : '#ABC4AA'} onPress={prevMenuSets} />
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item) => (
@@ -62,7 +62,7 @@ function OrderSection() {
         <AntDesign
           name="caretright"
           size={50}
-          color={offset <= items.length / 3 - 1 ? 'black' : 'lightgray'}
+          color={offset <= items.length / 3 - 1 ? '#ABC4AA' : 'lightgray'}
           onPress={nextMenuSets}
         />
       </ContainedMenuView>
@@ -78,8 +78,8 @@ const Container = styled.View`
   width: 100%;
   height: 25%;
 
-  background-color: #dbedff;
-
+  background-color: #A9907E;
+  border-radius: 8px;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
@@ -93,7 +93,7 @@ const TitleView = styled.View`
 `;
 
 const Title = styled.Text`
-  color: #154d93;
+  color: #ffffff;
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;
@@ -127,13 +127,13 @@ const OrderButton = styled.TouchableOpacity`
 
   justify-content: center;
   align-items: center;
-
-  border: 3px solid #154d93;
-  background-color: #c5dcf3;
+  border-radius: 8px;
+  border: 3px solid #675D50;
+  background-color: #F3DEBA;
 `;
 
 const ButtonLabel = styled.Text`
-  color: #154d93;
+
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;

@@ -4,12 +4,20 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
+import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import RectButton from '../common/RectButton';
 
 function SignUpCompletedModal() {
   const phoneNum = '4722';
   const { modal, hideModal } = useModal('signupCompleteModal');
+  const { openModal } = useModal('earningpointsModal');
+
+  const pressBack = () => {
+    hideModal();
+    openModal();  
+  };
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -21,9 +29,9 @@ function SignUpCompletedModal() {
           <TitleText>반갑습니다{'\n'}</TitleText>
           <TitleText>{phoneNum} 님!</TitleText>
         </PhoneNumContainer>
-        <ButtonContainer>
-          <RectButton onPress={hideModal} text={'돌아가기'} fontColor="#002B85" backColor="#DBEDFF" />
-        </ButtonContainer>
+        <ButtonSection>
+            <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
+        </ButtonSection>
       </ModalTemplate>
     </Modal>
   );
@@ -37,7 +45,6 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  color: #002b85;
   font-weight: bold;
   font-size: ${RFValue(23)}px;
 `;
@@ -48,11 +55,14 @@ const PhoneNumContainer = styled.View`
   align-items: center;
 `;
 
-const ButtonContainer = styled.View`
-  flex: 2;
+
+const ButtonSection = styled.View`
+flex: 2;
+
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-around;
+  align-items: center;
 `;
+
 
 export default SignUpCompletedModal;

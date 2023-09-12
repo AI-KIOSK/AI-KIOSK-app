@@ -1,4 +1,5 @@
 import { useModal } from '@hooks/common';
+import { ModalActionButton } from '@components/common/btn';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -41,6 +42,7 @@ function SignUpModal() {
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
+      <Container>
         <TitleContainer>
           <TitleText>회원가입</TitleText>
         </TitleContainer>
@@ -76,46 +78,54 @@ function SignUpModal() {
             </Row>
           </GenderContainer>
         </SignUpContainer>
-        <ButtonContainer>
-          <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
-          <RectButton onPress={pressSignUp} text={'회원가입'} fontColor="#FFA3A3" backColor="#FEF4F4" />
-        </ButtonContainer>
+        <ButtonSection>
+          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+          <ModalActionButton title={'회원가입'} width={wp(25)} height={hp(6)} color={'sign'} onPress={pressSignUp} />
+        </ButtonSection>
+        </Container>
       </ModalTemplate>
     </Modal>
   );
 }
 
+const Container = styled.View`
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  padding: ${wp(3)}px;
+`;
 const TitleContainer = styled.View`
-  flex: 0.8;
+  width: 100%;
   justify-content: center;
   align-items: flex-start;
   padding-left: 30px;
 `;
 
 const TitleText = styled.Text`
-  color: #002b85;
+
   font-weight: bold;
   font-size: ${RFValue(20)}px;
 `;
 
 const SignUpContainer = styled.View`
-  flex: 3;
+width: 100%;
+
   justify-content: center;
   align-items: center;
 `;
 
 const PhoneContainer = styled.View`
-  flex: 1;
-  width: ${wp(60)}px;
+  width: 85%;
   justify-content: space-around;
 `;
 
 const PhoneNumber = styled.View`
-  color: #002b85;
-  border-width: 3px;
   flex-direction: row;
-  border-color: #002b85;
-  padding: 0px 10px;
+  border-radius: 8px;
+  background-color: #F3DEBA;
+  padding: 0px 20px;
   justify-content: space-around;
   align-items: center;
 `;
@@ -129,24 +139,25 @@ const PhoneSection = styled.View`
 
 const InputBox = styled.TextInput`
   width: 100%;
-  color: #002b85;
+  height: 30%;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
 `;
 
 const GenderContainer = styled.View`
-  flex: 1;
+  width: 85%;
+  height: 30%;
   justify-content: space-around;
   width: ${wp(60)}px;
 `;
 
 const GenderItem = styled.TouchableOpacity`
-  border-width: 3px;
-  border-radius: 50px;
-  padding: 10px;
+  border-width: 2px;
+  border-radius: 8px;
   width: ${wp(16)}px;
-  height: ${hp(6)}px;
-  border-color: #002b85;
+  height: ${hp(5)}px;
+  border-color: #000000;
+  background-color: #ABC4AA;
   justify-content: center;
   align-items: center;
 `;
@@ -157,16 +168,16 @@ const Row = styled.View`
 `;
 
 const NormalText = styled.Text`
-  color: #002b85;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
 `;
-
-const ButtonContainer = styled.View`
-  flex: 2;
+const ButtonSection = styled.View`
+  width: 100%;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin-top: 200px;
 `;
+
 
 export default SignUpModal;

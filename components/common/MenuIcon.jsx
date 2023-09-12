@@ -26,10 +26,11 @@ const Container = styled.View`
 const MenuImage = styled.Image`
   width: ${wp(12)}px;
   height: ${wp(12)}px;
+  border-radius: 8px;
 `;
 
 const Label = styled.Text`
-  color: #154d93;
+  
   margin-top: ${RFValue(4)}px;
   font-size: ${RFValue(8)}px;
   font-weight: 700;
