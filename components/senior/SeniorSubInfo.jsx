@@ -1,35 +1,141 @@
+import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { styled } from 'styled-components';
+import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import styled from 'styled-components/native';
 
-import SeniorButton from './SeniorButton';
-
-SeniorSubInfo.propTypes = {
-  onNextPage: PropTypes.func,
-  onPrevPage: PropTypes.func,
-};
-
-function SeniorSubInfo({ onNextPage, onPrevPage }) {
+function SeniorSubInfo() {
   const { openModal } = useModal('orderConfirmModal');
+
+  const items = useMemo(
+    () => [
+      {
+        id: 1,
+        quantity: 1,
+        img: require('@assets/menu/americano.jpeg'),
+      },
+      {
+        id: 2,
+        quantity: 4,
+        img: require('@assets/menu/cafelatte.jpeg'),
+      },
+      {
+        id: 3,
+        quantity: 2,
+        img: require('@assets/menu/einspanner.jpeg'),
+      },
+      {
+        id: 4,
+        quantity: 2,
+        img: require('@assets/menu/banillalatte.jpeg'),
+      },
+    ],
+    [],
+  );
+
+  /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
+  const [offset, setOffset] = useState(0);
+
+  const nextMenuSets = useCallback(() => {
+    if (offset <= items.length / 3 - 1) setOffset((prev) => prev + 1);
+  }, [items.length, offset]);
+
+  const prevMenuSets = useCallback(() => {
+    if (offset > 0) setOffset((prev) => prev - 1);
+  }, [offset]);
 
   return (
     <Container>
-      <SeniorButton label={'이전'} borderColor="#154D93" backColor="#DBEDFF" radius={23} onPress={onPrevPage} />
-      <SeniorButton label={'담은 상품보기'} borderColor="#154D93" backColor="#DBEDFF" radius={23} onPress={openModal} />
-      <SeniorButton label={'다음'} borderColor="#154D93" backColor="#DBEDFF" radius={23} onPress={onNextPage} />
+      <TitleView>
+        <Title>담은 메뉴</Title>
+      </TitleView>
+      <ContainedMenuView>
+        <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
+
+        <ContainedMenuList>
+          {items.slice(offset * 3, offset * 3 + 3).map((item) => (
+            <MenuIcon key={item.id} image={item.img} label={`수량 ${item.quantity}`} />
+          ))}
+        </ContainedMenuList>
+        <AntDesign
+          name="caretright"
+          size={50}
+          color={offset <= items.length / 3 - 1 ? 'black' : 'lightgray'}
+          onPress={nextMenuSets}
+        />
+      </ContainedMenuView>
+      <ButtonContainer>
+        <OrderButton onPress={openModal}>
+          <ButtonLabel>결제하기</ButtonLabel>
+        </OrderButton>
+      </ButtonContainer>
     </Container>
   );
 }
-
 const Container = styled.View`
-  flex: 1;
+  width: 100%;
+  height: 22%;
+
+  background-color: #ebd3b5;
+
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-direction: row;
+`;
+
+const TitleView = styled.View`
+  width: 100%;
+  padding: ${RFValue(12)}px ${RFValue(12)}px 0px ${RFValue(12)}px;
+  height: 30%;
+`;
+
+const Title = styled.Text`
+  font-size: ${RFValue(20)}px;
+  font-weight: 700;
+`;
+
+const ContainedMenuView = styled.View`
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 75%;
+  height: 70%;
+`;
+
+const ContainedMenuList = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: ${RFValue(20)}px;
-  gap: ${RFValue(30)}px;
-  background-color: #dbedff;
+  width: 60%;
+`;
+
+const ButtonContainer = styled.View`
+  width: 25%;
+  height: 70%;
+
+  justify-content: center;
+  align-items: center;
+`;
+
+const OrderButton = styled.TouchableOpacity`
+  width: ${wp(12)}px;
+  height: ${wp(10)}px;
+  padding: ${RFValue(8)}px;
+
+  justify-content: center;
+  align-items: center;
+
+  border: 5px solid #675d50;
+  border-radius: 22px;
+  background-color: #d7a86a;
+`;
+
+const ButtonLabel = styled.Text`
+  color: #000000;
+  font-size: ${RFValue(16)}px;
+  font-weight: 700;
 `;
 
 export default SeniorSubInfo;

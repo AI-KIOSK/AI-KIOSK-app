@@ -1,9 +1,8 @@
+import { useModal } from '@hooks/common';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
-
-import SeniorButton from './SeniorButton';
 
 SeniorMenu.propTypes = {
   name: PropTypes.string,
@@ -21,30 +20,35 @@ function SeniorMenu({ name, img }) {
     setCount(counter - 1);
   };
 
+  const { openModal } = useModal('beverageDetail');
+
   return (
     <Container>
       <MenuImage source={img} />
       <Info>
-        <Name>{name}</Name>
-        <TemperatureGroup>
-          <SeniorButton label={'따뜻한'} borderColor="#154D93" backColor="#transparent" radius={0} />
-          <SeniorButton label={'차가운'} borderColor="#154D93" backColor="#transparent" radius={0} />
-        </TemperatureGroup>
-        <CounterGroup>
-          <Counter>갯수</Counter>
-          <CounterButton>
-            <CounterButtonText onPress={decreaseCounter}>-</CounterButtonText>
-          </CounterButton>
-          <Counter>{counter}</Counter>
-          <CounterButton>
-            <CounterButtonText onPress={increaseCounter}>+</CounterButtonText>
-          </CounterButton>
-        </CounterGroup>
+        <NameContainer>
+          <Name>{name}</Name>
+        </NameContainer>
+        <Button onPress={openModal}>
+          <Label>{'음료 설명'}</Label>
+        </Button>
+        <Button>
+          <Label>{'부가 선택'}</Label>
+        </Button>
       </Info>
-      <BtnGroup>
-        <SeniorButton label={'설명'} borderColor="#154D93" backColor="#DBEDFF" radius={10} />
-        <SeniorButton label={'맞춤선택'} borderColor="#154D93" backColor="#DBEDFF" radius={10} />
-      </BtnGroup>
+      <CounterGroup>
+        <Counter>갯수</Counter>
+        <CounterButton>
+          <CounterButtonText onPress={decreaseCounter}>-</CounterButtonText>
+        </CounterButton>
+        <Counter>{counter}</Counter>
+        <CounterButton>
+          <CounterButtonText onPress={increaseCounter}>+</CounterButtonText>
+        </CounterButton>
+      </CounterGroup>
+      <AddButton>
+        <AddLabel>{'담기'}</AddLabel>
+      </AddButton>
     </Container>
   );
 }
@@ -52,76 +56,96 @@ function SeniorMenu({ name, img }) {
 const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  margin: ${RFValue(10)}px 0;
+  flex: 0.33;
+  margin: 10px 0px;
 `;
 
 const MenuImage = styled.Image`
-  width: ${RFValue(120)}px;
-  height: ${RFValue(120)}px;
+  width: ${RFValue(100)}px;
+  height: ${RFValue(130)}px;
   object-fit: cover;
+  border-radius: 22px;
 `;
 
 const Info = styled.View`
   flex: 2;
   flex-direction: column;
-  justify-content: space-around;
-  margin: ${RFValue(5)}px;
+  align-items: center;
+  justify-content: space-between;
+  padding: ${RFValue(10)}px 0px;
+`;
+
+const NameContainer = styled.View`
+  flex: 3;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Name = styled.Text`
-  font-size: ${RFValue(20)}px;
+  font-size: ${RFValue(18)}px;
   text-align: center;
   font-weight: bold;
-  color: #002b85;
 `;
 
-const TemperatureGroup = styled.View`
+const Button = styled.TouchableOpacity`
   flex: 1;
-  justify-content: space-around;
+  width: 60%;
+  border-width: 2px;
+  justify-content: center;
   align-items: center;
-  flex-direction: row;
-  gap: ${RFValue(5)}px;
-  margin: 0;
-  padding: ${RFValue(3)}px ${RFValue(20)}px;
-  height: ${RFValue(20)}px;
+  background-color: transparent;
+  border-color: #000000;
+  border-radius: 20px;
+  margin: 10px 0px;
+`;
+
+const Label = styled.Text`
+  font-size: ${RFValue(10)}px;
+  font-weight: bold;
+  color: #000000;
 `;
 
 const CounterGroup = styled.View`
-  flex: 1;
+  flex: 1.5;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: ${RFValue(3)}px ${RFValue(15)}px;
-  height: ${RFValue(15)}px;
 `;
 
 const Counter = styled.Text`
-  color: #154d93;
-  font-size: ${RFValue(15)}px;
+  color: #000000;
+  font-size: ${RFValue(12)}px;
   font-weight: bold;
 `;
 
 const CounterButton = styled.TouchableOpacity`
-  width: ${RFValue(26)}px;
-  height: ${RFValue(26)}px;
+  width: ${RFValue(22)}px;
+  height: ${RFValue(22)}px;
   border-width: 2px;
-  border-color: #154d93;
+  border-color: #000000;
   border-radius: ${RFValue(13)}px;
   align-items: center;
-  padding: 0;
+  justify-content: center;
 `;
 
 const CounterButtonText = styled.Text`
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(12)}px;
   font-weight: bold;
   color: #000;
 `;
 
-const BtnGroup = styled.View`
-  flex: 1;
-  padding: ${RFValue(10)}px;
-  gap: ${RFValue(10)}px;
+const AddButton = styled(Button)`
+  height: 50%;
+  flex: 1.2;
+  background-color: #d7a86a;
+  margin: ${RFValue(10)}px;
+`;
+
+const AddLabel = styled(Label)`
+  font-size: ${RFValue(18)}px;
 `;
 
 export default SeniorMenu;

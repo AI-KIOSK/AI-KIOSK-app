@@ -1,57 +1,51 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Touchable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import styled from 'styled-components/native';
 
 function Numpad(props) {
   const items = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0]];
 
   return (
-    <View style={styles.container}>
-      {items.map((item) => (
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.column}>
-            <Text style={styles.text}>{item[0]}</Text>
-          </TouchableOpacity>
-          {item[1] !== undefined && (
-            <TouchableOpacity style={styles.column}>{<Text style={styles.text}>{item[1]}</Text>}</TouchableOpacity>
-          )}
-          {item[2] !== undefined && (
-            <TouchableOpacity style={styles.column}>
-              {item[2] !== undefined && <Text style={styles.text}>{item[2]}</Text>}
-            </TouchableOpacity>
-          )}
-        </View>
+    <Container>
+      {items.map((item, rowIndex) => (
+        <Row key={rowIndex}>
+          {item.map((number, columnIndex) => (
+            <Column key={columnIndex}>
+              <Text>{number}</Text>
+            </Column>
+          ))}
+        </Row>
       ))}
-    </View>
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp(50),
+const Container = styled.View`
+  flex: 3;
+  justify-content: center;
+  align-items: center;
+  width: ${wp(50)}px;
+`;
 
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  column: {
-    borderWidth: 1,
-    borderRadius: '8px',
-    margin: wp(0.3),
-    width: wp(9),
-    height: wp(9),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F3DEBA',
-  },
-  text: {
-    fontSize: RFValue(27),
-    color: '#675D50',
-  },
-});
+const Row = styled.View`
+  flex-direction: row;
+`;
+
+const Column = styled.TouchableOpacity`
+  border-width: 1px;
+  border-radius: 8px;
+  margin: ${wp(0.3)}px;
+  width: ${wp(9)}px;
+  height: ${wp(9)}px;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3deba;
+`;
+
+const Text = styled.Text`
+  font-size: ${RFValue(27)}px;
+  color: #675d50;
+`;
 
 export default Numpad;

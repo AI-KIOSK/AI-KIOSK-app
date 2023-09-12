@@ -53,7 +53,6 @@ const Container = styled.View`
 const ListContainer = styled.View`
   height: 100%;
   width: 100%;
-  
 `;
 
 const Menu = styled.TouchableOpacity`

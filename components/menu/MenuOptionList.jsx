@@ -7,7 +7,7 @@ import { styled } from 'styled-components/native';
 MenuOptionList.propTypes = {
   label: PropTypes.string.isRequired,
 };
-export default function MenuOptionList({ label, data }) {
+export default function MenuOptionList({ label }) {
   return (
     <Container>
       <Label>{label}</Label>
@@ -28,7 +28,6 @@ const Container = styled.View`
 `;
 
 const Label = styled.Text`
- 
   font-size: ${RFValue(18)}px;
   font-weight: 700;
 `;
