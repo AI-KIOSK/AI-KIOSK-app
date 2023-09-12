@@ -2,9 +2,9 @@ import { useModal } from '@hooks/common';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { styled } from 'styled-components';
-
+import { ModalActionButton } from '@components/common/btn';
 import ModalTemplate from '../../../styles/ModalTemplate';
 import RectButton from '../common/RectButton';
 import Numpad from '../point/Numpad';
@@ -42,12 +42,16 @@ function EarningPointsModal() {
           <Numpad />
         </EarningPointContainer>
         <ButtonContainer_1>
-          <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
-          <RectButton onPress={pressPayment} text={'결제하기'} fontColor="#FFA3A3" backColor="#DBEDFF" />
+          <ModalActionButton
+              title={'취소'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'cancel'}
+              onPress={hideModal}
+            />
+            <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={pressPayment} />
+          <ModalActionButton title={'회원가입'} width={wp(70)} height={hp(6)} color={'cancel'} onPress={pressSignUp} />
         </ButtonContainer_1>
-        <ButtonContainer_2>
-          <RectButton onPress={pressSignUp} text={'회원가입'} fontColor="#FFA3A3" backColor="#FEF4F4" />
-        </ButtonContainer_2>
       </ModalTemplate>
     </Modal>
   );
@@ -61,29 +65,29 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  color: #002b85;
+
   font-weight: bold;
   font-size: ${RFValue(20)}px;
 `;
 const PhoneNumberPrint = styled.View`
-  margin-top: 30px;
-  justifycontent: space-around;
+  margin-top: ${wp(2)}px;
+  justify-content: space-around;
   width: ${wp(50)}px;
-  flexdirection: row;
-  margin-bottom: 160px;
+  flex-direction: row;
+  margin-bottom: ${wp(2)}px;
 `;
 
 const EarningPointContainer = styled.View`
   flex: 3;
   justify-content: center;
   align-items: center;
-  margin: 90px;
+  margin: ${wp(0.3)}px;
 `;
 
 const PhoneNumberText = styled.Text`
-  color: #002b85;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
+  letter-spacing: 2px;
 `;
 
 const Row = styled.View`
@@ -92,26 +96,23 @@ const Row = styled.View`
 `;
 
 const NormalText = styled.Text`
-  color: #002b85;
+
   align-text: center;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
 `;
 
 const ButtonContainer_1 = styled.View`
-  flex: 1;
+
+  width: ${wp(70)}px;
+  height: ${hp(15)}px;
+  justify-content: space-between;
+  align-content: space-around;
+  align-self: center;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 `;
 
-const ButtonContainer_2 = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 10px;
-  width: 100%;
-`;
 
 export default EarningPointsModal;

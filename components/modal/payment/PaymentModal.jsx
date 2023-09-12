@@ -1,4 +1,5 @@
 import { useModal } from '@hooks/common';
+import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -40,14 +41,13 @@ function PaymentModal() {
           <TitleText>결제내역</TitleText>
         </TitleContainer>
         <PaymentContainer>
+
+          <PointContainer>
           <Row>
             <TitleText>주문 금액</TitleText>
             <NormalText> 16000원 </NormalText>
           </Row>
-          <PointContainer>
-            <TitleContainer>
               <TitleText>적립포인트</TitleText>
-            </TitleContainer>
             <Row>
               <NormalText>보유</NormalText>
               <NormalText>1000</NormalText>
@@ -69,10 +69,10 @@ function PaymentModal() {
             </Row>
           </PaymentPlanContainer>
         </PaymentContainer>
-        <ButtonContainer>
-          <RectButton onPress={hideModal} text={'취소'} fontColor="#002B85" backColor="#DBEDFF" />
-          <RectButton onPress={pressPayment} text={'결제하기'} fontColor="#FFA3A3" backColor="#FEF4F4" />
-        </ButtonContainer>
+        <ButtonSection>
+            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+            <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={pressPayment} />
+          </ButtonSection>
       </ModalTemplate>
     </Modal>
   );
@@ -82,68 +82,77 @@ const TitleContainer = styled.View`
   flex: 0.8;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 30px;
+  padding-left: ${wp(3)}px;
 `;
 
 const TitleText = styled.Text`
-  color: #002b85;
   font-weight: bold;
   font-size: ${RFValue(20)}px;
 `;
 
 const PaymentContainer = styled.View`
+  border: 2px solid black;
   flex: 3;
   justify-content: center;
   align-items: center;
 `;
 
 const PointContainer = styled.View`
+  border: 3px solid black;
   flex: 3;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: 15px 50px;
 `;
 
 const InputBox = styled.TextInput`
-  color: #002b85;
   border-width: 3px;
   flex-direction: row;
-  border-color: #002b85;
-  padding: 0px 10px;
+  border-color: #000000;
+  border-radius: 8px;
+  padding: 0px 100px;
   justify-content: space-around;
   align-items: center;
   font-size: ${RFValue(16)}px;
+  margin-left: auto;
+  margin-right: 10px;
 `;
 
 const PaymentPlanContainer = styled.View`
-  flex: 1;
+border: 2px solid black;
+  flex: 6;
   justify-content: space-around;
   width: ${wp(60)}px;
 `;
 
 const PaymentPlanItem = styled.TouchableOpacity`
   border-width: 3px;
-  border-radius: 50px;
-  padding: 10px;
+  border-radius: 8px;
   width: ${wp(16)}px;
-  height: ${hp(6)}px;
-  border-color: #002b85;
+  height: ${hp(10)}px;
+ background-color: #F3DEBA;
+  border-color: #675D50;
   justify-content: center;
   align-items: center;
 `;
 
 const Row = styled.View`
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 `;
 
 const NormalText = styled.Text`
-  color: #002b85;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
 `;
 
-const ButtonContainer = styled.View`
-  flex: 2;
+const ButtonSection = styled.View`
+  width: 100%;
+  margin-bottom: 80px;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;

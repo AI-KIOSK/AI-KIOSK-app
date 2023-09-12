@@ -19,7 +19,8 @@ const Button = styled.TouchableOpacity`
     width: ${wp(25)}px;
     justify-content: center;
     align-items: center;
-    border-color: ${(props) => props.fontColor};
+    border-radius: 8px;
+    border-color: ${(props) => props.backColor};
     background-color: ${(props) => props.backColor};
 `
 

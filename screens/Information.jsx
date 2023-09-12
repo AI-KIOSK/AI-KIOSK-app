@@ -43,7 +43,7 @@ const Info = styled.View`
   width: ${wp(80)}px;
   height: ${wp(80)}px;
 
-  border: 1px solid black;
+  border: 1px solid #675D50;
   justify-content: center;
   align-items: center;
 `;
@@ -57,10 +57,10 @@ const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  background-color: #d9d9d9;
-  border-color: #265183;
+  background-color: #ABC4AA;
+  border-color: #675D50;
   border-width: 3px;
-  border-radius: 24px;
+  border-radius: 8px;
 `;
 
 const Label = styled.Text`

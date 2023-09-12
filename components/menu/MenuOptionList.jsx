@@ -28,7 +28,7 @@ const Container = styled.View`
 `;
 
 const Label = styled.Text`
-  color: #002b85;
+ 
   font-size: ${RFValue(18)}px;
   font-weight: 700;
 `;
@@ -38,7 +38,7 @@ const HorizontalLine = styled.View`
   height: 1px;
 
   margin-vertical: ${hp(1)}px;
-  background: #002b85;
+  background: #000000;
 `;
 
 const OptionList = styled.ScrollView``;

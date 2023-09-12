@@ -35,11 +35,11 @@ export default function OrderConfirmModal() {
               title={'취소'}
               width={wp(25)}
               height={hp(6)}
-              color={'blue'}
+              color={'cancel'}
               onPress={hideOrderConfirmModal}
             />
             <ModalActionButton title={'적립하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={onPressPoint} />
-            <ModalActionButton title={'결제하기'} width={wp(70)} height={hp(6)} color={'red'} onPress={onPressOrder} />
+            <ModalActionButton title={'결제하기'} width={wp(70)} height={hp(6)} color={'cancel'} onPress={onPressOrder} />
           </ButtonSection>
         </Container>
       </ModalTemplate>
@@ -60,7 +60,7 @@ const Container = styled.View`
 `;
 
 const Title = styled.Text`
-  color: #002b85;
+
   font-size: ${RFValue(20)}px;
   font-weight: 700;
 
@@ -68,7 +68,7 @@ const Title = styled.Text`
 `;
 
 const OrderResultText = styled.Text`
-  color: #002b85;
+
   font-size: ${RFValue(18)}px;
   font-weight: 700;
 `;
