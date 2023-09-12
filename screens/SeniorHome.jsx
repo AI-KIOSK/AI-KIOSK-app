@@ -1,5 +1,6 @@
 import OrderSection from '@components/home/OrderSection';
 import { OrderConfirmModal } from '@components/modal/order';
+import BeverageDetail from '@components/modal/senior/BeverageDetail';
 import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
 import React, { useMemo, useState } from 'react';
@@ -120,6 +121,8 @@ function SeniorHome() {
 
   return (
     <Container>
+      <OrderConfirmModal />
+      <BeverageDetail />
       <SeniorMenuList
         currentPage={currentPage}
         menuItemsToShow={menuItemsToShow}

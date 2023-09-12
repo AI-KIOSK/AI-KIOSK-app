@@ -20,14 +20,9 @@ SeniorMenuList.propTypes = {
 
 function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
   console.log(menuItemsToShow);
-  return (
-    <Container>
-      <MenuList>
-        {menuItemsToShow.map((item) => (
-          <SeniorMenu key={item.id} img={item.img} name={item.name} />
-        ))}
-      </MenuList>
 
+  const pageButton =
+    menuItemsToShow.length > 0 ? (
       <PageButton>
         <PrevButton onPress={onPrevPage}>
           <ButtonLabel>이전</ButtonLabel>
@@ -36,6 +31,17 @@ function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
           <ButtonLabel>다음</ButtonLabel>
         </NextButton>
       </PageButton>
+    ) : null;
+
+  return (
+    <Container>
+      <MenuList>
+        {menuItemsToShow.map((item) => (
+          <SeniorMenu key={item.id} img={item.img} name={item.name} />
+        ))}
+      </MenuList>
+
+      {pageButton}
     </Container>
   );
 }

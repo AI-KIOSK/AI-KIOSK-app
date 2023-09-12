@@ -1,3 +1,4 @@
+import { useModal } from '@hooks/common';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -19,6 +20,8 @@ function SeniorMenu({ name, img }) {
     setCount(counter - 1);
   };
 
+  const { openModal } = useModal('beverageDetail');
+
   return (
     <Container>
       <MenuImage source={img} />
@@ -26,7 +29,7 @@ function SeniorMenu({ name, img }) {
         <NameContainer>
           <Name>{name}</Name>
         </NameContainer>
-        <Button>
+        <Button onPress={openModal}>
           <Label>{'음료 설명'}</Label>
         </Button>
         <Button>

@@ -129,7 +129,7 @@ const OrderButton = styled.TouchableOpacity`
 
   border: 5px solid #675d50;
   border-radius: 22px;
-  background-color: #f24c3d;
+  background-color: #d7a86a;
 `;
 
 const ButtonLabel = styled.Text`
