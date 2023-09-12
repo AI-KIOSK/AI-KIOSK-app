@@ -88,23 +88,27 @@ const TitleContainer = styled.View`
 const TitleText = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(20)}px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const PaymentContainer = styled.View`
-  border: 2px solid black;
   flex: 3;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: 10px 40px;
 `;
 
 const PointContainer = styled.View`
-  border: 3px solid black;
   flex: 3;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
-  padding: 15px 50px;
+  padding: 10px 50px;
 `;
 
 const InputBox = styled.TextInput`
@@ -121,8 +125,7 @@ const InputBox = styled.TextInput`
 `;
 
 const PaymentPlanContainer = styled.View`
-border: 2px solid black;
-  flex: 6;
+  flex: 5;
   justify-content: space-around;
   width: ${wp(60)}px;
 `;

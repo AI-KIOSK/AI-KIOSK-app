@@ -62,7 +62,6 @@ const Container = styled.SafeAreaView`
 const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-
   background-color: #abc4aa;
 
   width: ${wp(12)}px;
