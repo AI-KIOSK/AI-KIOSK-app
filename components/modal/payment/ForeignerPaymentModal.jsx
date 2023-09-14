@@ -1,5 +1,5 @@
-import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -7,26 +7,27 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
+import RectButton from '../common/RectButton';
 
-function PaymentModal() {
+function ForeignerPaymentModal() {
   const paymentPlans = useMemo(
     () => [
       {
         id: 'card',
         value: 'card',
-        name: '카드',
+        name: 'card',
       },
       {
         id: 'kakaopay',
         value: 'kakaopay',
-        name: '카카오페이',
+        name: 'kakaopay',
       },
     ],
     [],
   );
 
-  const { modal, hideModal } = useModal('paymentModal');
-  const { openModal } = useModal('paymentCompletedModal');
+  const { modal, hideModal } = useModal('foreignerPaymentModal');
+  const { openModal } = useModal('foreignerPaymentCompletedModal');
 
   const pressPayment = () => {
     hideModal();
@@ -37,27 +38,28 @@ function PaymentModal() {
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
         <TitleContainer>
-          <TitleText>결제내역</TitleText>
+          <TitleText>Payment details</TitleText>
         </TitleContainer>
         <PaymentContainer>
+
           <PointContainer>
+          <Row>
+            <TitleText>Order amount</TitleText>
+            <NormalText> 16000₩  </NormalText>
+          </Row>
+              <TitleText>Points</TitleText>
             <Row>
-              <TitleText>주문 금액</TitleText>
-              <NormalText> 16000원 </NormalText>
+              <NormalText>Retained</NormalText>
+              <NormalText>1000 point</NormalText>
             </Row>
-            <TitleText>적립포인트</TitleText>
             <Row>
-              <NormalText>보유</NormalText>
-              <NormalText>1000</NormalText>
-            </Row>
-            <Row>
-              <NormalText>사용</NormalText>
+              <NormalText>Use</NormalText>
               <InputBox maxLength={8} keyboardType="numeric" />
               <NormalText>point</NormalText>
             </Row>
           </PointContainer>
           <PaymentPlanContainer>
-            <TitleText>결제수단</TitleText>
+            <TitleText>Payment method</TitleText>
             <Row>
               {paymentPlans.map((item) => (
                 <PaymentPlanItem key={item.id}>
@@ -68,15 +70,9 @@ function PaymentModal() {
           </PaymentPlanContainer>
         </PaymentContainer>
         <ButtonSection>
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-          <ModalActionButton
-            title={'결제하기'}
-            width={wp(25)}
-            height={hp(6)}
-            color={'#675D50'}
-            onPress={pressPayment}
-          />
-        </ButtonSection>
+            <ModalActionButton title={'cancel'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+            <ModalActionButton title={'Payment'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={pressPayment} />
+          </ButtonSection>
       </ModalTemplate>
     </Modal>
   );
@@ -139,8 +135,8 @@ const PaymentPlanItem = styled.TouchableOpacity`
   border-radius: 8px;
   width: ${wp(16)}px;
   height: ${hp(10)}px;
-  background-color: #f3deba;
-  border-color: #675d50;
+ background-color: #F3DEBA;
+  border-color: #675D50;
   justify-content: center;
   align-items: center;
 `;
@@ -165,4 +161,4 @@ const ButtonSection = styled.View`
   align-items: center;
 `;
 
-export default PaymentModal;
+export default ForeignerPaymentModal;

@@ -25,6 +25,16 @@ function Information() {
         <Label>노인 키오스크</Label>
         <Label>사용하기</Label>
       </Button>
+
+      <Button onPress={() => navigate('youngmanHome')}>
+        <Label>청년 키오스크</Label>
+        <Label>test</Label>
+      </Button>
+      <Button onPress={() => navigate('foreignerHome')}>
+        <Label>Foreigner KIOSK</Label>
+        <Label>test</Label>
+      </Button>
+      
     </Container>
   );
 }

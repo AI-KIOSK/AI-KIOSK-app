@@ -3,31 +3,31 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useRecoilState } from 'recoil';
-import { Category } from 'recoil/Category';
+import { Category, Recommendation } from 'recoil/Category';
 import styled from 'styled-components';
 
-function HomeHeader(props) {
+function ForeignerHeader(props) {
   const menuItems = useMemo(
     () => [
       {
         id: 'coffee',
-        menu: '커피',
+        menu: 'coffee',
       },
       {
         id: 'non_coffee',
-        menu: '논커피',
+        menu: 'non coffee',
       },
       {
         id: 'smoothie',
-        menu: '스무디',
+        menu: 'smoothie',
       },
       {
         id: 'tea',
-        menu: '티',
+        menu: 'tea',
       },
       {
         id: 'etc',
-        menu: '그외',
+        menu: 'etc',
       },
     ],
     [],
@@ -42,7 +42,7 @@ function HomeHeader(props) {
 
   return (
     <Container>
-      <Entypo name="home" size={RFValue(30)} color={'black'} />
+      <Entypo name="foreignerHome" size={RFValue(30)} color={'black'} />
       {menuItems.map((item) => (
         <Button key={item.id} onPress={() => categoryHandler(item.id)}>
           <Label>{item.menu}</Label>
@@ -73,4 +73,4 @@ const Label = styled.Text`
   font-size: ${RFValue(10)}px;
 `;
 
-export default HomeHeader;
+export default ForeignerHeader;

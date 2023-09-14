@@ -10,4 +10,9 @@ const Temperature = atom({
   default: 'hot',
 });
 
-export { Category, Temperature };
+const Recommendation = atom({
+  key: 'recommendation',
+  default: 'no',
+});
+
+export { Category, Temperature , Recommendation};

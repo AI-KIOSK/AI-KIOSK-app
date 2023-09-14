@@ -22,7 +22,7 @@ const Container = styled.TouchableOpacity`
   align-items: center;
 
   width: ${wp(13)}px;
-  height: ${hp(4)}px;
+  height: ${hp(3)}px;
   border-radius: ${wp(13)}px;
   flex-shrink: 0;
 
