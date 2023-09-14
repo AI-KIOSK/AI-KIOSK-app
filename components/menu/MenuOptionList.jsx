@@ -36,7 +36,7 @@ const HorizontalLine = styled.View`
   width: 100%;
   height: 1px;
 
-  margin-vertical: ${hp(1)}px;
+  margin: ${hp(1)}px 0px;
   background: #000000;
 `;
 

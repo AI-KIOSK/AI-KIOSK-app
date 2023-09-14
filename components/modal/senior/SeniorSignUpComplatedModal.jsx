@@ -1,25 +1,27 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { styled } from 'styled-components';
-import ModalTemplate from 'styles/ModalTemplate';
+import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
-function SignUpCompletedModal() {
+function SeniorSignUpCompletedModal() {
   const phoneNum = '4722';
   const { modal, hideModal } = useModal('signupCompleteModal');
-  const { openModal } = useModal('earningpointsModal');
+
+  const navigation = useNavigation();
 
   const pressBack = () => {
     hideModal();
-    openModal();
+    navigation.reset({ routes: [{ name: 'information' }] });
   };
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
-      <ModalTemplate>
+      <SeniorModalTemplate>
         <TitleContainer>
           <TitleText>회원가입 완료</TitleText>
         </TitleContainer>
@@ -28,9 +30,15 @@ function SignUpCompletedModal() {
           <TitleText>{phoneNum} 님!</TitleText>
         </PhoneNumContainer>
         <ButtonSection>
-          <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
+          <ModalActionButton
+            title={'돌아가기'}
+            width={wp(25)}
+            height={hp(6)}
+            color={'seniorNormal'}
+            onPress={pressBack}
+          />
         </ButtonSection>
-      </ModalTemplate>
+      </SeniorModalTemplate>
     </Modal>
   );
 }
@@ -61,4 +69,4 @@ const ButtonSection = styled.View`
   align-items: center;
 `;
 
-export default SignUpCompletedModal;
+export default SeniorSignUpCompletedModal;

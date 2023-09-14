@@ -27,12 +27,12 @@ export default function OrderListItem({ order }) {
       </MenuImageView>
       <MenuOptionView>
         <MenuLabel>{menu}</MenuLabel>
-        <AntDesign name={'closesquareo'} size={RFValue(16)} color={"#818181"}/>
+        <AntDesign name={'closesquareo'} size={RFValue(16)} color={'#818181'} />
         <QunatityOptionView>
           <QuantityLabel></QuantityLabel>
-          <AntDesign name={'caretdown'} size={RFValue(16)} color={"#F3DEBA"}/>
+          <AntDesign name={'caretdown'} size={RFValue(16)} color={'#F3DEBA'} />
           <QuantityLabel>{quantity}</QuantityLabel>
-          <AntDesign name={'caretup'} size={RFValue(16)} color={"#F3DEBA"}/>
+          <AntDesign name={'caretup'} size={RFValue(16)} color={'#F3DEBA'} />
         </QunatityOptionView>
         <TextView>
           <TotalPriceText>{quantity * price}원</TotalPriceText>
@@ -72,7 +72,6 @@ const MenuOptionView = styled.View`
 `;
 
 const MenuLabel = styled.Text`
-  
   font-size: ${RFValue(18)}px;
   width: 93%;
   font-weight: 700;
@@ -89,7 +88,6 @@ const QunatityOptionView = styled.View`
 `;
 
 const QuantityLabel = styled.Text`
-  
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;
@@ -99,7 +97,6 @@ const TextView = styled.View`
 `;
 
 const TotalPriceText = styled.Text`
-  
   font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;

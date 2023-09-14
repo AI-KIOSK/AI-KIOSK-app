@@ -5,16 +5,48 @@ import styled from 'styled-components/native';
 
 ModalActionButton.propTypes = {
   title: PropTypes.string,
-  color: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
   onPress: PropTypes.func,
+  color: PropTypes.string,
 };
 
-function ModalActionButton({ title, color, width, height, onPress }) {
+function ModalActionButton({ title, width, height, onPress, color }) {
+  let backgroundColor;
+  let fontColor;
+  let borderColor;
+
+  switch (color) {
+    case 'seniorConfirm':
+      backgroundColor = '#f06e31';
+      fontColor = '#000000'; // 흰색
+      borderColor = '#998a75';
+      break;
+    case 'seniorNormal':
+      backgroundColor = '#ebd3b5';
+      fontColor = '#000000'; // 검정색
+      borderColor = '#998a75';
+      break;
+    case 'cancel':
+      backgroundColor = '#abc4aa';
+      fontColor = '#000000'; // 검정색
+      borderColor = '#f3deba';
+      break;
+    default:
+      backgroundColor = '#675D50'; // 기본값
+      fontColor = '#ffffff'; // 흰색
+      borderColor = '#f3deba';
+  }
+
   return (
-    <Container width={width} height={height} color={color} onPress={onPress}>
-      <Title color={color}>{title}</Title>
+    <Container
+      width={width}
+      height={height}
+      onPress={onPress}
+      borderColor={borderColor}
+      backgroundColor={backgroundColor}
+    >
+      <Title style={{ color: fontColor }}>{title}</Title>
     </Container>
   );
 }
@@ -25,34 +57,17 @@ const Container = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  ${({ width, height }) => `
+  ${({ width, height, borderColor, backgroundColor }) => `
     width: ${width}px;
     height: ${height}px;
-  `}
-
-  ${({ color }) =>
-    color === 'cancel'
-      ? `
-    background: #ABC4AA;
-    border-color: #F3DEBA;
-  `
-      : `
-    background: #675D50;
-    border-color: #F3DEBA;
+    background: ${backgroundColor};
+    border-color: ${borderColor};
   `}
 `;
 
 const Title = styled.Text`
   font-size: ${RFValue(20)}px;
   font-weight: 700;
-  ${({ color }) =>
-    color === 'cancel'
-      ? `
-      color: #000000;
-  `
-      : `
-      color: #ffffff;
-  `}
 `;
 
 export default ModalActionButton;

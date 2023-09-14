@@ -7,14 +7,19 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { styled } from 'styled-components';
-import ModalTemplate from 'styles/ModalTemplate';
+import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
-function MenuSelectModal() {
-  const { modal, hideModal } = useModal('menuSelectModal');
+function SeniorOptionModal() {
+  const { modal, hideModal } = useModal('seniorOptionModal');
+
+  const addMenu = () => {
+    // 메뉴 추가하는 코드
+    hideModal();
+  };
 
   return (
     <Modal visible={modal.visible} transparent={true} animationType="slide" onRequestClose={hideModal}>
-      <ModalTemplate>
+      <SeniorModalTemplate>
         <Container>
           <MenuSection>
             <MenuImageView>
@@ -25,7 +30,7 @@ function MenuSelectModal() {
               />
             </MenuImageView>
             <MenuOptionView>
-              <MenuLabel>아메리카노</MenuLabel>
+              <MenuLabel>아메리</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
                 <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} />
@@ -45,10 +50,10 @@ function MenuSelectModal() {
 
           <ButtonSection>
             <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'음료담기'} width={wp(25)} height={hp(6)} color={'#675D50'} />
+            <ModalActionButton title={'음료담기'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={addMenu} />
           </ButtonSection>
         </Container>
-      </ModalTemplate>
+      </SeniorModalTemplate>
     </Modal>
   );
 }
@@ -67,7 +72,9 @@ const MenuSection = styled.View`
   height: 25%;
 
   align-items: center;
+  justify-content: space-around;
   flex-direction: row;
+  border: 2px;
 `;
 
 const MenuImageView = styled.View`
@@ -77,7 +84,7 @@ const MenuImageView = styled.View`
 `;
 
 const MenuOptionView = styled.View`
-  width: 70%;
+  width: 65%;
   height: 90%;
 
   align-content: space-around;
@@ -119,19 +126,4 @@ const ButtonSection = styled.View`
   align-items: center;
 `;
 
-const ActionButton = styled.TouchableOpacity`
-  width: 30%;
-  height: 50%;
-  border: 3px solid #002b85;
-  background: #dbedff;
-
-  justify-content: center;
-  align-items: center;
-`;
-
-const ButtonLabel = styled.Text`
-  color: #002b85;
-  font-size: ${RFValue(16)}px;
-  font-weight: 700;
-`;
-export default MenuSelectModal;
+export default SeniorOptionModal;

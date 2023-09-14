@@ -66,6 +66,7 @@ function SeniorHeader(props) {
               key={item.id}
               onPress={() => temperatureHandler(item.id)}
               isSelected={temperature === item.id}
+              temperature={temperature}
             >
               <Label>{item.menu}</Label>
             </TemperatureButton>
@@ -73,7 +74,12 @@ function SeniorHeader(props) {
         </TemperatureCategory>
         <ItemCategory>
           {menuItems.map((item) => (
-            <Button key={item.id} onPress={() => categoryHandler(item.id)} isSelected={category === item.id}>
+            <Button
+              key={item.id}
+              onPress={() => categoryHandler(item.id)}
+              isSelected={category === item.id}
+              temperature={temperature}
+            >
               <Label>{item.menu}</Label>
             </Button>
           ))}
@@ -109,8 +115,8 @@ const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ isSelected }) => (isSelected ? '#f29727' : 'transparent')};
-
+  background-color: ${({ isSelected, temperature }) =>
+    isSelected ? (temperature === 'ice' ? '#5096ff' : '#f29727') : 'transparent'};
   width: ${wp(16)}px;
   height: ${hp(4)}px;
   border: 1px;

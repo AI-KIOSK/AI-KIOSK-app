@@ -4,11 +4,11 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
+import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
-import ModalTemplate from '../../../styles/ModalTemplate';
 import RectButton from '../common/RectButton';
 
-function PaymentCompletedModal() {
+function SeniorPaymentCompletedModal() {
   const orderNum = '14';
   const { modal, hideModal } = useModal('paymentCompletedModal');
   const navigation = useNavigation();
@@ -20,7 +20,7 @@ function PaymentCompletedModal() {
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
-      <ModalTemplate>
+      <SeniorModalTemplate>
         <TitleContainer>
           <TitleText>주문이 완료되었습니다.</TitleText>
         </TitleContainer>
@@ -29,9 +29,9 @@ function PaymentCompletedModal() {
           <TitleText>{orderNum} 번</TitleText>
         </OrderNumContainer>
         <ButtonContainer>
-          <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#000000" backColor="#ABC4AA" />
+          <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#000000" backColor="#ebd3b5" />
         </ButtonContainer>
-      </ModalTemplate>
+      </SeniorModalTemplate>
     </Modal>
   );
 }
@@ -46,7 +46,7 @@ const TitleContainer = styled.View`
 const TitleText = styled.Text`
   color: #675d50;
   font-weight: bold;
-  font-size: ${RFValue(23)}px;
+  font-size: ${RFValue(26)}px;
 `;
 
 const OrderNumContainer = styled.View`
@@ -62,4 +62,4 @@ const ButtonContainer = styled.View`
   align-items: flex-start;
 `;
 
-export default PaymentCompletedModal;
+export default SeniorPaymentCompletedModal;

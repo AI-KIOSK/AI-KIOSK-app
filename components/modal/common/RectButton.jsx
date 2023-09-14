@@ -1,8 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styled from 'styled-components';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+RectButton.propTypes = {
+  text: PropTypes.string,
+  fontColor: PropTypes.string,
+  backColor: PropTypes.string,
+  onPress: PropTypes.func,
+};
 
 function RectButton({ text, fontColor, backColor, onPress }) {
   return (

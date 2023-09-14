@@ -20,7 +20,8 @@ function SeniorMenu({ name, img }) {
     setCount(counter - 1);
   };
 
-  const { openModal } = useModal('beverageDetail');
+  const { openModal: openBeverageDetailModal } = useModal('beverageDetail');
+  const { openModal: openOptionModal } = useModal('seniorOptionModal');
 
   return (
     <Container>
@@ -29,10 +30,10 @@ function SeniorMenu({ name, img }) {
         <NameContainer>
           <Name>{name}</Name>
         </NameContainer>
-        <Button onPress={openModal}>
+        <Button onPress={openBeverageDetailModal}>
           <Label>{'음료 설명'}</Label>
         </Button>
-        <Button>
+        <Button onPress={openOptionModal}>
           <Label>{'부가 선택'}</Label>
         </Button>
       </Info>
@@ -140,7 +141,7 @@ const CounterButtonText = styled.Text`
 const AddButton = styled(Button)`
   height: 50%;
   flex: 1.2;
-  background-color: #d7a86a;
+  background-color: #ebd3b5;
   margin: ${RFValue(10)}px;
 `;
 
