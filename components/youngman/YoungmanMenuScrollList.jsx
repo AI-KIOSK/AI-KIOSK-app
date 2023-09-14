@@ -7,7 +7,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styled from 'styled-components';
 
-MenuScrollList.propTypes = {
+YoungmanMenuScrollList.propTypes = {
   filteredItem: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -20,12 +20,24 @@ MenuScrollList.propTypes = {
   ),
 };
 
-function MenuScrollList({ filteredItem }) {
+function YoungmanMenuScrollList({ filteredItemRec,  filteredItem}) {
   const { openModal } = useModal('menuSelectModal');
 
   return (
     <Container>
       <ListContainer>
+        <Title> recommendation menu</Title>
+        <FlatList
+          contentContainerStyle={{ flexGrow: 1 }}
+          numColumns={4}
+          data={filteredItemRec}
+          renderItem={({ item }) => (
+            <Menu onPress={openModal} key={item.id}>
+              <MenuIcon image={item.img} label={item.name} />
+            </Menu>
+          )}
+        />
+        <Title> normal menu</Title>
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           numColumns={4}
@@ -63,4 +75,12 @@ const Menu = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export default MenuScrollList;
+
+const Title = styled.Text`
+  margin-left: 20px;
+  font-size: ${RFValue(20)}px;
+  font-weight: 700;
+`;
+
+
+export default YoungmanMenuScrollList;

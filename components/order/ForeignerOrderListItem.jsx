@@ -6,7 +6,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { styled } from 'styled-components/native';
 
-OrderListItem.propTypes = {
+ForeignerOrderListItem.propTypes = {
   order: PropTypes.arrayOf(
     PropTypes.shape({
       img: PropTypes.number,
@@ -17,7 +17,7 @@ OrderListItem.propTypes = {
   ),
 };
 
-export default function OrderListItem({ order }) {
+export default function ForeignerOrderListItem({ order }) {
   const { img, menu, quantity, price } = order;
 
   return (
@@ -35,7 +35,7 @@ export default function OrderListItem({ order }) {
           <AntDesign name={'caretup'} size={RFValue(16)} color={"#F3DEBA"}/>
         </QunatityOptionView>
         <TextView>
-          <TotalPriceText>{quantity * price}원</TotalPriceText>
+          <TotalPriceText>{quantity * price}₩</TotalPriceText>
         </TextView>
       </MenuOptionView>
     </Container>
