@@ -1,6 +1,12 @@
-import OrderSection from '@components/home/OrderSection';
-import { OrderConfirmModal } from '@components/modal/order';
+import { PaymentCompletedModal } from '@components/modal/payment';
 import BeverageDetail from '@components/modal/senior/BeverageDetail';
+import SeniorEarningPointsModal from '@components/modal/senior/SeniorEarningPointsModal';
+import SeniorOptionModal from '@components/modal/senior/SeniorOptionModal';
+import SeniorOrderConfirmModal from '@components/modal/senior/SeniorOrderConfirmModal';
+import SeniorPaymentCompletedModal from '@components/modal/senior/SeniorPatmentCompletedModal';
+import SeniorPaymentModal from '@components/modal/senior/SeniorPatmentModal';
+import SeniorSignUpCompletedModal from '@components/modal/senior/SeniorSignUpComplatedModal';
+import SeniorSignUpModal from '@components/modal/senior/SeniorSignUpModal';
 import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
 import React, { useMemo, useState } from 'react';
@@ -121,8 +127,14 @@ function SeniorHome() {
 
   return (
     <Container>
-      <OrderConfirmModal />
+      <SeniorOrderConfirmModal />
+      <SeniorOptionModal />
+      <SeniorEarningPointsModal />
+      <SeniorPaymentModal />
+      <SeniorPaymentCompletedModal />
       <BeverageDetail />
+      <SeniorSignUpModal />
+      <SeniorSignUpCompletedModal />
       <SeniorMenuList
         currentPage={currentPage}
         menuItemsToShow={menuItemsToShow}

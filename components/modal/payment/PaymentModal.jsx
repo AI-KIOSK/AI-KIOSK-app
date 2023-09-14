@@ -1,5 +1,5 @@
+import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -7,7 +7,6 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
-import RectButton from '../common/RectButton';
 
 function PaymentModal() {
   const paymentPlans = useMemo(
@@ -41,13 +40,12 @@ function PaymentModal() {
           <TitleText>결제내역</TitleText>
         </TitleContainer>
         <PaymentContainer>
-
           <PointContainer>
-          <Row>
-            <TitleText>주문 금액</TitleText>
-            <NormalText> 16000원 </NormalText>
-          </Row>
-              <TitleText>적립포인트</TitleText>
+            <Row>
+              <TitleText>주문 금액</TitleText>
+              <NormalText> 16000원 </NormalText>
+            </Row>
+            <TitleText>적립포인트</TitleText>
             <Row>
               <NormalText>보유</NormalText>
               <NormalText>1000</NormalText>
@@ -70,9 +68,15 @@ function PaymentModal() {
           </PaymentPlanContainer>
         </PaymentContainer>
         <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={pressPayment} />
-          </ButtonSection>
+          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+          <ModalActionButton
+            title={'결제하기'}
+            width={wp(25)}
+            height={hp(6)}
+            color={'#675D50'}
+            onPress={pressPayment}
+          />
+        </ButtonSection>
       </ModalTemplate>
     </Modal>
   );
@@ -135,8 +139,8 @@ const PaymentPlanItem = styled.TouchableOpacity`
   border-radius: 8px;
   width: ${wp(16)}px;
   height: ${hp(10)}px;
- background-color: #F3DEBA;
-  border-color: #675D50;
+  background-color: #f3deba;
+  border-color: #675d50;
   justify-content: center;
   align-items: center;
 `;

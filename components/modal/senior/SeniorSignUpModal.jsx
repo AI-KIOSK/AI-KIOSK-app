@@ -5,10 +5,9 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { styled } from 'styled-components';
+import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
-import ModalTemplate from '../../../styles/ModalTemplate';
-
-function SignUpModal() {
+function SeniorSignUpModal() {
   const genderItems = useMemo(
     () => [
       {
@@ -40,7 +39,7 @@ function SignUpModal() {
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
-      <ModalTemplate>
+      <SeniorModalTemplate>
         <Container>
           <TitleContainer>
             <TitleText>회원가입</TitleText>
@@ -78,11 +77,23 @@ function SignUpModal() {
             </GenderContainer>
           </SignUpContainer>
           <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'회원가입'} width={wp(25)} height={hp(6)} color={'sign'} onPress={pressSignUp} />
+            <ModalActionButton
+              title={'취소'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'seniorNormal'}
+              onPress={hideModal}
+            />
+            <ModalActionButton
+              title={'회원가입'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'seniorConfirm'}
+              onPress={pressSignUp}
+            />
           </ButtonSection>
         </Container>
-      </ModalTemplate>
+      </SeniorModalTemplate>
     </Modal>
   );
 }
@@ -155,7 +166,7 @@ const GenderItem = styled.TouchableOpacity`
   width: ${wp(16)}px;
   height: ${hp(5)}px;
   border-color: #000000;
-  background-color: #abc4aa;
+  background-color: #ebd3b5;
   justify-content: center;
   align-items: center;
 `;
@@ -177,4 +188,4 @@ const ButtonSection = styled.View`
   margin-top: 200px;
 `;
 
-export default SignUpModal;
+export default SeniorSignUpModal;

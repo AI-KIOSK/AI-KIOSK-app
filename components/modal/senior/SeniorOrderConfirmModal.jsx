@@ -6,11 +6,11 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { styled } from 'styled-components/native';
-import ModalTemplate from 'styles/ModalTemplate';
+import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
-export default function OrderConfirmModal() {
+export default function SeniorOrderConfirmModal() {
   const { modal, hideModal: hideOrderConfirmModal } = useModal('orderConfirmModal');
-  const { openModal: openEarningPointsModal } = useModal('earningpointsModal');
+  const { openModal: openEarningPointsModal } = useModal('seniorEarningPointsModal');
   const { openModal: openPaymentModal } = useModal('paymentModal');
 
   const onPressOrder = () => {
@@ -24,7 +24,7 @@ export default function OrderConfirmModal() {
   };
   return (
     <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideOrderConfirmModal}>
-      <ModalTemplate>
+      <SeniorModalTemplate>
         <Container>
           <Title>주문 목록</Title>
           <OrderList />
@@ -33,22 +33,28 @@ export default function OrderConfirmModal() {
           <ButtonSection>
             <ModalActionButton
               title={'취소'}
-              width={wp(25)}
-              height={hp(6)}
-              color={'cancel'}
+              width={wp(30)}
+              height={hp(8)}
+              color={'seniorNormal'}
               onPress={hideOrderConfirmModal}
             />
-            <ModalActionButton title={'적립하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={onPressPoint} />
             <ModalActionButton
-              title={'결제하기'}
+              title={'적립하기'}
+              width={wp(30)}
+              height={hp(8)}
+              color={'seniorNormal'}
+              onPress={onPressPoint}
+            />
+            <ModalActionButton
+              title={'결제'}
               width={wp(70)}
-              height={hp(6)}
-              color={'cancel'}
+              height={hp(10)}
+              color={'seniorConfirm'}
               onPress={onPressOrder}
             />
           </ButtonSection>
         </Container>
-      </ModalTemplate>
+      </SeniorModalTemplate>
     </Modal>
   );
 }

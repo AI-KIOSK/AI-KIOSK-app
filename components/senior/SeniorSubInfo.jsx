@@ -2,7 +2,6 @@ import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styled from 'styled-components/native';
 
@@ -48,27 +47,28 @@ function SeniorSubInfo() {
 
   return (
     <Container>
-      <TitleView>
-        <Title>담은 메뉴</Title>
-      </TitleView>
       <ContainedMenuView>
-        <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
+        <TitleView>
+          <Title>담은 메뉴</Title>
+        </TitleView>
 
         <ContainedMenuList>
+          <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
+
           {items.slice(offset * 3, offset * 3 + 3).map((item) => (
             <MenuIcon key={item.id} image={item.img} label={`수량 ${item.quantity}`} />
           ))}
+          <AntDesign
+            name="caretright"
+            size={50}
+            color={offset <= items.length / 3 - 1 ? 'black' : 'lightgray'}
+            onPress={nextMenuSets}
+          />
         </ContainedMenuList>
-        <AntDesign
-          name="caretright"
-          size={50}
-          color={offset <= items.length / 3 - 1 ? 'black' : 'lightgray'}
-          onPress={nextMenuSets}
-        />
       </ContainedMenuView>
       <ButtonContainer>
         <OrderButton onPress={openModal}>
-          <ButtonLabel>결제하기</ButtonLabel>
+          <ButtonLabel>결제</ButtonLabel>
         </OrderButton>
       </ButtonContainer>
     </Container>
@@ -88,7 +88,7 @@ const Container = styled.View`
 
 const TitleView = styled.View`
   width: 100%;
-  padding: ${RFValue(12)}px ${RFValue(12)}px 0px ${RFValue(12)}px;
+  padding: ${RFValue(6)}px ${RFValue(12)}px 0px ${RFValue(12)}px;
   height: 30%;
 `;
 
@@ -99,29 +99,27 @@ const Title = styled.Text`
 
 const ContainedMenuView = styled.View`
   align-items: center;
-  flex-direction: row;
   justify-content: space-around;
-  width: 75%;
-  height: 70%;
+  flex: 3;
+  height: 100%;
 `;
 
 const ContainedMenuList = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  width: 60%;
+  width: 90%;
 `;
 
 const ButtonContainer = styled.View`
-  width: 25%;
-  height: 70%;
-
+  flex: 1;
+  height: 100%;
   justify-content: center;
   align-items: center;
 `;
 
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(12)}px;
-  height: ${wp(10)}px;
+  width: 90%;
+  height: 90%;
   padding: ${RFValue(8)}px;
 
   justify-content: center;
@@ -129,12 +127,11 @@ const OrderButton = styled.TouchableOpacity`
 
   border: 5px solid #675d50;
   border-radius: 22px;
-  background-color: #d7a86a;
+  background-color: #f06e31;
 `;
 
 const ButtonLabel = styled.Text`
-  color: #000000;
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(28)}px;
   font-weight: 700;
 `;
 
