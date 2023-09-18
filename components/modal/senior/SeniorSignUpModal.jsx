@@ -1,6 +1,6 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react'; // 추가: useState import
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -32,10 +32,19 @@ function SeniorSignUpModal() {
   const { modal, hideModal } = useModal('signupModal');
   const { openModal } = useModal('signupCompleteModal');
 
+  const [phoneNumber, setPhoneNumber] = useState(''); // 추가: 전화번호 상태값
+  const [gender, setGender] = useState(''); // 추가: 성별 상태값
+
+  const requestBody = { phoneNumber, gender }; // requestBody에 상태값 설정
+
   const pressSignUp = () => {
     hideModal();
     openModal();
   };
+
+  useEffect(() => {
+    console.log(requestBody);
+  }, [requestBody]);
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -55,13 +64,15 @@ function SeniorSignUpModal() {
                   <NormalText>-</NormalText>
                 </PhoneSection>
                 <PhoneSection>
-                  <InputBox maxLength={4} keyboardType="numeric" />
+                  {/* 수정: onChangeText로 phoneNumber 상태값 업데이트 */}
+                  <InputBox maxLength={4} keyboardType="numeric" onChangeText={(text) => setPhoneNumber(text)} />
                 </PhoneSection>
                 <PhoneSection>
                   <NormalText>-</NormalText>
                 </PhoneSection>
                 <PhoneSection>
-                  <InputBox maxLength={4} keyboardType="numeric" />
+                  {/* 수정: onChangeText로 phoneNumber 상태값 업데이트 */}
+                  <InputBox maxLength={4} keyboardType="numeric" onChangeText={(text) => setPhoneNumber(text)} />
                 </PhoneSection>
               </PhoneNumber>
             </PhoneContainer>
@@ -69,7 +80,16 @@ function SeniorSignUpModal() {
               <TitleText>성별</TitleText>
               <Row>
                 {genderItems.map((item) => (
-                  <GenderItem key={item.id}>
+                  <GenderItem
+                    key={item.id}
+                    // 추가: onPress로 gender 상태값 업데이트
+                    onPress={() => setGender(item.value)}
+                    style={{
+                      // 선택된 성별 스타일 변경
+                      borderColor: gender === item.value ? '#ebd3b5' : '#000000',
+                      backgroundColor: gender === item.value ? '#ebd3b5' : '#fff',
+                    }}
+                  >
                     <NormalText>{item.name}</NormalText>
                   </GenderItem>
                 ))}

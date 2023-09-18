@@ -3,10 +3,13 @@ import { useModal } from '@hooks/common';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components/native';
 
 function SeniorSubInfo() {
   const { openModal } = useModal('orderConfirmModal');
+  const shoppingList = useRecoilValue(ShoppingList);
 
   const items = useMemo(
     () => [
@@ -45,6 +48,11 @@ function SeniorSubInfo() {
     if (offset > 0) setOffset((prev) => prev - 1);
   }, [offset]);
 
+  const handleOrderButtonClick = () => {
+    console.log(shoppingList);
+    openModal();
+  };
+
   return (
     <Container>
       <ContainedMenuView>
@@ -67,7 +75,7 @@ function SeniorSubInfo() {
         </ContainedMenuList>
       </ContainedMenuView>
       <ButtonContainer>
-        <OrderButton onPress={openModal}>
+        <OrderButton onPress={handleOrderButtonClick}>
           <ButtonLabel>결제</ButtonLabel>
         </OrderButton>
       </ButtonContainer>

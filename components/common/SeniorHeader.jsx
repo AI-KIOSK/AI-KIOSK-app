@@ -10,19 +10,19 @@ function SeniorHeader(props) {
   const menuItems = useMemo(
     () => [
       {
-        id: 'coffee',
+        id: 1,
         menu: '커피',
       },
       {
-        id: 'beverage',
+        id: 2,
         menu: '음료',
       },
       {
-        id: 'tea',
+        id: 3,
         menu: '차',
       },
       {
-        id: 'etc',
+        id: 4,
         menu: '기타',
       },
     ],
@@ -32,11 +32,11 @@ function SeniorHeader(props) {
   const temperatureItems = useMemo(
     () => [
       {
-        id: 'hot',
+        id: 'HOT',
         menu: '따뜻한거',
       },
       {
-        id: 'ice',
+        id: 'ICE',
         menu: '차가운거',
       },
     ],

@@ -2,6 +2,9 @@ import { useModal } from '@hooks/common';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useRecoilState } from 'recoil';
+import { Category, Temperature } from 'recoil/Category';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
 
 SeniorMenu.propTypes = {
@@ -10,14 +13,30 @@ SeniorMenu.propTypes = {
 };
 
 function SeniorMenu({ name, img }) {
-  const [counter, setCount] = useState(0);
+  const [counter, setCount] = useState(1);
+  const [orderList, setOrderList] = useRecoilState(ShoppingList);
+  const [category, setCategory] = useRecoilState(Category);
+  const [temperature, setTemperature] = useRecoilState(Temperature);
 
   const increaseCounter = () => {
     setCount(counter + 1);
   };
 
   const decreaseCounter = () => {
-    setCount(counter - 1);
+    setCount(Math.min(1, counter - 1));
+  };
+
+  const AddOrder = (name, category, temperature, num) => {
+    const orderItem = {
+      name,
+      category,
+      temperature,
+    };
+    for (let i = 0; i < num; i++) {
+      setOrderList((prevOrderList) => [...prevOrderList, orderItem]);
+    }
+    setCount(1);
+    console.log(orderList);
   };
 
   const { openModal: openBeverageDetailModal } = useModal('beverageDetail');
@@ -47,7 +66,7 @@ function SeniorMenu({ name, img }) {
           <CounterButtonText onPress={increaseCounter}>+</CounterButtonText>
         </CounterButton>
       </CounterGroup>
-      <AddButton>
+      <AddButton onPress={() => AddOrder(name, category, temperature, counter)}>
         <AddLabel>{'담기'}</AddLabel>
       </AddButton>
     </Container>
