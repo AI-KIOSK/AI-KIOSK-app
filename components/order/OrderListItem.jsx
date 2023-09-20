@@ -7,18 +7,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { styled } from 'styled-components/native';
 
 OrderListItem.propTypes = {
-  order: PropTypes.arrayOf(
-    PropTypes.shape({
-      img: PropTypes.number,
-      menu: PropTypes.string,
-      quantity: PropTypes.number,
-      price: PropTypes.number,
-    }),
-  ),
+  name: PropTypes.string,
+  price: PropTypes.number,
+  onDelete: PropTypes.func,
 };
 
-export default function OrderListItem({ order }) {
-  const { img, menu, quantity, price } = order;
+export default function OrderListItem({ name, price, onDelete }) {
+  const img = require('@assets/menu/einspanner.jpeg');
 
   return (
     <Container>
@@ -26,16 +21,12 @@ export default function OrderListItem({ order }) {
         <Image style={{ maxWidth: RFValue(60) }} source={img} resizeMode="contain" />
       </MenuImageView>
       <MenuOptionView>
-        <MenuLabel>{menu}</MenuLabel>
-        <AntDesign name={'closesquareo'} size={RFValue(16)} color={'#818181'} />
-        <QunatityOptionView>
-          <QuantityLabel></QuantityLabel>
-          <AntDesign name={'caretdown'} size={RFValue(16)} color={'#F3DEBA'} />
-          <QuantityLabel>{quantity}</QuantityLabel>
-          <AntDesign name={'caretup'} size={RFValue(16)} color={'#F3DEBA'} />
-        </QunatityOptionView>
+        <NameContainer>
+          <MenuLabel>{name}</MenuLabel>
+        </NameContainer>
+        <AntDesign name={'closesquareo'} size={RFValue(24)} color={'#818181'} onPress={onDelete} />
         <TextView>
-          <TotalPriceText>{quantity * price}원</TotalPriceText>
+          <TotalPriceText>{price}원</TotalPriceText>
         </TextView>
       </MenuOptionView>
     </Container>
@@ -67,8 +58,15 @@ const MenuOptionView = styled.View`
   height: 90%;
 
   align-content: center;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: row;
-  flex-wrap: wrap;
+`;
+
+const NameContainer = styled.View`
+  width: 45%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MenuLabel = styled.Text`

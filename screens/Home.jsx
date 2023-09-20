@@ -6,9 +6,11 @@ import MenuSelectModal from '@components/modal/menu/MenuSelectModal';
 import OrderConfirmModal from '@components/modal/order/OrderConfirmModal';
 import { PaymentCompletedModal, PaymentModal } from '@components/modal/payment';
 import EarningPointsModal from '@components/modal/point/EarningPointsModal';
-import React, { useMemo } from 'react';
-import { useRecoilValue } from 'recoil';
+import axios from 'axios';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Category } from 'recoil/Category';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components/native';
 
 function Home(props) {
@@ -89,14 +91,39 @@ function Home(props) {
   );
 
   const category = useRecoilValue(Category);
+  const setShoppingList = useSetRecoilState(ShoppingList);
 
-  const filterMenuItemsByCategory = (category) => {
-    return menuItems.filter((item) => item.category === category);
-  };
+  const [menuItems2, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    setShoppingList([]);
+    // API 요청을 보낼 URL
+    const apiUrl = 'http://14.36.131.49:10008/api/v1/menus/';
+
+    // Axios를 사용하여 GET 요청을 보냄
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        // 요청이 성공하면 response.data를 menuItems 상태에 저장
+        setMenuItems(response.data.data);
+
+        // 데이터를 받아온 후에 필터링 작업 수행
+        const filteredData = response.data.data.filter((item) => {
+          console.log(category);
+          return category === 0 || item.category.id === category;
+        });
+        setMenuItems(filteredData);
+        console.log(filteredData);
+      })
+      .catch((error) => {
+        // 요청이 실패한 경우 에러 처리
+        console.error('메뉴 요청 중 오류 발생:', error);
+      });
+  }, [category]);
 
   return (
     <Container>
-      <MenuScrollList filteredItem={filterMenuItemsByCategory(category)} />
+      <MenuScrollList filteredItem={menuItems2} />
       <OrderSection />
 
       <MenuSelectModal />

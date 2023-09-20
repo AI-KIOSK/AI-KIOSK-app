@@ -1,9 +1,12 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import React, { useMemo } from 'react';
+import axios from 'axios';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
@@ -32,6 +35,27 @@ function SeniorPaymentModal() {
     openModal();
   };
 
+  const shoppingList = useRecoilValue(ShoppingList);
+  const totalPrice = shoppingList.reduce((accumulator, item) => accumulator + item.price, 0);
+  const [point, setPoint] = useState(100);
+  const userPhoneNumber = 5959;
+  useEffect(() => {
+    // API 요청을 보낼 URL
+    const apiUrl = `http://14.36.131.49:10008/api/v1/user?phone=${userPhoneNumber}`;
+
+    // Axios를 사용하여 GET 요청을 보냄
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        console.log(response.data);
+        setPoint(response.data.data['points']);
+      })
+      .catch((error) => {
+        // 요청이 실패한 경우 에러 처리
+        console.error('포인트 요청 중 오류 발생:', error);
+      });
+  }, []);
+
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <SeniorModalTemplate>
@@ -42,12 +66,12 @@ function SeniorPaymentModal() {
           <PointContainer>
             <Row>
               <TitleText>주문 금액</TitleText>
-              <NormalText> 16000원 </NormalText>
+              <NormalText> {totalPrice}원 </NormalText>
             </Row>
             <TitleText>적립포인트</TitleText>
             <Row>
               <NormalText>보유</NormalText>
-              <NormalText>1000</NormalText>
+              <NormalText>{point}원</NormalText>
             </Row>
             <Row>
               <NormalText>사용</NormalText>

@@ -3,25 +3,25 @@ import { useModal } from '@hooks/common';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styled from 'styled-components';
 
 MenuScrollList.propTypes = {
   filteredItem: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      category: PropTypes.object,
+      hotOrIced: PropTypes.string,
+      id: PropTypes.number,
       name: PropTypes.string,
-      category: PropTypes.string,
-      recommendation: PropTypes.string,
-      img: PropTypes.number,
       price: PropTypes.number,
+      whipping: PropTypes.bool,
     }),
   ),
 };
 
 function MenuScrollList({ filteredItem }) {
   const { openModal } = useModal('menuSelectModal');
+  const img = require('@assets/menu/cafelatte.jpeg');
 
   return (
     <Container>
@@ -32,7 +32,7 @@ function MenuScrollList({ filteredItem }) {
           data={filteredItem}
           renderItem={({ item }) => (
             <Menu onPress={openModal} key={item.id}>
-              <MenuIcon image={item.img} label={item.name} />
+              <MenuIcon image={img} label={item.name} />
             </Menu>
           )}
         />

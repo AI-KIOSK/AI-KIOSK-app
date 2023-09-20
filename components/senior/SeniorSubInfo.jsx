@@ -36,6 +36,7 @@ function SeniorSubInfo() {
     ],
     [],
   );
+  const img = require('@assets/menu/cafelatte.jpeg');
 
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
@@ -63,8 +64,8 @@ function SeniorSubInfo() {
         <ContainedMenuList>
           <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
 
-          {items.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={`수량 ${item.quantity}`} />
+          {shoppingList.slice(offset * 3, offset * 3 + 3).map((item) => (
+            <MenuIcon key={item.id} image={img} label={item.name} />
           ))}
           <AntDesign
             name="caretright"

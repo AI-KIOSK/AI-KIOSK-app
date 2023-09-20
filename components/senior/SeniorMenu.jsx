@@ -10,9 +10,10 @@ import { styled } from 'styled-components';
 SeniorMenu.propTypes = {
   name: PropTypes.string,
   img: PropTypes.number,
+  price: PropTypes.number,
 };
 
-function SeniorMenu({ name, img }) {
+function SeniorMenu({ name, img, price }) {
   const [counter, setCount] = useState(1);
   const [orderList, setOrderList] = useRecoilState(ShoppingList);
   const [category, setCategory] = useRecoilState(Category);
@@ -26,11 +27,12 @@ function SeniorMenu({ name, img }) {
     setCount(Math.min(1, counter - 1));
   };
 
-  const AddOrder = (name, category, temperature, num) => {
+  const AddOrder = (name, category, temperature, price, num) => {
     const orderItem = {
       name,
       category,
       temperature,
+      price,
     };
     for (let i = 0; i < num; i++) {
       setOrderList((prevOrderList) => [...prevOrderList, orderItem]);
@@ -66,7 +68,7 @@ function SeniorMenu({ name, img }) {
           <CounterButtonText onPress={increaseCounter}>+</CounterButtonText>
         </CounterButton>
       </CounterGroup>
-      <AddButton onPress={() => AddOrder(name, category, temperature, counter)}>
+      <AddButton onPress={() => AddOrder(name, category, temperature, price, counter)}>
         <AddLabel>{'담기'}</AddLabel>
       </AddButton>
     </Container>

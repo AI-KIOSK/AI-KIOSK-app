@@ -41,7 +41,7 @@ function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
     <Container>
       <MenuList>
         {menuItemsToShow.map((item) => (
-          <SeniorMenu key={item.id} img={img} name={item.name} />
+          <SeniorMenu key={item.id} img={img} name={item.name} price={item.price} />
         ))}
       </MenuList>
 
