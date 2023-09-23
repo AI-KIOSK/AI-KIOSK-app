@@ -1,11 +1,20 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useRecoilState } from 'recoil';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components';
 
 function Information() {
   const { navigate } = useNavigation();
+  const [shoppingList, setShoppingList] = useRecoilState(ShoppingList);
+  useFocusEffect(
+    React.useCallback(() => {
+      setShoppingList([]);
+    }, [setShoppingList]),
+  );
+
   return (
     <Container>
       <Info>
@@ -34,7 +43,6 @@ function Information() {
         <Label>Foreigner KIOSK</Label>
         <Label>test</Label>
       </Button>
-      
     </Container>
   );
 }

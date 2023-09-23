@@ -7,13 +7,16 @@ import { styled } from 'styled-components';
 MenuIcon.propTypes = {
   image: PropTypes.number,
   label: PropTypes.string,
+  quantity: PropTypes.number,
 };
 
-function MenuIcon({ image, label }) {
+function MenuIcon({ image, label, quantity }) {
   return (
     <Container>
       <MenuImage source={image} />
-      <Label>{label}</Label>
+      <Label>
+        {label} {quantity}개
+      </Label>
     </Container>
   );
 }

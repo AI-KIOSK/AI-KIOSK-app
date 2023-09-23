@@ -33,6 +33,8 @@ function SeniorSignUpModal() {
   const { modal, hideModal } = useModal('signupModal');
   const { openModal } = useModal('signupCompleteModal');
 
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [gender, setGender] = useState('');
 

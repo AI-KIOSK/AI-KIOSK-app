@@ -10,9 +10,14 @@ const Temperature = atom({
   default: 'HOT',
 });
 
+const ModalTemperature = atom({
+  key: 'modalTemperature',
+  default: 'HOT',
+});
+
 const Recommendation = atom({
   key: 'recommendation',
   default: 'no',
 });
 
-export { Category, Temperature, Recommendation };
+export { Category, Temperature, ModalTemperature, Recommendation };

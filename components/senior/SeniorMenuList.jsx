@@ -23,8 +23,6 @@ SeniorMenuList.propTypes = {
 function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
   console.log(menuItemsToShow);
 
-  const img = require('@assets/menu/cafelatte.jpeg');
-
   const pageButton =
     menuItemsToShow.length > 0 ? (
       <PageButton>
@@ -41,7 +39,7 @@ function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
     <Container>
       <MenuList>
         {menuItemsToShow.map((item) => (
-          <SeniorMenu key={item.id} img={img} name={item.name} price={item.price} />
+          <SeniorMenu key={item.id} item={item} />
         ))}
       </MenuList>
 

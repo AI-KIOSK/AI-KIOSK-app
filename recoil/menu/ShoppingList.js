@@ -5,4 +5,15 @@ const ShoppingList = atom({
   default: [],
 });
 
-export { ShoppingList };
+const FinalOrder = atom({
+  key: 'finalOrder',
+  default: {
+    phoneNumber: '',
+    quantity: 0,
+    totalPrice: 0,
+    orderType: '',
+    orders: [],
+  },
+});
+
+export { ShoppingList, FinalOrder };

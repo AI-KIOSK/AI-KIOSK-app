@@ -1,19 +1,90 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
+import OptionButton from '@components/common/btn/OptionButton';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/common';
-import React from 'react';
+import React, { useState } from 'react'; // useState 추가
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { ModalTemperature } from 'recoil/Category';
+import { OptionList } from 'recoil/menu/OptionList';
+import { SelectedMenu } from 'recoil/menu/SelectedMenu';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
 function SeniorOptionModal() {
   const { modal, hideModal } = useModal('seniorOptionModal');
+  const selectedItem = useRecoilValue(SelectedMenu);
+  const [orderList, setOrderList] = useRecoilState(ShoppingList);
+  const [optionList, setOptionList] = useRecoilState(OptionList);
+  const resetOptionList = useResetRecoilState(OptionList);
+  const [counter, setCounter] = useState(1);
+  const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
-  const addMenu = () => {
-    // 메뉴 추가하는 코드
+  console.log(selectedItem);
+
+  const increaseCounter = () => {
+    setCounter(counter + 1);
+  };
+
+  const decreaseCounter = () => {
+    setCounter(Math.min(1, counter - 1));
+  };
+
+  const AddOrder = (item, num) => {
+    let id = 1;
+    if (orderList.length > 0) {
+      id = orderList[orderList.length - 1].id + 1;
+    }
+
+    const orderItem = {
+      id,
+      menuName: item.name,
+      hotOrIced: modalTemperature,
+      orderQuantity: num,
+      sweetness: optionList['sweetness'],
+      pump: optionList['pump'],
+      iceAmount: optionList['iceAmount'],
+      whippingAmount: optionList['whippingAmount'],
+      shots: optionList['shots'],
+      whippings: optionList['whippings'],
+      price: item.price + optionList['shots'] * 500 + optionList['whippings'] * 500,
+    };
+
+    // 동일한 아이템이 이미 주문 목록에 있는지 확인
+    const existingItemIndex = orderList.findIndex((shoppingItem) => {
+      return (
+        orderItem.menuName === shoppingItem.menuName &&
+        orderItem.hotOrIced === shoppingItem.hotOrIced &&
+        orderItem.sweetness === shoppingItem.sweetness &&
+        orderItem.pump === shoppingItem.pump &&
+        orderItem.iceAmount === shoppingItem.iceAmount &&
+        orderItem.whippingAmount === shoppingItem.whippingAmount &&
+        orderItem.shots === shoppingItem.shots &&
+        orderItem.whippings === shoppingItem.whippings
+      );
+    });
+
+    if (existingItemIndex !== -1) {
+      // 이미 주문 목록에 있는 경우 해당 아이템의 orderQuantity를 num만큼 증가
+      const updatedOrderList = [...orderList];
+      updatedOrderList[existingItemIndex] = {
+        ...updatedOrderList[existingItemIndex],
+        orderQuantity: updatedOrderList[existingItemIndex].orderQuantity + num,
+      };
+      console.log('already existing: ', existingItemIndex);
+      setOrderList(updatedOrderList); // Recoil 상태 업데이트
+    } else {
+      // 주문 목록에 없는 경우 새로운 주문 아이템을 생성하여 목록에 추가
+      setOrderList((prevOrderList) => [...prevOrderList, orderItem]); // Recoil 상태 업데이트
+    }
+
+    setCounter(1);
+    console.log(orderList);
+    resetOptionList();
     hideModal();
   };
 
@@ -30,27 +101,47 @@ function SeniorOptionModal() {
               />
             </MenuImageView>
             <MenuOptionView>
-              <MenuLabel>아메리</MenuLabel>
+              <MenuLabel>{selectedItem.name}</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
-                <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} />
-                <QuantityLabel>1</QuantityLabel>
-                <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} />
+                <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} onPress={decreaseCounter} />
+                <QuantityLabel>{counter}</QuantityLabel>
+                <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} onPress={increaseCounter} />
               </QunatityOptionView>
               <OptionButtonView>
-                <HotOrIceSelectButton option="HOT" />
-                <HotOrIceSelectButton option="ICED" />
+                {/* selectedOption에 따라 옵션을 동적으로 변경 */}
+                {selectedItem.hotOrIced === 'HOT' ? (
+                  <>
+                    <HotOrIceSelectButton option="HOT" label="HOT" />
+                    <HotOrIceSelectButton option="DISABLE" label="ICED" />
+                  </>
+                ) : selectedItem.hotOrIced === 'ICE' ? (
+                  <>
+                    <HotOrIceSelectButton option="DISABLE" label="HOT" />
+                    <HotOrIceSelectButton option="ICED" label="ICED" />
+                  </>
+                ) : (
+                  <>
+                    <HotOrIceSelectButton option="HOT" label="HOT" />
+                    <HotOrIceSelectButton option="ICED" label="ICED" />
+                  </>
+                )}
               </OptionButtonView>
             </MenuOptionView>
           </MenuSection>
 
           <MenuOptionList label="무료 옵션" />
-
           <MenuOptionList label="유료 옵션" />
 
           <ButtonSection>
             <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'음료담기'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={addMenu} />
+            <ModalActionButton
+              title={'음료담기'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'#675D50'}
+              onPress={() => AddOrder(selectedItem, counter)}
+            />
           </ButtonSection>
         </Container>
       </SeniorModalTemplate>
@@ -74,13 +165,13 @@ const MenuSection = styled.View`
   align-items: center;
   justify-content: space-around;
   flex-direction: row;
-  border: 2px;
 `;
 
 const MenuImageView = styled.View`
   width: 30%;
   height: 100%;
   justify-content: center;
+  margin-right: ${RFValue(5)}px;
 `;
 
 const MenuOptionView = styled.View`
@@ -99,7 +190,7 @@ const MenuLabel = styled.Text`
 `;
 
 const QunatityOptionView = styled.View`
-  width: 40%;
+  width: 50%;
   justify-content: space-around;
   flex-direction: row;
   align-items: center;

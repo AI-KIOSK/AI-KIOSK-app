@@ -2,59 +2,115 @@ import { useModal } from '@hooks/common';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Category, Temperature } from 'recoil/Category';
+import { SelectedMenu } from 'recoil/menu/SelectedMenu';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
 
 SeniorMenu.propTypes = {
-  name: PropTypes.string,
-  img: PropTypes.number,
-  price: PropTypes.number,
+  item: PropTypes.shape({
+    category: PropTypes.object,
+    hotOrIced: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    whipping: PropTypes.bool,
+  }),
 };
 
-function SeniorMenu({ name, img, price }) {
-  const [counter, setCount] = useState(1);
+function SeniorMenu({ item }) {
+  const [counter, setCounter] = useState(1);
   const [orderList, setOrderList] = useRecoilState(ShoppingList);
-  const [category, setCategory] = useRecoilState(Category);
-  const [temperature, setTemperature] = useRecoilState(Temperature);
+  const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
+  const temperature = useRecoilValue(Temperature);
+
+  const img = require('@assets/menu/cafelatte.jpeg');
 
   const increaseCounter = () => {
-    setCount(counter + 1);
+    setCounter(counter + 1);
   };
 
   const decreaseCounter = () => {
-    setCount(Math.min(1, counter - 1));
+    setCounter(Math.min(1, counter - 1));
   };
 
-  const AddOrder = (name, category, temperature, price, num) => {
-    const orderItem = {
-      name,
-      category,
-      temperature,
-      price,
-    };
-    for (let i = 0; i < num; i++) {
-      setOrderList((prevOrderList) => [...prevOrderList, orderItem]);
+  const AddOrder = (item, num) => {
+    let id = 1;
+    if (orderList.length > 0) {
+      id = orderList[orderList.length - 1].id + 1;
     }
-    setCount(1);
+
+    const orderItem = {
+      id,
+      menuName: item.name,
+      hotOrIced: temperature,
+      orderQuantity: num,
+      sweetness: '',
+      pump: 0,
+      iceAmount: '',
+      whippingAmount: '',
+      shots: 0,
+      whippings: 0,
+      price: item.price,
+    };
+
+    // 동일한 아이템이 이미 주문 목록에 있는지 확인
+    const existingItemIndex = orderList.findIndex((shoppingItem) => {
+      return (
+        orderItem.menuName === shoppingItem.menuName &&
+        orderItem.hotOrIced === shoppingItem.hotOrIced &&
+        orderItem.sweetness === shoppingItem.sweetness &&
+        orderItem.pump === shoppingItem.pump &&
+        orderItem.iceAmount === shoppingItem.iceAmount &&
+        orderItem.whippingAmount === shoppingItem.whippingAmount &&
+        orderItem.shots === shoppingItem.shots &&
+        orderItem.whippings === shoppingItem.whippings
+      );
+    });
+
+    if (existingItemIndex !== -1) {
+      // 이미 주문 목록에 있는 경우 해당 아이템의 orderQuantity를 num만큼 증가
+      const updatedOrderList = [...orderList];
+      updatedOrderList[existingItemIndex] = {
+        ...updatedOrderList[existingItemIndex],
+        orderQuantity: updatedOrderList[existingItemIndex].orderQuantity + num,
+      };
+      console.log('already existing: ', existingItemIndex);
+      setOrderList(updatedOrderList); // Recoil 상태 업데이트
+    } else {
+      // 주문 목록에 없는 경우 새로운 주문 아이템을 생성하여 목록에 추가
+      setOrderList((prevOrderList) => [...prevOrderList, orderItem]); // Recoil 상태 업데이트
+    }
+
+    setCounter(1);
     console.log(orderList);
   };
 
   const { openModal: openBeverageDetailModal } = useModal('beverageDetail');
   const { openModal: openOptionModal } = useModal('seniorOptionModal');
 
+  const onPressDetail = () => {
+    setSelectedMenu(item);
+    openBeverageDetailModal();
+  };
+
+  const onPressOption = () => {
+    setSelectedMenu(item);
+    openOptionModal();
+  };
+
   return (
     <Container>
       <MenuImage source={img} />
       <Info>
         <NameContainer>
-          <Name>{name}</Name>
+          <Name>{item.name}</Name>
         </NameContainer>
-        <Button onPress={openBeverageDetailModal}>
+        <Button onPress={onPressDetail}>
           <Label>{'음료 설명'}</Label>
         </Button>
-        <Button onPress={openOptionModal}>
+        <Button onPress={onPressOption}>
           <Label>{'부가 선택'}</Label>
         </Button>
       </Info>
@@ -68,7 +124,7 @@ function SeniorMenu({ name, img, price }) {
           <CounterButtonText onPress={increaseCounter}>+</CounterButtonText>
         </CounterButton>
       </CounterGroup>
-      <AddButton onPress={() => AddOrder(name, category, temperature, price, counter)}>
+      <AddButton onPress={() => AddOrder(item, counter)}>
         <AddLabel>{'담기'}</AddLabel>
       </AddButton>
     </Container>

@@ -17,14 +17,9 @@ export default function OrderList() {
 
   return (
     <Container>
-      <OrderedList contentContainerStyle={{ flexGrow: 1 }}>
+      <OrderedList>
         {shoppingList.map((order) => (
-          <OrderListItem
-            key={order.id}
-            name={order.name}
-            price={order.price}
-            onDelete={() => handleDeleteItem(order.id)}
-          />
+          <OrderListItem key={order.id} item={order} onDelete={() => handleDeleteItem(order.id)} />
         ))}
       </OrderedList>
     </Container>
@@ -33,9 +28,12 @@ export default function OrderList() {
 
 const Container = styled.View`
   width: 100%;
-  height: ${hp(45)}px;
-
+  height: ${hp(40)}px;
   padding: ${wp(3)}px;
+  flex-grow: 1;
+  border: 3px #ebd3b5;
 `;
 
-const OrderedList = styled.ScrollView``;
+const OrderedList = styled.ScrollView`
+  flex: 1;
+`;

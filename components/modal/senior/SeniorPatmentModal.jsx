@@ -6,7 +6,7 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilValue } from 'recoil';
-import { ShoppingList } from 'recoil/menu/ShoppingList';
+import { FinalOrder, ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
@@ -26,22 +26,32 @@ function SeniorPaymentModal() {
     ],
     [],
   );
-
+  const finalOrder = useRecoilValue(FinalOrder);
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
 
   const pressPayment = () => {
-    hideModal();
-    openModal();
+    axios
+      .post('http://14.36.131.49:10008/api/v1/order/', finalOrder)
+      .then((response) => {
+        // 성공적으로 요청을 보냈을 때의 처리
+        console.log('주문 성공:', response.data);
+        hideModal();
+        openModal();
+      })
+      .catch((error) => {
+        // 요청이 실패했을 때의 처리
+        console.error('주문 실패:', error.response);
+      });
   };
 
   const shoppingList = useRecoilValue(ShoppingList);
   const totalPrice = shoppingList.reduce((accumulator, item) => accumulator + item.price, 0);
   const [point, setPoint] = useState(100);
-  const userPhoneNumber = 5959;
+  const userPhoneNumber = FinalOrder['phoneNumber'];
   useEffect(() => {
     // API 요청을 보낼 URL
-    const apiUrl = `http://14.36.131.49:10008/api/v1/user?phone=${userPhoneNumber}`;
+    const apiUrl = `http://14.36.131.49:10008/api/v1/user?phone=4722`;
 
     // Axios를 사용하여 GET 요청을 보냄
     axios

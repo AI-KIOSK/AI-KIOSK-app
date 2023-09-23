@@ -1,4 +1,3 @@
-import { PaymentCompletedModal } from '@components/modal/payment';
 import BeverageDetail from '@components/modal/senior/BeverageDetail';
 import SeniorEarningPointsModal from '@components/modal/senior/SeniorEarningPointsModal';
 import SeniorOptionModal from '@components/modal/senior/SeniorOptionModal';
@@ -10,7 +9,7 @@ import SeniorSignUpModal from '@components/modal/senior/SeniorSignUpModal';
 import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
 import axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Category, Temperature } from 'recoil/Category';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
@@ -26,7 +25,6 @@ function SeniorHome() {
   const [menuItems2, setMenuItems] = useState([]);
 
   useEffect(() => {
-    setShoppingList([]);
     // API 요청을 보낼 URL
     const apiUrl = 'http://14.36.131.49:10008/api/v1/menus/';
 
@@ -34,9 +32,6 @@ function SeniorHome() {
     axios
       .get(apiUrl)
       .then((response) => {
-        // 요청이 성공하면 response.data를 menuItems 상태에 저장
-        setMenuItems(response.data.data);
-
         // 데이터를 받아온 후에 필터링 작업 수행
         const filteredData = response.data.data.filter((item) => {
           console.log(temperature, category);
@@ -46,16 +41,13 @@ function SeniorHome() {
           );
         });
         setMenuItems(filteredData);
-        console.log(filteredData);
+        console.log('filtered: ', filteredData);
       })
       .catch((error) => {
         // 요청이 실패한 경우 에러 처리
         console.error('메뉴 요청 중 오류 발생:', error);
       });
   }, [category, temperature]);
-
-  // const tempData = menuItems.filter((item) => item.hotOrIced === temperature);
-  // const filterMenuItemsByCategory = tempData.filter((item) => item.category.id === category);
 
   const itemsPerPage = 3;
   const totalPages = Math.ceil(menuItems2.length / itemsPerPage);
@@ -66,7 +58,6 @@ function SeniorHome() {
   const handleNextPage = () => {
     // 다음 페이지로 이동
     setCurrentPage((currentPage) => Math.min(currentPage + 1, totalPages));
-    console.log(menuItems2.data[0]);
   };
 
   const handlePrevPage = () => {
