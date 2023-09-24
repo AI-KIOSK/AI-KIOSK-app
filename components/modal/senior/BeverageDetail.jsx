@@ -5,13 +5,17 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useRecoilState } from 'recoil';
+import { SelectedMenu } from 'recoil/menu/SelectedMenu';
 import { styled } from 'styled-components/native';
 import ModalTemplate from 'styles/ModalTemplate';
 
 export default function BeverageDetail() {
   const { modal, hideModal: hideBeverageDetailModal } = useModal('beverageDetail');
+  const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
 
   const Detail = '단 맛이 강해요.우유가 들어가 있어요.씁쓸한 맛이 강해요.과일 맛이 나요.';
+  console.log(selectedMenu['description']);
 
   const DetailParser = (detail) => {
     const sentences = detail.split('.');
@@ -28,7 +32,7 @@ export default function BeverageDetail() {
     hideBeverageDetailModal();
   };
 
-  const parsedSentences = DetailParser(Detail);
+  const parsedSentences = DetailParser(selectedMenu['description']);
 
   return (
     <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideBeverageDetailModal}>
@@ -87,6 +91,7 @@ const DetailContainer = styled.View`
 
 const DetailLabel = styled.Text`
   font-size: ${RFValue(15)}px;
+  margin-bottom: ${RFValue(8)}px;
 `;
 
 const ButtonSection = styled.View`

@@ -48,7 +48,8 @@ const Container = styled.TouchableOpacity`
   height: ${hp(3)}px;
   border-radius: ${wp(13)}px;
 
-  border: 2px solid ${({ isSelected }) => (isSelected ? 'red' : '#ebd3b5')};
+  border: 2px solid ${({ isSelected }) => (isSelected ? '#FEC3C4' : '#ebd3b5')};
+  background-color: ${({ isSelected }) => (isSelected ? '#FEC3C4' : 'transparent')};
 `;
 
 const ButtonText = styled.Text`

@@ -20,7 +20,6 @@ function SeniorHome() {
 
   const category = useRecoilValue(Category);
   const temperature = useRecoilValue(Temperature);
-  const setShoppingList = useSetRecoilState(ShoppingList);
 
   const [menuItems2, setMenuItems] = useState([]);
 
