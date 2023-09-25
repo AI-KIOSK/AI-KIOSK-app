@@ -1,5 +1,6 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
+import format from 'pretty-format';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList } from 'react-native';
@@ -20,7 +21,7 @@ ForeignerMenuScrollList.propTypes = {
   ),
 };
 
-function ForeignerMenuScrollList({ filteredItemRec,  filteredItem}) {
+function ForeignerMenuScrollList({ filteredItemRec, filteredItem }) {
   const { openModal } = useModal('menuSelectModal');
 
   return (
@@ -33,7 +34,7 @@ function ForeignerMenuScrollList({ filteredItemRec,  filteredItem}) {
           data={filteredItemRec}
           renderItem={({ item }) => (
             <Menu onPress={openModal} key={item.id}>
-              <MenuIcon image={item.img} label={item.name} />
+              <MenuIcon image={item.img} label={item.nameEng} />
             </Menu>
           )}
         />
@@ -44,7 +45,7 @@ function ForeignerMenuScrollList({ filteredItemRec,  filteredItem}) {
           data={filteredItem}
           renderItem={({ item }) => (
             <Menu onPress={openModal} key={item.id}>
-              <MenuIcon image={item.img} label={item.name} />
+              <MenuIcon image={item.img} label={item.nameEng} />
             </Menu>
           )}
         />
@@ -75,12 +76,10 @@ const Menu = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-
 const Title = styled.Text`
   margin-left: 20px;
   font-size: ${RFValue(20)}px;
   font-weight: 700;
 `;
-
 
 export default ForeignerMenuScrollList;
