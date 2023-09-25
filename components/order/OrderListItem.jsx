@@ -1,3 +1,4 @@
+import format from 'pretty-format';
 import PropTypes, { number } from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
@@ -24,6 +25,7 @@ OrderListItem.propTypes = {
 };
 
 export default function OrderListItem({ item, onDelete }) {
+  console.log(format(item));
   const img = require('@assets/menu/einspanner.jpeg');
   const generateOptionLabel = () => {
     const options = [];
@@ -63,7 +65,7 @@ export default function OrderListItem({ item, onDelete }) {
           </NameContainer>
           <AntDesign name={'closesquareo'} size={RFValue(24)} color={'#818181'} onPress={onDelete} />
           <TextView>
-            <TotalPriceText>{item.price}원</TotalPriceText>
+            <TotalPriceText>{item.price * item.orderQuantity}원</TotalPriceText>
           </TextView>
         </MenuOptionView>
       </MainContent>

@@ -1,10 +1,13 @@
 import { ModalActionButton } from '@components/common/btn';
-import { OrderList } from '@components/order';
+import { OrderList } from '@components/menu/normal';
+
 import { useModal } from '@hooks/common';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilState } from 'recoil';
+import { orderRequest } from 'recoil/order/atom';
 import { styled } from 'styled-components/native';
 import ModalTemplate from 'styles/ModalTemplate';
 
@@ -12,6 +15,8 @@ export default function OrderConfirmModal() {
   const { modal, hideModal: hideOrderConfirmModal } = useModal('orderConfirmModal');
   const { openModal: openEarningPointsModal } = useModal('earningpointsModal');
   const { openModal: openPaymentModal } = useModal('paymentModal');
+
+  const [request, setRequest] = useRecoilState(orderRequest);
 
   const onPressOrder = () => {
     hideOrderConfirmModal();
@@ -28,8 +33,10 @@ export default function OrderConfirmModal() {
         <Container>
           <Title>주문 목록</Title>
           <OrderList />
-          <OrderResultText>총 수량 3개</OrderResultText>
-          <OrderResultText>총 결제 금액 36,000원</OrderResultText>
+
+          <OrderResultText>총 수량 {request.quantity}개</OrderResultText>
+          <OrderResultText>총 결제 금액 {request.totalPrice.toLocaleString()}원</OrderResultText>
+
           <ButtonSection>
             <ModalActionButton
               title={'취소'}

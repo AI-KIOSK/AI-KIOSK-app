@@ -23,9 +23,8 @@ const FullSCreen = styled.SafeAreaView`
 `;
 
 const Container = styled.View`
-  margin-top: 10%;
   width: ${wp(80)}px;
-  height: ${hp(80)}px;
+  height: ${hp(90)}px;
   background-color: white;
   border-color: #abc4aa;
   border-width: 5px;

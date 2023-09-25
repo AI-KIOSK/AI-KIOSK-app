@@ -1,16 +1,40 @@
-import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
-import MenuOptionList from '@components/menu/MenuOptionList';
+import { ModalActionButton } from '@components/common/btn';
+import TemperatureOptionButton from '@components/common/btn/TemperatureOptionButton';
+import { OptionList } from '@components/menu/normal';
 import { useModal } from '@hooks/common';
-import React from 'react';
+import { useOrder } from '@hooks/order';
+import React, { useCallback } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilState } from 'recoil';
+import { chosenMenuInfo } from 'recoil/menu/atom';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
+import { HotOrIce, OptionTypes } from 'types/menu';
 
 function MenuSelectModal() {
   const { modal, hideModal } = useModal('menuSelectModal');
+  const [chosenMenu, resetChosenMenu] = useRecoilState(chosenMenuInfo);
+
+  const { add, handleSelectMenu, resetOrder, order, handleQuantity } = useOrder();
+
+  const handleCloseModal = useCallback(() => {
+    hideModal();
+    resetChosenMenu(null);
+    resetOrder();
+  }, [hideModal, resetChosenMenu, resetOrder]);
+
+  const handleAddMenu = () => {
+    add();
+    resetOrder();
+    hideModal();
+    resetChosenMenu(null);
+  };
+
+  /** Do not render unless choose menu */
+  if (chosenMenu == null) return;
 
   return (
     <Modal visible={modal.visible} transparent={true} animationType="slide" onRequestClose={hideModal}>
@@ -25,28 +49,39 @@ function MenuSelectModal() {
               />
             </MenuImageView>
             <MenuOptionView>
-              <MenuLabel>아메리카노</MenuLabel>
+              <MenuLabel>{chosenMenu.name}</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
-                <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} />
-                <QuantityLabel>1</QuantityLabel>
-                <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} />
+                <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} onPress={() => handleQuantity(-1)} />
+                <QuantityLabel>{order.orderQuantity}</QuantityLabel>
+                <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} onPress={() => handleQuantity(1)} />
               </QunatityOptionView>
               <OptionButtonView>
-                <HotOrIceSelectButton option="HOT" />
-                <HotOrIceSelectButton option="ICED" />
+                <TemperatureOptionButton
+                  option={chosenMenu.hotOrIced === HotOrIce.BOTH || HotOrIce.HOT ? HotOrIce.HOT : 'DISABLE'}
+                  label={'HOT'}
+                  onPress={() => handleSelectMenu('hotOrIced', HotOrIce.HOT)}
+                />
+                <TemperatureOptionButton
+                  option={chosenMenu.hotOrIced === HotOrIce.BOTH || HotOrIce.ICE ? HotOrIce.ICE : 'DISABLE'}
+                  label={'ICE'}
+                  onPress={() => handleSelectMenu('hotOrIced', HotOrIce.ICE)}
+                />
               </OptionButtonView>
             </MenuOptionView>
           </MenuSection>
 
-          <MenuOptionList label="무료 옵션" />
+          <OptionList type={OptionTypes.FREE} />
+          <OptionList type={OptionTypes.PAID} />
 
-          <MenuOptionList label="유료 옵션" />
-
-          <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'음료담기'} width={wp(25)} height={hp(6)} color={'#675D50'} />
-          </ButtonSection>
+          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={handleCloseModal} />
+          <ModalActionButton
+            title={'음료담기'}
+            width={wp(25)}
+            height={hp(6)}
+            color={'#675D50'}
+            onPress={handleAddMenu}
+          />
         </Container>
       </ModalTemplate>
     </Modal>
@@ -58,6 +93,7 @@ const Container = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-content: space-between;
 
   padding: ${wp(3)}px;
 `;
@@ -111,27 +147,4 @@ const OptionButtonView = styled.View`
   justify-content: space-around;
 `;
 
-const ButtonSection = styled.View`
-  width: 100%;
-
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const ActionButton = styled.TouchableOpacity`
-  width: 30%;
-  height: 50%;
-  border: 3px solid #002b85;
-  background: #dbedff;
-
-  justify-content: center;
-  align-items: center;
-`;
-
-const ButtonLabel = styled.Text`
-  color: #002b85;
-  font-size: ${RFValue(16)}px;
-  font-weight: 700;
-`;
 export default MenuSelectModal;

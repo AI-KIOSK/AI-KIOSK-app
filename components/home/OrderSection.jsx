@@ -1,39 +1,19 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilValue } from 'recoil';
+import { orderRequest } from 'recoil/order/atom';
 import styled from 'styled-components/native';
 
 function OrderSection() {
   const { openModal } = useModal('orderConfirmModal');
 
-  const items = useMemo(
-    () => [
-      {
-        id: 1,
-        quantity: 1,
-        img: require('@assets/menu/americano.jpeg'),
-      },
-      {
-        id: 2,
-        quantity: 4,
-        img: require('@assets/menu/cafelatte.jpeg'),
-      },
-      {
-        id: 3,
-        quantity: 2,
-        img: require('@assets/menu/einspanner.jpeg'),
-      },
-      {
-        id: 4,
-        quantity: 2,
-        img: require('@assets/menu/banillalatte.jpeg'),
-      },
-    ],
-    [],
-  );
+  const request = useRecoilValue(orderRequest);
+
+  const items = request.orders;
 
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
@@ -56,7 +36,7 @@ function OrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={`수량 ${item.quantity}`} />
+            <MenuIcon key={item.id} image={item.img} label={`수량 ${item.orderQuantity}`} />
           ))}
         </ContainedMenuList>
         <AntDesign

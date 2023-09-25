@@ -1,24 +1,20 @@
+import { OrderListItem } from '@components/order';
+import { useOrder } from '@hooks/order';
 import React from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
-import { ShoppingList } from 'recoil/menu/ShoppingList';
+import { orderRequest } from 'recoil/order/atom';
 import { styled } from 'styled-components/native';
-import OrderListItem from './OrderListItem';
 
 export default function OrderList() {
-  const [shoppingList, setShoppingList] = useRecoilState(ShoppingList);
-
-  const handleDeleteItem = (itemId) => {
-    const updatedList = shoppingList.filter((item) => item.id !== itemId);
-    console.log(itemId);
-    setShoppingList([...updatedList]);
-  };
+  const { deleteMenu } = useOrder();
+  const [shoppingList, setShoppingList] = useRecoilState(orderRequest);
 
   return (
     <Container>
       <OrderedList>
-        {shoppingList.map((order) => (
-          <OrderListItem key={order.id} item={order} onDelete={() => handleDeleteItem(order.id)} />
+        {shoppingList.orders.map((order) => (
+          <OrderListItem key={order.id} item={order} onDelete={() => deleteMenu(order.id)} />
         ))}
       </OrderedList>
     </Container>
