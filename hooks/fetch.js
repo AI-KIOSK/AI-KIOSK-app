@@ -9,7 +9,6 @@ function useFetch(query, params) {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('fetch menus');
       async function fetch() {
         try {
           setIsLoading(true);
