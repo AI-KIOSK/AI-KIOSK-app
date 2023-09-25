@@ -23,7 +23,7 @@ function SeniorOptionModal() {
   const [counter, setCounter] = useState(1);
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
-  console.log(selectedItem.img);
+  const img = require('@assets/menu/cafelatte.jpeg');
 
   const increaseCounter = () => {
     setCounter(counter + 1);
@@ -94,11 +94,15 @@ function SeniorOptionModal() {
         <Container>
           <MenuSection>
             <MenuImageView>
-              <Image
-                style={{ width: RFValue(80), height: RFValue(80) }}
-                source={{ uri: `data:image/png;base64,${selectedItem.img}` }}
-                resizeMode="contain"
-              />
+              {selectedItem.img !== undefined ? (
+                <Image
+                  style={{ width: RFValue(80), height: RFValue(80) }}
+                  source={{ uri: `data:image/png;base64,${selectedItem.img}` }}
+                  resizeMode="contain"
+                />
+              ) : (
+                <Image style={{ width: RFValue(80), height: RFValue(80) }} source={img} resizeMode="contain" />
+              )}
             </MenuImageView>
             <MenuOptionView>
               <MenuLabel>{selectedItem.name}</MenuLabel>
@@ -109,7 +113,6 @@ function SeniorOptionModal() {
                 <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} onPress={increaseCounter} />
               </QunatityOptionView>
               <OptionButtonView>
-                {/* selectedOption에 따라 옵션을 동적으로 변경 */}
                 {selectedItem.hotOrIced === 'HOT' ? (
                   <>
                     <HotOrIceSelectButton option="HOT" label="HOT" />
@@ -134,12 +137,18 @@ function SeniorOptionModal() {
           <MenuOptionList label="유료 옵션" />
 
           <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+            <ModalActionButton
+              title={'취소'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'seniorNormal'}
+              onPress={hideModal}
+            />
             <ModalActionButton
               title={'음료담기'}
               width={wp(25)}
               height={hp(6)}
-              color={'#675D50'}
+              color={'seniorConfirm'}
               onPress={() => AddOrder(selectedItem, counter)}
             />
           </ButtonSection>

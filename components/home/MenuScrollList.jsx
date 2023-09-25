@@ -20,7 +20,6 @@ function MenuScrollList() {
   const category = useRecoilValue(Category);
   /** 메뉴들 불러오기 */
   const { isLoading, data } = useFetch(fetchMenus);
-  console.log(format(data));
   /** 불러온 메뉴 카테고리에 따라 필터링하기 */
   const filteredMenu = useMemo(
     () => data.filter((item) => category === 0 || item.category.id === category),

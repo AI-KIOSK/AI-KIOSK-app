@@ -11,9 +11,6 @@ function SeniorSubInfo() {
   const { openModal } = useModal('orderConfirmModal');
   const shoppingList = useRecoilValue(ShoppingList);
 
-  const img = require('@assets/menu/cafelatte.jpeg');
-  console.log(shoppingList);
-
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
 

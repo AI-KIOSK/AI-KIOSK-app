@@ -10,7 +10,6 @@ export default function OrderList() {
 
   const handleDeleteItem = (itemId) => {
     const updatedList = shoppingList.filter((item) => item.id !== itemId);
-    console.log(itemId);
     setShoppingList([...updatedList]);
   };
 
@@ -27,7 +26,7 @@ export default function OrderList() {
 
 const Container = styled.View`
   width: 100%;
-  height: ${hp(40)}px;
+  height: ${hp(50)}px;
   padding: ${wp(3)}px;
   flex-grow: 1;
   border: 3px #ebd3b5;

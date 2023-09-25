@@ -100,7 +100,7 @@ const Title = styled.Text`
 `;
 
 const OrderResultText = styled.Text`
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(16)}px;
   font-weight: 700;
 `;
 
