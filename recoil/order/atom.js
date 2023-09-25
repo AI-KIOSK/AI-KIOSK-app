@@ -10,6 +10,11 @@ const orderRequest = atom({
   },
 });
 
+const orderResponse = atom({
+  key: 'orderResponse',
+  default: null,
+});
+
 const menuWithOption = atom({
   key: 'order',
   default: {
@@ -27,4 +32,4 @@ const menuWithOption = atom({
   },
 });
 
-export { orderRequest, menuWithOption };
+export { orderRequest, menuWithOption, orderResponse };

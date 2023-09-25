@@ -1,5 +1,6 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import { useSignUp } from '@hooks/customer';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -13,12 +14,12 @@ function SignUpModal() {
     () => [
       {
         id: 'male',
-        value: 'male',
+        value: 'MALE',
         name: '남',
       },
       {
         id: 'female',
-        value: 'female',
+        value: 'FEMALE',
         name: '여',
       },
       {
@@ -33,7 +34,18 @@ function SignUpModal() {
   const { modal, hideModal } = useModal('signupModal');
   const { openModal } = useModal('signupCompleteModal');
 
+  const {
+    onPressGender,
+    onPressNextPhoneNumber,
+    onPressPrevPhoneNumber,
+    phoneNumberPrev,
+    phoneNumberNext,
+    signup,
+    isSuccess,
+  } = useSignUp();
+
   const pressSignUp = () => {
+    signup();
     hideModal();
     openModal();
   };
@@ -56,13 +68,23 @@ function SignUpModal() {
                   <NormalText>-</NormalText>
                 </PhoneSection>
                 <PhoneSection>
-                  <InputBox maxLength={4} keyboardType="numeric" />
+                  <InputBox
+                    value={phoneNumberPrev}
+                    maxLength={4}
+                    keyboardType="numeric"
+                    onChangeText={onPressPrevPhoneNumber}
+                  />
                 </PhoneSection>
                 <PhoneSection>
                   <NormalText>-</NormalText>
                 </PhoneSection>
                 <PhoneSection>
-                  <InputBox maxLength={4} keyboardType="numeric" />
+                  <InputBox
+                    value={phoneNumberNext}
+                    maxLength={4}
+                    keyboardType="numeric"
+                    onChangeText={onPressNextPhoneNumber}
+                  />
                 </PhoneSection>
               </PhoneNumber>
             </PhoneContainer>
@@ -70,7 +92,7 @@ function SignUpModal() {
               <TitleText>성별</TitleText>
               <Row>
                 {genderItems.map((item) => (
-                  <GenderItem key={item.id}>
+                  <GenderItem key={item.id} onPress={() => onPressGender(item.value)}>
                     <NormalText>{item.name}</NormalText>
                   </GenderItem>
                 ))}

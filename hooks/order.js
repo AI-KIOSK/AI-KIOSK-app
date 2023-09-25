@@ -1,9 +1,14 @@
-import { useRecoilState, useResetRecoilState } from 'recoil';
-import { menuWithOption, orderRequest } from 'recoil/order/atom';
+import { postOrders } from 'api/order';
+import format from 'pretty-format';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
+import { menuWithOption, orderRequest, orderResponse } from 'recoil/order/atom';
 
 function useOrder() {
   const [request, setRequest] = useRecoilState(orderRequest);
   const [order, setOrder] = useRecoilState(menuWithOption);
+  const setOrderResponse = useSetRecoilState(orderResponse);
+  const phone = useRecoilValue(phoneNumber);
 
   const resetRequest = useResetRecoilState(orderRequest);
   const resetOrder = useResetRecoilState(menuWithOption);
@@ -13,6 +18,8 @@ function useOrder() {
       ...prev,
       [key]: prev[key] === value ? '' : value,
     }));
+
+  const handleOrderType = (orderType) => setRequest((prev) => ({ ...prev, orderType }));
 
   const handleQuantity = (quantity) =>
     setOrder((prev) => ({
@@ -95,15 +102,32 @@ function useOrder() {
     }));
   };
 
+  const completeOrder = async () => {
+    const final = {
+      ...request,
+      phoneNumber: phone,
+    };
+    console.log(format(final));
+
+    try {
+      const response = await postOrders(final);
+      setOrderResponse(response.data);
+    } catch (err) {
+      console.log(format(err));
+    }
+  };
+
   return {
     order,
     request,
     add,
+    handleOrderType,
     handleSelectMenu,
     handleQuantity,
     deleteMenu,
     resetOrder,
     resetRequest,
+    completeOrder,
   };
 }
 

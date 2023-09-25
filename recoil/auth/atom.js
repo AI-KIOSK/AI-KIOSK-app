@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 
 const phoneNumber = atom({
-  key: 'phoneNumber',
-  default: -1,
+  key: 'phoneNumber1',
+  default: '',
 });
 
 const signUpRequest = atom({
@@ -13,4 +13,9 @@ const signUpRequest = atom({
   },
 });
 
-export { phoneNumber, signUpRequest };
+const signUpResponse = atom({
+  key: 'signUpResponse',
+  default: null,
+});
+
+export { signUpResponse, phoneNumber, signUpRequest };

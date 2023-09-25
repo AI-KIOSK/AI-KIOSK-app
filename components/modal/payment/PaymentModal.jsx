@@ -1,5 +1,6 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import { useOrder } from '@hooks/order';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -7,28 +8,33 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
+import format from 'pretty-format';
 
 function PaymentModal() {
   const paymentPlans = useMemo(
     () => [
       {
         id: 'card',
-        value: 'card',
+        value: 'CREDIT',
         name: '카드',
       },
       {
         id: 'kakaopay',
-        value: 'kakaopay',
+        value: 'KAKAO',
         name: '카카오페이',
       },
     ],
     [],
   );
 
+  const { request, handleOrderType, completeOrder } = useOrder();
+
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
 
+  console.log(format(request));
   const pressPayment = () => {
+    completeOrder();
     hideModal();
     openModal();
   };
@@ -43,7 +49,7 @@ function PaymentModal() {
           <PointContainer>
             <Row>
               <TitleText>주문 금액</TitleText>
-              <NormalText> 16000원 </NormalText>
+              <NormalText> {request.totalPrice}원 </NormalText>
             </Row>
             <TitleText>적립포인트</TitleText>
             <Row>
@@ -60,7 +66,7 @@ function PaymentModal() {
             <TitleText>결제수단</TitleText>
             <Row>
               {paymentPlans.map((item) => (
-                <PaymentPlanItem key={item.id}>
+                <PaymentPlanItem key={item.id} onPress={() => handleOrderType(item.value)}>
                   <NormalText>{item.name}</NormalText>
                 </PaymentPlanItem>
               ))}
