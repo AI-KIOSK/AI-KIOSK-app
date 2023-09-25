@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Category, Temperature } from 'recoil/Category';
+import { Temperature } from 'recoil/Category';
 import { SelectedMenu } from 'recoil/menu/SelectedMenu';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
@@ -16,6 +16,7 @@ SeniorMenu.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     whipping: PropTypes.bool,
+    img: PropTypes.string,
   }),
 };
 
@@ -53,6 +54,7 @@ function SeniorMenu({ item }) {
       shots: 0,
       whippings: 0,
       price: item.price,
+      img: item.img,
     };
 
     // 동일한 아이템이 이미 주문 목록에 있는지 확인
@@ -84,7 +86,6 @@ function SeniorMenu({ item }) {
     }
 
     setCounter(1);
-    console.log(orderList);
   };
 
   const { openModal: openBeverageDetailModal } = useModal('beverageDetail');
@@ -102,10 +103,11 @@ function SeniorMenu({ item }) {
 
   return (
     <Container>
-      <MenuImage
-        source={{ url: `data:image/png;base64,${item.img}` }}
-        style={{ width: RFValue(80), height: RFValue(80) }}
-      />
+      {item.img !== undefined ? (
+        <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} />
+      ) : (
+        <MenuImage source={img} />
+      )}
       <Info>
         <NameContainer>
           <Name>{item.name}</Name>
@@ -146,8 +148,9 @@ const Container = styled.View`
 const MenuImage = styled.Image`
   width: ${RFValue(100)}px;
   height: ${RFValue(130)}px;
-  object-fit: cover;
-  border-radius: 22px;
+  object-fit: contain;
+  border: 2px;
+  border-radius: 20px;
 `;
 
 const Info = styled.View`

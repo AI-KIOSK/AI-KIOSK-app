@@ -1,8 +1,7 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
-import OptionButton from '@components/common/btn/OptionButton';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/common';
-import React, { useState } from 'react'; // useState 추가
+import React, { useState } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -24,7 +23,7 @@ function SeniorOptionModal() {
   const [counter, setCounter] = useState(1);
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
-  console.log(selectedItem);
+  console.log(selectedItem.img);
 
   const increaseCounter = () => {
     setCounter(counter + 1);
@@ -52,6 +51,7 @@ function SeniorOptionModal() {
       shots: optionList['shots'],
       whippings: optionList['whippings'],
       price: item.price + optionList['shots'] * 500 + optionList['whippings'] * 500,
+      img: item.img,
     };
 
     // 동일한 아이템이 이미 주문 목록에 있는지 확인
@@ -95,8 +95,8 @@ function SeniorOptionModal() {
           <MenuSection>
             <MenuImageView>
               <Image
-                style={{ maxWidth: RFValue(100) }}
-                source={require('@assets/menu/americano.jpeg')}
+                style={{ width: RFValue(80), height: RFValue(80) }}
+                source={{ uri: `data:image/png;base64,${selectedItem.img}` }}
                 resizeMode="contain"
               />
             </MenuImageView>

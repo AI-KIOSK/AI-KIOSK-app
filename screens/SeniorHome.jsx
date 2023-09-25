@@ -32,14 +32,12 @@ function SeniorHome() {
       .then((response) => {
         // 데이터를 받아온 후에 필터링 작업 수행
         const filteredData = response.data.data.filter((item) => {
-          console.log(temperature, category);
           return (
             (category === 0 || item.category.id === category) &&
             (item.hotOrIced === 'BOTH' || item.hotOrIced === temperature)
           );
         });
         setMenuItems(filteredData);
-        console.log('filtered: ', filteredData);
       })
       .catch((error) => {
         // 요청이 실패한 경우 에러 처리

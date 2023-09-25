@@ -2,6 +2,7 @@ import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import { useFetch } from '@hooks/fetch';
 import { fetchMenus } from 'api/fetch';
+import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -19,6 +20,7 @@ function MenuScrollList() {
   const category = useRecoilValue(Category);
   /** 메뉴들 불러오기 */
   const { isLoading, data } = useFetch(fetchMenus);
+  console.log(format(data));
   /** 불러온 메뉴 카테고리에 따라 필터링하기 */
   const filteredMenu = useMemo(
     () => data.filter((item) => category === 0 || item.category.id === category),

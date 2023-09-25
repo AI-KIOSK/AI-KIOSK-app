@@ -21,8 +21,6 @@ SeniorMenuList.propTypes = {
 };
 
 function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
-  console.log(menuItemsToShow);
-
   const pageButton =
     menuItemsToShow.length > 0 ? (
       <PageButton>

@@ -1,4 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
+import format from 'pretty-format';
 import React, { useCallback, useState } from 'react';
 
 function useFetch(query, params) {
@@ -13,6 +14,7 @@ function useFetch(query, params) {
         try {
           setIsLoading(true);
           const response = await query(params);
+          console.log(format(response));
           setData(response.data.data);
           setIsError(false);
         } catch (err) {
