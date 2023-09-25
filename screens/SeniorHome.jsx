@@ -10,9 +10,8 @@ import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Category, Temperature } from 'recoil/Category';
-import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components';
 
 function SeniorHome() {
@@ -20,7 +19,6 @@ function SeniorHome() {
 
   const category = useRecoilValue(Category);
   const temperature = useRecoilValue(Temperature);
-  const setShoppingList = useSetRecoilState(ShoppingList);
 
   const [menuItems2, setMenuItems] = useState([]);
 

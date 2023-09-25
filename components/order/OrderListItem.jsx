@@ -102,7 +102,7 @@ const Option = styled.View`
 `;
 
 const OptionLabel = styled.Text`
-  font-size: ${RFValue(8)}px;
+  font-size: ${RFValue(10)}px;
   font-weight: 700;
 `;
 

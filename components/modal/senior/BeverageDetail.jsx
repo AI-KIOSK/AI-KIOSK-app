@@ -5,30 +5,40 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useRecoilState } from 'recoil';
+import { SelectedMenu } from 'recoil/menu/SelectedMenu';
 import { styled } from 'styled-components/native';
 import ModalTemplate from 'styles/ModalTemplate';
 
 export default function BeverageDetail() {
   const { modal, hideModal: hideBeverageDetailModal } = useModal('beverageDetail');
+  const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
 
   const Detail = '단 맛이 강해요.우유가 들어가 있어요.씁쓸한 맛이 강해요.과일 맛이 나요.';
+  console.log(selectedMenu && selectedMenu['description']);
 
   const DetailParser = (detail) => {
-    const sentences = detail.split('.');
+    if (detail) {
+      const sentences = detail.split('.');
 
-    // 마지막 항목이 빈 문자열일 경우 제거
-    if (sentences[sentences.length - 1] === '') {
-      sentences.pop();
+      // 마지막 항목이 빈 문자열일 경우 제거
+      if (sentences[sentences.length - 1] === '') {
+        sentences.pop();
+      }
+
+      // 분리된 문장들을 반환
+      return sentences;
+    } else {
+      // 선택된 메뉴가 없거나 'description' 프로퍼티가 빈 딕셔너리인 경우
+      return ['설명이 없습니다.'];
     }
-
-    // 분리된 문장들을 반환
-    return sentences;
   };
+
   const onPressCancel = () => {
     hideBeverageDetailModal();
   };
 
-  const parsedSentences = DetailParser(Detail);
+  const parsedSentences = DetailParser(selectedMenu && selectedMenu['description']);
 
   return (
     <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideBeverageDetailModal}>
@@ -87,6 +97,7 @@ const DetailContainer = styled.View`
 
 const DetailLabel = styled.Text`
   font-size: ${RFValue(15)}px;
+  margin-bottom: ${RFValue(8)}px;
 `;
 
 const ButtonSection = styled.View`
