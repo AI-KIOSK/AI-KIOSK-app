@@ -24,7 +24,6 @@ function MenuIcon({ image, label, quantity }) {
 const Container = styled.View`
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
 `;
 
 const MenuImage = styled.Image`
