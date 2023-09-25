@@ -102,7 +102,10 @@ function SeniorMenu({ item }) {
 
   return (
     <Container>
-      <MenuImage source={img} />
+      <MenuImage
+        source={{ url: `data:image/png;base64,${item.img}` }}
+        style={{ width: RFValue(80), height: RFValue(80) }}
+      />
       <Info>
         <NameContainer>
           <Name>{item.name}</Name>
