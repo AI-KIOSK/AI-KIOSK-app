@@ -1,20 +1,27 @@
 import { useModal } from '@hooks/common';
+import { useOrder } from '@hooks/order';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useRecoilValue } from 'recoil';
+import { orderResponse } from 'recoil/order/atom';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
 import RectButton from '../common/RectButton';
 
 function PaymentCompletedModal() {
-  const orderNum = '14';
   const { modal, hideModal } = useModal('paymentCompletedModal');
   const navigation = useNavigation();
 
+  const response = useRecoilValue(orderResponse);
+
+  const { resetOrder, resetRequest } = useOrder();
   const pressBack = () => {
     hideModal();
+    resetOrder();
+    resetRequest();
     navigation.reset({ routes: [{ name: 'information' }] });
   };
 
@@ -26,7 +33,7 @@ function PaymentCompletedModal() {
         </TitleContainer>
         <OrderNumContainer>
           <TitleText>주문번호{'\n'}</TitleText>
-          <TitleText>{orderNum} 번</TitleText>
+          <TitleText>{response?.data.id} 번</TitleText>
         </OrderNumContainer>
         <ButtonContainer>
           <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#000000" backColor="#ABC4AA" />

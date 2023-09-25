@@ -3,7 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useRecoilState } from 'recoil';
-import { Category, Recommendation } from 'recoil/Category';
+import { Category } from 'recoil/Category';
 import styled from 'styled-components';
 
 function ForeignerHeader(props) {
@@ -38,11 +38,10 @@ function ForeignerHeader(props) {
   const categoryHandler = (id) => {
     setCategory(id);
   };
-  console.log(category);
 
   return (
     <Container>
-      <Entypo name="foreignerHome" size={RFValue(30)} color={'black'} />
+      <Entypo name="home" size={RFValue(30)} color={'black'} />
       {menuItems.map((item) => (
         <Button key={item.id} onPress={() => categoryHandler(item.id)}>
           <Label>{item.menu}</Label>

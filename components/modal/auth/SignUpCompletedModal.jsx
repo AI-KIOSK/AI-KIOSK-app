@@ -4,11 +4,14 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { signUpRequest } from 'recoil/auth/atom';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
 
 function SignUpCompletedModal() {
-  const phoneNum = '4722';
+  const request = useRecoilValue(signUpRequest);
+
   const { modal, hideModal } = useModal('signupCompleteModal');
   const { openModal } = useModal('earningpointsModal');
 
@@ -25,7 +28,7 @@ function SignUpCompletedModal() {
         </TitleContainer>
         <PhoneNumContainer>
           <TitleText>반갑습니다{'\n'}</TitleText>
-          <TitleText>{phoneNum} 님!</TitleText>
+          <TitleText>{request.phoneNumber.substring(4)} 님!</TitleText>
         </PhoneNumContainer>
         <ButtonSection>
           <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />

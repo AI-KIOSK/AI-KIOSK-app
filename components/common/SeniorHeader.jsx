@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useMemo } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -10,19 +11,19 @@ function SeniorHeader(props) {
   const menuItems = useMemo(
     () => [
       {
-        id: 'coffee',
+        id: 1,
         menu: '커피',
       },
       {
-        id: 'beverage',
+        id: 2,
         menu: '음료',
       },
       {
-        id: 'tea',
+        id: 3,
         menu: '차',
       },
       {
-        id: 'etc',
+        id: 4,
         menu: '기타',
       },
     ],
@@ -32,11 +33,11 @@ function SeniorHeader(props) {
   const temperatureItems = useMemo(
     () => [
       {
-        id: 'hot',
+        id: 'HOT',
         menu: '따뜻한거',
       },
       {
-        id: 'ice',
+        id: 'ICE',
         menu: '차가운거',
       },
     ],
@@ -45,6 +46,7 @@ function SeniorHeader(props) {
 
   const [category, setCategory] = useRecoilState(Category);
   const [temperature, setTemperature] = useRecoilState(Temperature);
+  const { navigate } = useNavigation();
 
   const categoryHandler = (id) => {
     setCategory(id);
@@ -58,7 +60,7 @@ function SeniorHeader(props) {
 
   return (
     <Container>
-      <Entypo name="home" size={RFValue(30)} color={'black'} />
+      <Entypo name="home" size={RFValue(30)} color={'black'} onPress={() => navigate('information')} />
       <CategoryContainer>
         <TemperatureCategory>
           {temperatureItems.map((item) => (
@@ -116,7 +118,7 @@ const Button = styled.TouchableOpacity`
   align-items: center;
 
   background-color: ${({ isSelected, temperature }) =>
-    isSelected ? (temperature === 'ice' ? '#5096ff' : '#f29727') : 'transparent'};
+    isSelected ? (temperature === 'ICE' ? '#5096ff' : '#f29727') : 'transparent'};
   width: ${wp(16)}px;
   height: ${hp(4)}px;
   border: 1px;

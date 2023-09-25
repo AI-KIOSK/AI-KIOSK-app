@@ -1,9 +1,12 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import React, { useMemo } from 'react';
+import axios from 'axios';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { FinalOrder, ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
@@ -23,14 +26,45 @@ function SeniorPaymentModal() {
     ],
     [],
   );
-
+  const finalOrder = useRecoilValue(FinalOrder);
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
 
   const pressPayment = () => {
-    hideModal();
-    openModal();
+    axios
+      .post('http://14.36.131.49:10008/api/v1/order/', finalOrder)
+      .then((response) => {
+        // 성공적으로 요청을 보냈을 때의 처리
+        console.log('주문 성공:', response.data);
+        hideModal();
+        openModal();
+      })
+      .catch((error) => {
+        // 요청이 실패했을 때의 처리
+        console.error('주문 실패:', error.response);
+      });
   };
+
+  const shoppingList = useRecoilValue(ShoppingList);
+  const totalPrice = shoppingList.reduce((accumulator, item) => accumulator + item.price, 0);
+  const [point, setPoint] = useState(100);
+  const userPhoneNumber = FinalOrder['phoneNumber'];
+  useEffect(() => {
+    // API 요청을 보낼 URL
+    const apiUrl = `http://14.36.131.49:10008/api/v1/user?phone=4722`;
+
+    // Axios를 사용하여 GET 요청을 보냄
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        console.log(response.data);
+        setPoint(response.data.data['points']);
+      })
+      .catch((error) => {
+        // 요청이 실패한 경우 에러 처리
+        console.error('포인트 요청 중 오류 발생:', error);
+      });
+  }, []);
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -42,12 +76,12 @@ function SeniorPaymentModal() {
           <PointContainer>
             <Row>
               <TitleText>주문 금액</TitleText>
-              <NormalText> 16000원 </NormalText>
+              <NormalText> {totalPrice}원 </NormalText>
             </Row>
             <TitleText>적립포인트</TitleText>
             <Row>
               <NormalText>보유</NormalText>
-              <NormalText>1000</NormalText>
+              <NormalText>{point}원</NormalText>
             </Row>
             <Row>
               <NormalText>사용</NormalText>
@@ -67,12 +101,12 @@ function SeniorPaymentModal() {
           </PaymentPlanContainer>
         </PaymentContainer>
         <ButtonSection>
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'seniorNormal'} onPress={hideModal} />
           <ModalActionButton
             title={'결제하기'}
             width={wp(25)}
             height={hp(6)}
-            color={'#675D50'}
+            color={'seniorConfirm'}
             onPress={pressPayment}
           />
         </ButtonSection>
@@ -91,23 +125,27 @@ const TitleContainer = styled.View`
 const TitleText = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(20)}px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const PaymentContainer = styled.View`
-  border: 2px solid black;
   flex: 3;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: 10px 40px;
 `;
 
 const PointContainer = styled.View`
-  border: 3px solid black;
   flex: 3;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
-  padding: 15px 50px;
+  padding: 10px 50px;
 `;
 
 const InputBox = styled.TextInput`
@@ -124,8 +162,7 @@ const InputBox = styled.TextInput`
 `;
 
 const PaymentPlanContainer = styled.View`
-  border: 2px solid black;
-  flex: 6;
+  flex: 5;
   justify-content: space-around;
   width: ${wp(60)}px;
 `;
@@ -133,9 +170,9 @@ const PaymentPlanContainer = styled.View`
 const PaymentPlanItem = styled.TouchableOpacity`
   border-width: 3px;
   border-radius: 8px;
-  width: ${wp(16)}px;
+  width: ${wp(26)}px;
   height: ${hp(10)}px;
-  background-color: #f3deba;
+  background-color: #fba627;
   border-color: #675d50;
   justify-content: center;
   align-items: center;
@@ -150,7 +187,7 @@ const Row = styled.View`
 
 const NormalText = styled.Text`
   font-weight: bold;
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(18)}px;
 `;
 
 const ButtonSection = styled.View`

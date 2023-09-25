@@ -10,23 +10,23 @@ function HomeHeader(props) {
   const menuItems = useMemo(
     () => [
       {
-        id: 'coffee',
+        id: 1,
         menu: '커피',
       },
       {
-        id: 'non_coffee',
+        id: 2,
         menu: '논커피',
       },
       {
-        id: 'smoothie',
+        id: 4,
         menu: '스무디',
       },
       {
-        id: 'tea',
+        id: 3,
         menu: '티',
       },
       {
-        id: 'etc',
+        id: 5,
         menu: '그외',
       },
     ],

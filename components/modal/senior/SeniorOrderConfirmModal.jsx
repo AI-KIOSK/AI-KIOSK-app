@@ -5,6 +5,8 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { FinalOrder, ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components/native';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
@@ -12,13 +14,32 @@ export default function SeniorOrderConfirmModal() {
   const { modal, hideModal: hideOrderConfirmModal } = useModal('orderConfirmModal');
   const { openModal: openEarningPointsModal } = useModal('seniorEarningPointsModal');
   const { openModal: openPaymentModal } = useModal('paymentModal');
+  const shoppingList = useRecoilValue(ShoppingList);
+  const totalPrice = shoppingList.reduce((accumulator, item) => accumulator + item.price * item.orderQuantity, 0);
+  const totalOrder = shoppingList.reduce((accumulator, item) => accumulator + item.orderQuantity, 0);
+  const [fianlOrder, setFinalOrder] = useRecoilState(FinalOrder);
+
+  function createRequestBody(phoneNumber, quantity, totalPrice, orderType, orders) {
+    const requestBody = {
+      phoneNumber,
+      quantity,
+      totalPrice,
+      orderType,
+      orders,
+    };
+    return requestBody;
+  }
 
   const onPressOrder = () => {
+    const requestBody = createRequestBody('4722', totalOrder, totalPrice, 'CARD', shoppingList);
+    setFinalOrder(requestBody);
     hideOrderConfirmModal();
     openPaymentModal();
   };
 
   const onPressPoint = () => {
+    const requestBody = createRequestBody('4722', totalOrder, totalPrice, 'CARD', shoppingList);
+    setFinalOrder(requestBody);
     hideOrderConfirmModal();
     openEarningPointsModal();
   };
@@ -28,8 +49,8 @@ export default function SeniorOrderConfirmModal() {
         <Container>
           <Title>주문 목록</Title>
           <OrderList />
-          <OrderResultText>총 수량 3개</OrderResultText>
-          <OrderResultText>총 결제 금액 36,000원</OrderResultText>
+          <OrderResultText>총 수량 {totalOrder}개</OrderResultText>
+          <OrderResultText>총 결제 금액 {totalPrice}원</OrderResultText>
           <ButtonSection>
             <ModalActionButton
               title={'취소'}

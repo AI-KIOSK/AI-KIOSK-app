@@ -1,27 +1,36 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FlatList } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useFetch } from '@hooks/fetch';
+import { fetchMenus } from 'api/fetch';
+import React, { useMemo } from 'react';
+import { ActivityIndicator, FlatList } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Category } from 'recoil/Category';
+import { chosenMenuInfoSelector } from 'recoil/menu/selector';
 import styled from 'styled-components';
 
-MenuScrollList.propTypes = {
-  filteredItem: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      category: PropTypes.string,
-      recommendation: PropTypes.string,
-      img: PropTypes.number,
-      price: PropTypes.number,
-    }),
-  ),
-};
-
-function MenuScrollList({ filteredItem }) {
+function MenuScrollList() {
   const { openModal } = useModal('menuSelectModal');
+
+  const chooseMenu = useSetRecoilState(chosenMenuInfoSelector);
+
+  /** 헤더에서 선택한 카테고리 */
+  const category = useRecoilValue(Category);
+  /** 메뉴들 불러오기 */
+  const { isLoading, data } = useFetch(fetchMenus);
+  /** 불러온 메뉴 카테고리에 따라 필터링하기 */
+  const filteredMenu = useMemo(
+    () => data.filter((item) => category === 0 || item.category.id === category),
+    [category, data],
+  );
+
+  const handleChooseMenu = (menu) => {
+    chooseMenu(menu);
+    openModal();
+  };
+
+  if (isLoading) return <ActivityIndicator size={'small'} color={'black'} />;
 
   return (
     <Container>
@@ -29,9 +38,9 @@ function MenuScrollList({ filteredItem }) {
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           numColumns={4}
-          data={filteredItem}
+          data={filteredMenu}
           renderItem={({ item }) => (
-            <Menu onPress={openModal} key={item.id}>
+            <Menu onPress={() => handleChooseMenu(item)} key={item.id}>
               <MenuIcon image={item.img} label={item.name} />
             </Menu>
           )}

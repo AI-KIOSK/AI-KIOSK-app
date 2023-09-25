@@ -8,10 +8,12 @@ import SeniorMenu from './SeniorMenu';
 SeniorMenuList.propTypes = {
   menuItemsToShow: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      category: PropTypes.object,
+      hotOrIced: PropTypes.string,
+      id: PropTypes.number,
       name: PropTypes.string,
-      img: PropTypes.number,
       price: PropTypes.number,
+      whipping: PropTypes.bool,
     }),
   ),
   onNextPage: PropTypes.func,
@@ -37,7 +39,7 @@ function SeniorMenuList({ menuItemsToShow, onNextPage, onPrevPage }) {
     <Container>
       <MenuList>
         {menuItemsToShow.map((item) => (
-          <SeniorMenu key={item.id} img={item.img} name={item.name} />
+          <SeniorMenu key={item.id} item={item} />
         ))}
       </MenuList>
 

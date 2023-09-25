@@ -1,34 +1,46 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import { useFetch } from '@hooks/fetch';
+import { useOrder } from '@hooks/order';
+import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
+import { fetchPoints } from 'api/fetch';
 
 function PaymentModal() {
   const paymentPlans = useMemo(
     () => [
       {
         id: 'card',
-        value: 'card',
+        value: 'CREDIT',
         name: '카드',
       },
       {
         id: 'kakaopay',
-        value: 'kakaopay',
+        value: 'KAKAO',
         name: '카카오페이',
       },
     ],
     [],
   );
 
+  const phone = useRecoilValue(phoneNumber);
+  const { request, handleOrderType, completeOrder } = useOrder();
+
+  const { data, isLoading } = useFetch(fetchPoints, phone);
+
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
 
   const pressPayment = () => {
+    completeOrder();
     hideModal();
     openModal();
   };
@@ -43,12 +55,12 @@ function PaymentModal() {
           <PointContainer>
             <Row>
               <TitleText>주문 금액</TitleText>
-              <NormalText> 16000원 </NormalText>
+              <NormalText> {request.totalPrice}원 </NormalText>
             </Row>
             <TitleText>적립포인트</TitleText>
             <Row>
               <NormalText>보유</NormalText>
-              <NormalText>1000</NormalText>
+              <NormalText>{data.points}</NormalText>
             </Row>
             <Row>
               <NormalText>사용</NormalText>
@@ -60,7 +72,7 @@ function PaymentModal() {
             <TitleText>결제수단</TitleText>
             <Row>
               {paymentPlans.map((item) => (
-                <PaymentPlanItem key={item.id}>
+                <PaymentPlanItem key={item.id} onPress={() => handleOrderType(item.value)}>
                   <NormalText>{item.name}</NormalText>
                 </PaymentPlanItem>
               ))}

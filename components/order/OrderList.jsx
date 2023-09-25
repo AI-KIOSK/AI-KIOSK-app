@@ -1,41 +1,24 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilState } from 'recoil';
+import { ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components/native';
-
 import OrderListItem from './OrderListItem';
 
 export default function OrderList() {
-  const orderedList = useMemo(
-    () => [
-      {
-        id: 1,
-        img: require('@assets/menu/americano.jpeg'),
-        menu: '아메리카노',
-        quantity: 3,
-        price: 3000,
-      },
-      {
-        id: 2,
-        img: require('@assets/menu/cafelatte.jpeg'),
-        menu: '카페라떼',
-        quantity: 2,
-        price: 5000,
-      },
-      {
-        id: 3,
-        img: require('@assets/menu/einspanner.jpeg'),
-        menu: '아인슈페너',
-        quantity: 5,
-        price: 5000,
-      },
-    ],
-    [],
-  );
+  const [shoppingList, setShoppingList] = useRecoilState(ShoppingList);
+
+  const handleDeleteItem = (itemId) => {
+    const updatedList = shoppingList.filter((item) => item.id !== itemId);
+    console.log(itemId);
+    setShoppingList([...updatedList]);
+  };
+
   return (
     <Container>
-      <OrderedList contentContainerStyle={{ flexGrow: 1 }}>
-        {orderedList.map((order) => (
-          <OrderListItem key={order.id} order={order} />
+      <OrderedList>
+        {shoppingList.map((order) => (
+          <OrderListItem key={order.id} item={order} onDelete={() => handleDeleteItem(order.id)} />
         ))}
       </OrderedList>
     </Container>
@@ -44,9 +27,12 @@ export default function OrderList() {
 
 const Container = styled.View`
   width: 100%;
-  height: ${hp(45)}px;
-
+  height: ${hp(40)}px;
   padding: ${wp(3)}px;
+  flex-grow: 1;
+  border: 3px #ebd3b5;
 `;
 
-const OrderedList = styled.ScrollView``;
+const OrderedList = styled.ScrollView`
+  flex: 1;
+`;

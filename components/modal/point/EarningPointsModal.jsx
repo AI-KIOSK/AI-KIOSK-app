@@ -4,6 +4,8 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilState } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
@@ -14,11 +16,17 @@ function EarningPointsModal() {
   const { openModal } = useModal('paymentModal');
   const { openModal: openOtherModal } = useModal('signupModal');
 
+  const [phone, setPhone] = useRecoilState(phoneNumber);
+
   const pressPayment = () => {
     hideModal();
     openModal();
   };
 
+  const onPressHide = () => {
+    hideModal();
+    setPhone('');
+  };
   const pressSignUp = () => {
     hideModal();
     openOtherModal();
@@ -35,14 +43,14 @@ function EarningPointsModal() {
           <NormalText> (회원만 적립이 가능합니다.){'\n'}</NormalText>
           <PhoneNumberPrint>
             <PhoneNumberText>010 - </PhoneNumberText>
-            <PhoneNumberText></PhoneNumberText>
+            <PhoneNumberText>{phone.substring(0, 4)}</PhoneNumberText>
             <PhoneNumberText>-</PhoneNumberText>
-            <PhoneNumberText></PhoneNumberText>
+            <PhoneNumberText>{phone.substring(4)}</PhoneNumberText>
           </PhoneNumberPrint>
           <Numpad />
         </EarningPointContainer>
         <ButtonContainer_1>
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={onPressHide} />
           <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={pressPayment} />
           <ModalActionButton title={'회원가입'} width={wp(70)} height={hp(6)} color={'cancel'} onPress={pressSignUp} />
         </ButtonContainer_1>

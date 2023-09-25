@@ -2,7 +2,18 @@ import { atom } from 'recoil';
 
 const ShoppingList = atom({
   key: 'shoppingList',
-  default: [{ id: '', name: '', category: '', temperature: '', img: 0, price: 0 }],
+  default: [],
 });
 
-export { ShoppingList };
+const FinalOrder = atom({
+  key: 'finalOrder',
+  default: {
+    phoneNumber: '',
+    quantity: 0,
+    totalPrice: 0,
+    orderType: '',
+    orders: [],
+  },
+});
+
+export { ShoppingList, FinalOrder };

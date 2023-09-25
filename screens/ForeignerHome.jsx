@@ -6,7 +6,6 @@ import ForeignerMenuSelectModal from '@components/modal/menu/ForeignerMenuSelect
 import ForeignerOrderConfirmModal from '@components/modal/order/ForeignerOrderConfirmModal';
 import { ForeignerPaymentCompletedModal, ForeignerPaymentModal } from '@components/modal/payment';
 import ForeignerEarningPointsModal from '@components/modal/point/ForeignerEarningPointsModal';
-
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Category, Recommendation } from 'recoil/Category';
@@ -114,24 +113,26 @@ function ForeignerHome(props) {
     ],
     [],
   );
-  
+
   const category = useRecoilValue(Category);
   const recommendation = useRecoilValue(Recommendation);
 
   const recData = menuItems.filter((item) => item.recommendation === 'yes');
   const norData = menuItems.filter((item) => item.recommendation === 'no');
-//   const filterMenuItemsByCategory = recData.filter((item) => item.category === category);
+  //   const filterMenuItemsByCategory = recData.filter((item) => item.category === category);
   const filterMenuItemsByCategory = (category) => {
     return norData.filter((item) => item.category === category);
   };
   const filterMenuItemsByRec = (category) => {
     return recData.filter((item) => item.category === category);
   };
-  
+
   return (
     <Container>
-      <ForeignerMenuScrollList filteredItem={filterMenuItemsByCategory(category)}
-                                  filteredItemRec = {filterMenuItemsByRec(category)} />
+      <ForeignerMenuScrollList
+        filteredItem={filterMenuItemsByCategory(category)}
+        filteredItemRec={filterMenuItemsByRec(category)}
+      />
       <ForeignerOrderSection />
       <ForeignerMenuSelectModal />
       <ForeignerOrderConfirmModal />

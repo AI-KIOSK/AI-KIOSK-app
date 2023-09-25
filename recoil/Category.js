@@ -2,12 +2,17 @@ import { atom } from 'recoil';
 
 const Category = atom({
   key: 'category',
-  default: 'coffee',
+  default: 1,
 });
 
 const Temperature = atom({
   key: 'temperature',
-  default: 'hot',
+  default: 'HOT',
+});
+
+const ModalTemperature = atom({
+  key: 'modalTemperature',
+  default: 'HOT',
 });
 
 const Recommendation = atom({
@@ -15,4 +20,4 @@ const Recommendation = atom({
   default: 'no',
 });
 
-export { Category, Temperature , Recommendation};
+export { Category, Temperature, ModalTemperature, Recommendation };
