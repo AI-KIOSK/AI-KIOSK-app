@@ -36,7 +36,7 @@ function OrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={`수량 ${item.orderQuantity}`} />
+            <MenuIcon key={item.id} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
           ))}
         </ContainedMenuList>
         <AntDesign

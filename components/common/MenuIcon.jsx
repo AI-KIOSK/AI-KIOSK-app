@@ -15,7 +15,7 @@ function MenuIcon({ image, label, quantity }) {
     <Container>
       <MenuImage source={{ url: `data:image/png;base64,${image}` }} />
       <Label>
-        {label} {quantity}개
+        {label} {quantity !== undefined && `${quantity}개`}
       </Label>
     </Container>
   );
@@ -24,6 +24,7 @@ function MenuIcon({ image, label, quantity }) {
 const Container = styled.View`
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
 `;
 
 const MenuImage = styled.Image`
