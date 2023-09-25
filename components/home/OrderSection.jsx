@@ -35,8 +35,8 @@ function OrderSection() {
         <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : '#ABC4AA'} onPress={prevMenuSets} />
 
         <ContainedMenuList>
-          {items.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
+          {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
+            <MenuIcon key={`addedItem${index}`} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
           ))}
         </ContainedMenuList>
         <AntDesign

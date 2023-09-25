@@ -12,15 +12,15 @@ TemperatureOptionButton.propTypes = {
 };
 
 export default function TemperatureOptionButton({ option, label, onPress }) {
-  const isDisabled = option !== 'HOT' && option !== 'ICE';
+  const isDisabled = option !== 'HOT' && option !== 'ICE' && option !== 'BOTH';
 
   const { order } = useOrder();
 
   // Container의 색상을 modalTemperature와 option에 따라 동적으로 설정
   const getContainerColor = () => {
-    if (order.hotOrIced === 'ICE' && option === 'ICE') {
+    if ((order.hotOrIced === 'ICE' && option === 'ICE') || option === 'BOTH') {
       return '#99eeff'; // ICE 선택 시 파란색
-    } else if (order.hotOrIced === 'HOT' && option === 'HOT') {
+    } else if ((order.hotOrIced === 'HOT' && option === 'HOT') || option === 'BOTH') {
       return '#FEE5E6'; // HOT 선택 시 빨간색
     } else {
       return 'transparent';
