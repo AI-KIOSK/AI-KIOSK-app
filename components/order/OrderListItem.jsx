@@ -1,5 +1,4 @@
-import format from 'pretty-format';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -20,13 +19,12 @@ OrderListItem.propTypes = {
     shots: PropTypes.number,
     whippings: PropTypes.number,
     price: PropTypes.number,
+    img: PropTypes.string,
   }),
   onDelete: PropTypes.func,
 };
 
 export default function OrderListItem({ item, onDelete }) {
-  console.log(format(item));
-  const img = require('@assets/menu/einspanner.jpeg');
   const generateOptionLabel = () => {
     const options = [];
     if (item.hotOrIced) {
@@ -57,7 +55,11 @@ export default function OrderListItem({ item, onDelete }) {
     <Container>
       <MainContent>
         <MenuImageView>
-          <Image style={{ maxWidth: RFValue(60) }} source={img} resizeMode="contain" />
+          <Image
+            style={{ width: RFValue(80), height: RFValue(80) }}
+            source={{ url: `data:image/png;base64,${item.img}` }}
+            resizeMode="contain"
+          />
         </MenuImageView>
         <MenuOptionView>
           <NameContainer>

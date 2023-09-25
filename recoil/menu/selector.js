@@ -7,9 +7,9 @@ const chosenMenuInfoSelector = selector({
   key: 'chosenMenuInfoSelector',
   get: ({ get }) => get(chosenMenuInfo),
   set: ({ set }, item) => {
-    const { id, name, price } = item;
+    const { id, name, price, img } = item;
 
-    set(menuWithOption, (prev) => ({ ...prev, id, menuName: name, price }));
+    set(menuWithOption, (prev) => ({ ...prev, id, menuName: name, price, img }));
     return set(chosenMenuInfo, item);
   },
 });

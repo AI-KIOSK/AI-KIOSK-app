@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 
-function useFetch(query) {
+function useFetch(query, params) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
@@ -13,7 +13,7 @@ function useFetch(query) {
       async function fetch() {
         try {
           setIsLoading(true);
-          const response = await query();
+          const response = await query(params);
           setData(response.data.data);
           setIsError(false);
         } catch (err) {
@@ -24,7 +24,7 @@ function useFetch(query) {
       }
       fetch();
       setIsLoading(false);
-    }, [query]),
+    }, [params, query]),
   );
 
   return { data, isLoading, isError, error };

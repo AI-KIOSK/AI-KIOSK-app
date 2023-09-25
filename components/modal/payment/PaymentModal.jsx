@@ -1,14 +1,18 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import { useFetch } from '@hooks/fetch';
 import { useOrder } from '@hooks/order';
+import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
-import format from 'pretty-format';
+import { fetchPoints } from 'api/fetch';
 
 function PaymentModal() {
   const paymentPlans = useMemo(
@@ -27,12 +31,14 @@ function PaymentModal() {
     [],
   );
 
+  const phone = useRecoilValue(phoneNumber);
   const { request, handleOrderType, completeOrder } = useOrder();
+
+  const { data, isLoading } = useFetch(fetchPoints, phone);
 
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
 
-  console.log(format(request));
   const pressPayment = () => {
     completeOrder();
     hideModal();
@@ -54,7 +60,7 @@ function PaymentModal() {
             <TitleText>적립포인트</TitleText>
             <Row>
               <NormalText>보유</NormalText>
-              <NormalText>1000</NormalText>
+              <NormalText>{data.points}</NormalText>
             </Row>
             <Row>
               <NormalText>사용</NormalText>

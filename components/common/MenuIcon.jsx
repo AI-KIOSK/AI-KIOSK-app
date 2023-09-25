@@ -13,7 +13,7 @@ MenuIcon.propTypes = {
 function MenuIcon({ image, label, quantity }) {
   return (
     <Container>
-      <MenuImage source={image} />
+      <MenuImage source={{ url: `data:image/png;base64,${image}` }} />
       <Label>
         {label} {quantity}개
       </Label>

@@ -29,6 +29,7 @@ const menuWithOption = atom({
     shots: 0,
     whippings: 0,
     price: 0,
+    img: '',
   },
 });
 

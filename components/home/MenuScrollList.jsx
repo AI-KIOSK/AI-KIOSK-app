@@ -1,7 +1,6 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import { useFetch } from '@hooks/fetch';
-import { useOrder } from '@hooks/order';
 import { fetchMenus } from 'api/fetch';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
@@ -15,8 +14,6 @@ function MenuScrollList() {
   const { openModal } = useModal('menuSelectModal');
 
   const chooseMenu = useSetRecoilState(chosenMenuInfoSelector);
-
-  const img = require('@assets/menu/cafelatte.jpeg');
 
   /** 헤더에서 선택한 카테고리 */
   const category = useRecoilValue(Category);
@@ -44,7 +41,7 @@ function MenuScrollList() {
           data={filteredMenu}
           renderItem={({ item }) => (
             <Menu onPress={() => handleChooseMenu(item)} key={item.id}>
-              <MenuIcon image={img} label={item.name} />
+              <MenuIcon image={item.img} label={item.name} />
             </Menu>
           )}
         />
