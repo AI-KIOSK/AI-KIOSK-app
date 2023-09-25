@@ -15,24 +15,30 @@ export default function BeverageDetail() {
   const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
 
   const Detail = '단 맛이 강해요.우유가 들어가 있어요.씁쓸한 맛이 강해요.과일 맛이 나요.';
-  console.log(selectedMenu['description']);
+  console.log(selectedMenu && selectedMenu['description']);
 
   const DetailParser = (detail) => {
-    const sentences = detail.split('.');
+    if (detail) {
+      const sentences = detail.split('.');
 
-    // 마지막 항목이 빈 문자열일 경우 제거
-    if (sentences[sentences.length - 1] === '') {
-      sentences.pop();
+      // 마지막 항목이 빈 문자열일 경우 제거
+      if (sentences[sentences.length - 1] === '') {
+        sentences.pop();
+      }
+
+      // 분리된 문장들을 반환
+      return sentences;
+    } else {
+      // 선택된 메뉴가 없거나 'description' 프로퍼티가 빈 딕셔너리인 경우
+      return ['설명이 없습니다.'];
     }
-
-    // 분리된 문장들을 반환
-    return sentences;
   };
+
   const onPressCancel = () => {
     hideBeverageDetailModal();
   };
 
-  const parsedSentences = DetailParser(selectedMenu['description']);
+  const parsedSentences = DetailParser(selectedMenu && selectedMenu['description']);
 
   return (
     <Modal visible={modal.visible} animationType={'slide'} transparent={true} onRequestClose={hideBeverageDetailModal}>
