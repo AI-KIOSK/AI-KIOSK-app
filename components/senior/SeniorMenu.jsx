@@ -149,7 +149,8 @@ const MenuImage = styled.Image`
   width: ${RFValue(100)}px;
   height: ${RFValue(130)}px;
   object-fit: contain;
-  border: 2px;
+
+  background-color: #f5e9d9;
   border-radius: 20px;
 `;
 

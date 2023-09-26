@@ -23,7 +23,6 @@ function SeniorSubInfo() {
   }, [offset]);
 
   const handleOrderButtonClick = () => {
-    console.log('shopping list: ', shoppingList);
     openModal();
   };
 

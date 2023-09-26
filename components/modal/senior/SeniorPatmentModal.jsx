@@ -1,7 +1,9 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useFetch } from '@hooks/fetch';
+import { useOrder } from '@hooks/order';
+import { fetchPoints } from 'api/fetch';
+import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -29,42 +31,20 @@ function SeniorPaymentModal() {
   const finalOrder = useRecoilValue(FinalOrder);
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
+  const { handleOrderType, completeOrderWithRequest } = useOrder();
+  console.log(finalOrder);
 
   const pressPayment = () => {
-    axios
-      .post('http://14.36.131.49:10008/api/v1/order/', finalOrder)
-      .then((response) => {
-        // 성공적으로 요청을 보냈을 때의 처리
-        console.log('주문 성공:', response.data);
-        hideModal();
-        openModal();
-      })
-      .catch((error) => {
-        // 요청이 실패했을 때의 처리
-        console.error('주문 실패:', error.response);
-      });
+    completeOrderWithRequest(finalOrder);
+    hideModal();
+    openModal();
   };
 
   const shoppingList = useRecoilValue(ShoppingList);
   const totalPrice = shoppingList.reduce((accumulator, item) => accumulator + item.price, 0);
-  const [point, setPoint] = useState(100);
-  const userPhoneNumber = FinalOrder['phoneNumber'];
-  useEffect(() => {
-    // API 요청을 보낼 URL
-    const apiUrl = `http://14.36.131.49:10008/api/v1/user?phone=4722`;
+  const userPhoneNumber = finalOrder['phoneNumber'];
 
-    // Axios를 사용하여 GET 요청을 보냄
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        console.log(response.data);
-        setPoint(response.data.data['points']);
-      })
-      .catch((error) => {
-        // 요청이 실패한 경우 에러 처리
-        console.error('포인트 요청 중 오류 발생:', error);
-      });
-  }, []);
+  const { data, isLoading } = useFetch(fetchPoints, userPhoneNumber);
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -81,7 +61,7 @@ function SeniorPaymentModal() {
             <TitleText>적립포인트</TitleText>
             <Row>
               <NormalText>보유</NormalText>
-              <NormalText>{point}원</NormalText>
+              <NormalText>{data.points}원</NormalText>
             </Row>
             <Row>
               <NormalText>사용</NormalText>
@@ -93,7 +73,7 @@ function SeniorPaymentModal() {
             <TitleText>결제수단</TitleText>
             <Row>
               {paymentPlans.map((item) => (
-                <PaymentPlanItem key={item.id}>
+                <PaymentPlanItem key={item.id} onPress={() => handleOrderType(item.value)}>
                   <NormalText>{item.name}</NormalText>
                 </PaymentPlanItem>
               ))}

@@ -6,7 +6,6 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { styled } from 'styled-components';
 import { ModalActionButton } from '@components/common/btn';
 import ModalTemplate from '../../../styles/ModalTemplate';
-import RectButton from '../common/RectButton';
 import Numpad from './Numpad';
 
 function ForeignerEarningPointsModal() {
@@ -42,15 +41,15 @@ function ForeignerEarningPointsModal() {
           <Numpad />
         </EarningPointContainer>
         <ButtonContainer_1>
+          <ModalActionButton title={'cancel'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+          <ModalActionButton title={'payment'} width={wp(25)} height={hp(6)} color={'blue'} onPress={pressPayment} />
           <ModalActionButton
-              title={'cancel'}
-              width={wp(25)}
-              height={hp(6)}
-              color={'cancel'}
-              onPress={hideModal}
-            />
-            <ModalActionButton title={'payment'} width={wp(25)} height={hp(6)} color={'blue'} onPress={pressPayment} />
-          <ModalActionButton title={'join membership'} width={wp(70)} height={hp(6)} color={'cancel'} onPress={pressSignUp} />
+            title={'join membership'}
+            width={wp(70)}
+            height={hp(6)}
+            color={'cancel'}
+            onPress={pressSignUp}
+          />
         </ButtonContainer_1>
       </ModalTemplate>
     </Modal>
@@ -65,7 +64,6 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-
   font-weight: bold;
   font-size: ${RFValue(20)}px;
 `;
@@ -96,14 +94,12 @@ const Row = styled.View`
 `;
 
 const NormalText = styled.Text`
-
   align-text: center;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
 `;
 
 const ButtonContainer_1 = styled.View`
-
   width: ${wp(70)}px;
   height: ${hp(15)}px;
   justify-content: space-between;
@@ -113,6 +109,5 @@ const ButtonContainer_1 = styled.View`
   flex-wrap: wrap;
   margin-bottom: 20px;
 `;
-
 
 export default ForeignerEarningPointsModal;

@@ -8,8 +8,10 @@ import SeniorSignUpCompletedModal from '@components/modal/senior/SeniorSignUpCom
 import SeniorSignUpModal from '@components/modal/senior/SeniorSignUpModal';
 import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useFetch } from '@hooks/fetch';
+import { fetchMenus } from 'api/fetch';
+import React, { useMemo, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { Category, Temperature } from 'recoil/Category';
 import styled from 'styled-components';
@@ -20,36 +22,26 @@ function SeniorHome() {
   const category = useRecoilValue(Category);
   const temperature = useRecoilValue(Temperature);
 
-  const [menuItems2, setMenuItems] = useState([]);
+  /** 메뉴들 불러오기 */
+  const { isLoading, data } = useFetch(fetchMenus);
+  /** 불러온 메뉴 카테고리에 따라 필터링하기 */
+  const filteredMenu = useMemo(
+    () =>
+      data.filter(
+        (item) =>
+          (category === 0 || item.category.id === category) &&
+          (item.hotOrIced === 'BOTH' || item.hotOrIced === temperature),
+      ),
+    [category, temperature, data],
+  );
 
-  useEffect(() => {
-    // API 요청을 보낼 URL
-    const apiUrl = 'http://14.36.131.49:10008/api/v1/menus/';
-
-    // Axios를 사용하여 GET 요청을 보냄
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        // 데이터를 받아온 후에 필터링 작업 수행
-        const filteredData = response.data.data.filter((item) => {
-          return (
-            (category === 0 || item.category.id === category) &&
-            (item.hotOrIced === 'BOTH' || item.hotOrIced === temperature)
-          );
-        });
-        setMenuItems(filteredData);
-      })
-      .catch((error) => {
-        // 요청이 실패한 경우 에러 처리
-        console.error('메뉴 요청 중 오류 발생:', error);
-      });
-  }, [category, temperature]);
+  if (isLoading) return <ActivityIndicator size={'small'} color={'black'} />;
 
   const itemsPerPage = 3;
-  const totalPages = Math.ceil(menuItems2.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredMenu.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const menuItemsToShow = menuItems2.slice(startIndex, endIndex);
+  const menuItemsToShow = filteredMenu.slice(startIndex, endIndex);
 
   const handleNextPage = () => {
     // 다음 페이지로 이동
