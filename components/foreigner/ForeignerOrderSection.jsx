@@ -9,31 +9,7 @@ import styled from 'styled-components/native';
 function ForeignerOrderSection() {
   const { openModal } = useModal('foreignerOrderConfirmModal');
 
-  const items = useMemo(
-    () => [
-      {
-        id: 1,
-        quantity: 1,
-        img: require('@assets/menu/americano.jpeg'),
-      },
-      {
-        id: 2,
-        quantity: 4,
-        img: require('@assets/menu/cafelatte.jpeg'),
-      },
-      {
-        id: 3,
-        quantity: 2,
-        img: require('@assets/menu/einspanner.jpeg'),
-      },
-      {
-        id: 4,
-        quantity: 2,
-        img: require('@assets/menu/banillalatte.jpeg'),
-      },
-    ],
-    [],
-  );
+  const items = useMemo(() => [], []);
 
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);

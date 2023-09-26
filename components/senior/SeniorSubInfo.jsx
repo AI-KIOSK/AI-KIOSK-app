@@ -11,9 +11,6 @@ function SeniorSubInfo() {
   const { openModal } = useModal('orderConfirmModal');
   const shoppingList = useRecoilValue(ShoppingList);
 
-  const img = require('@assets/menu/cafelatte.jpeg');
-  // console.log(shoppingList);
-
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
 
@@ -26,7 +23,6 @@ function SeniorSubInfo() {
   }, [offset]);
 
   const handleOrderButtonClick = () => {
-    console.log('shopping list: ', shoppingList);
     openModal();
   };
 
@@ -41,7 +37,7 @@ function SeniorSubInfo() {
           <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
 
           {shoppingList.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={img} label={item.menuName} quantity={item.orderQuantity} />
+            <MenuIcon key={item.id} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
           ))}
           <AntDesign
             name="caretright"

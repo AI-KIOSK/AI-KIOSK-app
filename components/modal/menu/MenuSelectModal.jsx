@@ -44,7 +44,7 @@ function MenuSelectModal() {
             <MenuImageView>
               <Image
                 style={{ maxWidth: RFValue(100), height: RFValue(100) }}
-                source={{ url: `data:image/png;base64,${chosenMenu.img}` }}
+                source={{ uri: `data:image/png;base64,${chosenMenu.img}` }}
                 resizeMode="contain"
               />
             </MenuImageView>

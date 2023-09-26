@@ -11,9 +11,17 @@ MenuIcon.propTypes = {
 };
 
 function MenuIcon({ image, label, quantity }) {
+  const img = require('@assets/menu/cafelatte.jpeg');
+
+  console.log(`menuIcon ${label}`);
+
   return (
     <Container>
-      <MenuImage source={{ url: `data:image/png;base64,${image}` }} />
+      {image !== undefined ? (
+        <MenuImage source={{ uri: `data:image/png;base64,${image}` }} />
+      ) : (
+        <MenuImage source={img} />
+      )}
       <Label>
         {label} {quantity !== undefined && `${quantity}개`}
       </Label>

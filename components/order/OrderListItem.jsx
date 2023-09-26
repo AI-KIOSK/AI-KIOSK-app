@@ -50,16 +50,21 @@ export default function OrderListItem({ item, onDelete }) {
     }
     return options.join(', ');
   };
+  const img = require('@assets/menu/cafelatte.jpeg');
 
   return (
     <Container>
       <MainContent>
         <MenuImageView>
-          <Image
-            style={{ width: RFValue(80), height: RFValue(80) }}
-            source={{ url: `data:image/png;base64,${item.img}` }}
-            resizeMode="contain"
-          />
+          {item.img !== undefined ? (
+            <Image
+              style={{ width: RFValue(60), height: RFValue(60) }}
+              source={{ uri: `data:image/png;base64,${item.img}` }}
+              resizeMode="contain"
+            />
+          ) : (
+            <Image style={{ width: RFValue(60), height: RFValue(60) }} source={img} resizeMode="contain" />
+          )}
         </MenuImageView>
         <MenuOptionView>
           <NameContainer>
@@ -102,8 +107,9 @@ const Option = styled.View`
 `;
 
 const OptionLabel = styled.Text`
-  font-size: ${RFValue(10)}px;
+  font-size: ${RFValue(12)}px;
   font-weight: 700;
+  padding-left: ${RFValue(5)}px;
 `;
 
 const MenuImageView = styled.View`

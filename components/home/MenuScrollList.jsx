@@ -2,6 +2,7 @@ import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import { useFetch } from '@hooks/fetch';
 import { fetchMenus } from 'api/fetch';
+import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';

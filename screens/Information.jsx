@@ -17,9 +17,7 @@ function Information() {
 
   return (
     <Container>
-      <Info>
-        <Description>안내 문구</Description>
-      </Info>
+      <Info source={require('@assets/information.png')} resizeMode="contain" />
 
       <Button onPress={() => navigate('camera')}>
         <Label>AI Kiosk 사용하기</Label>
@@ -49,24 +47,31 @@ function Information() {
 
 const Container = styled.View`
   flex: 1;
-  border: 3px solid black;
 
   justify-content: space-around;
   align-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
+
+  background: #ffffff;
 `;
 
-const Info = styled.View`
-  width: ${wp(80)}px;
-  height: ${wp(80)}px;
+const Info = styled.Image`
+  width: ${wp(120)}px;
+  height: ${wp(90)}px;
 
-  border: 1px solid #675d50;
   justify-content: center;
   align-items: center;
 `;
 
-const Description = styled.Text``;
+const Description = styled.Text`
+  font-size: ${RFValue(16)}px;
+`;
+
+const BoldDescription = styled(Description)`
+  font-weight: bold;
+  font-size: ${RFValue(18)}px;
+`;
 
 const Button = styled.TouchableOpacity`
   width: ${wp(32)}px;

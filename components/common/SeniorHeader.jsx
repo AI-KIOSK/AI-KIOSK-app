@@ -51,12 +51,10 @@ function SeniorHeader(props) {
   const categoryHandler = (id) => {
     setCategory(id);
   };
-  console.log(category);
 
   const temperatureHandler = (id) => {
     setTemperature(id);
   };
-  console.log(temperature);
 
   return (
     <Container>

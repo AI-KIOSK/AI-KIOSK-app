@@ -21,28 +21,32 @@ export default function MenuOptionList({ label }) {
   const freeOptions = (
     <OptionList>
       <OptionSubList>
+        <OptionLabel>당도 </OptionLabel>
         <OptionButton option="sweetness" label="보통" />
         <OptionButton option="sweetness" label="덜 달게" />
       </OptionSubList>
       <OptionSubList>
-        <OptionButton option="pump" label="시럽 0회" num={0} />
-        <OptionButton option="pump" label="시럽 1회" num={1} />
-        <OptionButton option="pump" label="시럽 2회" num={2} />
-        <OptionButton option="pump" label="시럽 3회" num={3} />
+        <OptionLabel>시럽 </OptionLabel>
+        <OptionButton option="pump" label="0회" num={0} />
+        <OptionButton option="pump" label="1회" num={1} />
+        <OptionButton option="pump" label="2회" num={2} />
+        <OptionButton option="pump" label="3회" num={3} />
       </OptionSubList>
       {modalTemperature !== 'HOT' && (
         <OptionSubList>
-          <OptionButton option="iceAmount" label="얼음 적게" />
-          <OptionButton option="iceAmount" label="얼음 보통" />
-          <OptionButton option="iceAmount" label="얼음 많이" />
+          <OptionLabel>얼음</OptionLabel>
+          <OptionButton option="iceAmount" label="적게" />
+          <OptionButton option="iceAmount" label="보통" />
+          <OptionButton option="iceAmount" label="많이" />
         </OptionSubList>
       )}
       {selectedItem['whipping'] && (
         <OptionSubList>
-          <OptionButton option="whippingAmount" label="휘핑 없음" />
-          <OptionButton option="whippingAmount" label="휘핑 적게" />
-          <OptionButton option="whippingAmount" label="휘핑 보통" />
-          <OptionButton option="whippingAmount" label="휘핑 많이" />
+          <OptionLabel>크림</OptionLabel>
+          <OptionButton option="whippingAmount" label="없음" />
+          <OptionButton option="whippingAmount" label="적게" />
+          <OptionButton option="whippingAmount" label="보통" />
+          <OptionButton option="whippingAmount" label="많이" />
         </OptionSubList>
       )}
     </OptionList>

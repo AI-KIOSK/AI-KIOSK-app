@@ -38,7 +38,6 @@ function HomeHeader(props) {
   const categoryHandler = (id) => {
     setCategory(id);
   };
-  console.log(category);
 
   return (
     <Container>

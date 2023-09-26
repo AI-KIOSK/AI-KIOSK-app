@@ -2,6 +2,7 @@ import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
 import { useFetch } from '@hooks/fetch';
 import { useOrder } from '@hooks/order';
+import { fetchPoints } from 'api/fetch';
 import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
@@ -12,7 +13,6 @@ import { phoneNumber } from 'recoil/auth/atom';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
-import { fetchPoints } from 'api/fetch';
 
 function PaymentModal() {
   const paymentPlans = useMemo(

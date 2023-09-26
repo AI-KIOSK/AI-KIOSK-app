@@ -37,6 +37,20 @@ function useSignUp() {
     }
   };
 
+  const signupWithRequest = async (request) => {
+    setRequest(request);
+
+    try {
+      console.log(format(request));
+      const response = await register(request);
+      console.log(format(response));
+      return response;
+    } catch (err) {
+      console.log(format(err));
+      return err;
+    }
+  };
+
   return {
     phoneNumberPrev,
     phoneNumberNext,
@@ -44,6 +58,7 @@ function useSignUp() {
     onPressNextPhoneNumber,
     onPressGender,
     signup,
+    signupWithRequest,
     isSuccess,
     isError,
   };

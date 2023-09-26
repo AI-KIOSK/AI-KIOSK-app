@@ -1,6 +1,6 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import axios from 'axios';
+import { useSignUp } from '@hooks/customer';
 import React, { useEffect, useMemo, useState } from 'react'; // 추가: useState import
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -35,37 +35,18 @@ function SeniorSignUpModal() {
 
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [gender, setGender] = useState('');
-
-  const requestBody = { phoneNumber, gender };
+  const { signupWithRequest } = useSignUp();
 
   const pressSignUp = () => {
-    // API 요청을 보낼 URL
-    const apiUrl = 'http://14.36.131.49:10008/api/v1/user/';
+    const combinedNumber = input1 + input2;
+    const requestBody = { phoneNumber: combinedNumber, gender };
 
-    // Axios 사용하여 GET 요청을 보냄
-    axios
-      .post(apiUrl, JSON.stringify(requestBody), {
-        headers: {
-          'Content-Type': 'application/json', // 요청 본문의 데이터 형식을 JSON으로 설정
-        },
-      })
-      .then((response) => {
-        console.log('회원가입 요청 성공:', response.data);
-      })
-      .catch((error) => {
-        // 요청이 실패한 경우 에러 처리
-        console.log(error.response);
-        console.error('회원가입 요청 중 오류 발생:', error);
-      });
+    signupWithRequest(requestBody);
+
     hideModal();
     openModal();
   };
-
-  useEffect(() => {
-    console.log(requestBody);
-  }, [requestBody]);
 
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
@@ -86,14 +67,14 @@ function SeniorSignUpModal() {
                 </PhoneSection>
                 <PhoneSection>
                   {/* 수정: onChangeText로 phoneNumber 상태값 업데이트 */}
-                  <InputBox maxLength={4} keyboardType="numeric" />
+                  <InputBox maxLength={4} keyboardType="numeric" onChangeText={(text) => setInput1(text)} />
                 </PhoneSection>
                 <PhoneSection>
                   <NormalText>-</NormalText>
                 </PhoneSection>
                 <PhoneSection>
                   {/* 수정: onChangeText로 phoneNumber 상태값 업데이트 */}
-                  <InputBox maxLength={4} keyboardType="numeric" onChangeText={(text) => setPhoneNumber(text)} />
+                  <InputBox maxLength={4} keyboardType="numeric" onChangeText={(text) => setInput2(text)} />
                 </PhoneSection>
               </PhoneNumber>
             </PhoneContainer>
