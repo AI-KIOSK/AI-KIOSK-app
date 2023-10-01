@@ -1,4 +1,4 @@
-import { selector } from 'recoil';
+import { DefaultValue, selector } from 'recoil';
 import { menuWithOption } from 'recoil/order/atom';
 
 import { chosenMenuInfo } from './atom';
@@ -6,8 +6,13 @@ import { chosenMenuInfo } from './atom';
 const chosenMenuInfoSelector = selector({
   key: 'chosenMenuInfoSelector',
   get: ({ get }) => get(chosenMenuInfo),
-  set: ({ set }, item) => {
+  set: ({ set, reset }, item) => {
     const { id, name, price, img } = item;
+
+    if (item instanceof DefaultValue) {
+      reset(chosenMenuInfo);
+      return;
+    }
 
     set(menuWithOption, (prev) => ({ ...prev, id, menuName: name, price, img }));
     return set(chosenMenuInfo, item);
