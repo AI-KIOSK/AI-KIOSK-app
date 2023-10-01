@@ -1,35 +1,31 @@
-import { useOrder } from '@hooks/order';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { styled } from 'styled-components/native';
+import { HotOrIce } from 'types/menu';
 
 TemperatureOptionButton.propTypes = {
-  option: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  title: PropTypes.string,
+  highlight: PropTypes.bool,
+  disabled: PropTypes.bool,
   onPress: PropTypes.func,
 };
 
-export default function TemperatureOptionButton({ option, label, onPress }) {
-  const isDisabled = option !== 'HOT' && option !== 'ICE' && option !== 'BOTH';
-
-  const { order } = useOrder();
-
-  // Container의 색상을 modalTemperature와 option에 따라 동적으로 설정
+export default function TemperatureOptionButton({ title, highlight, onPress, disabled }) {
   const getContainerColor = () => {
-    if ((order.hotOrIced === 'ICE' && option === 'ICE') || option === 'BOTH') {
+    if (highlight && title === HotOrIce.ICE) {
       return '#99eeff'; // ICE 선택 시 파란색
-    } else if ((order.hotOrIced === 'HOT' && option === 'HOT') || option === 'BOTH') {
+    } else if (highlight && title === HotOrIce.HOT) {
       return '#FEE5E6'; // HOT 선택 시 빨간색
     } else {
       return 'transparent';
     }
   };
   return (
-    <Container option={option} onPress={onPress} disabled={isDisabled} color={getContainerColor()}>
-      <ButtonText option={option} disabled={isDisabled}>
-        {label}
+    <Container title={title} onPress={onPress} disabled={disabled} color={getContainerColor()}>
+      <ButtonText title={title} disabled={disabled}>
+        {title}
       </ButtonText>
     </Container>
   );
@@ -53,13 +49,13 @@ const Container = styled.TouchableOpacity`
     background-color: #dcdcdc; /* 회색 배경색 */
   `}
 
-  ${({ option }) =>
-    option === 'HOT'
+  ${({ title }) =>
+    title === 'HOT'
       ? `
     border: 3px solid #FEC3C4;
     border-radius: 8px;
   `
-      : option === 'ICED'
+      : title === 'ICE'
       ? `
     border: 3px solid #002b85;
     border-radius: 8px;
@@ -72,18 +68,20 @@ const Container = styled.TouchableOpacity`
   ${({ disabled }) =>
     disabled &&
     `
+    border: none;
+    background-color: transparent;
     opacity: 0.6; /* 비활성화 상태일 때 투명도 조절 */
   `}
 `;
 
 const ButtonText = styled.Text`
   font-size: ${RFValue(13)}px;
-  ${({ option }) =>
-    option === 'HOT'
+  ${({ title }) =>
+    title === 'HOT'
       ? `
     color: #FEC3C4;
   `
-      : option === 'ICED'
+      : title === 'ICED'
       ? `
     color: #002b85;
   `
