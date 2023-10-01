@@ -8,7 +8,7 @@ import SeniorSignUpCompletedModal from '@components/modal/senior/SeniorSignUpCom
 import SeniorSignUpModal from '@components/modal/senior/SeniorSignUpModal';
 import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
-import { useFetch } from '@hooks/fetch';
+import { useFetch } from '@hooks/useFecth';
 import { fetchMenus } from 'api/fetch';
 import React, { useMemo, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
