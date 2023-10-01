@@ -30,7 +30,6 @@ export default function OptionButton({ option, label, num }) {
         [key]: label,
       }));
     }
-    console.log(optionList);
   };
 
   return (
@@ -45,14 +44,14 @@ const Container = styled.TouchableOpacity`
   align-items: center;
 
   width: ${wp(13)}px;
-  height: ${hp(3)}px;
+  height: ${hp(4)}px;
   border-radius: ${wp(13)}px;
 
   border: 2px solid ${({ isSelected }) => (isSelected ? '#FEC3C4' : '#ebd3b5')};
-  background-color: ${({ isSelected }) => (isSelected ? '#FEC3C4' : 'transparent')};
+  background-color: ${({ isSelected }) => (isSelected ? '#f29727' : 'transparent')};
 `;
 
 const ButtonText = styled.Text`
-  font-size: ${RFValue(11)}px;
+  font-size: ${RFValue(13)}px;
   color: ${({ isSelected }) => (isSelected ? 'black' : 'black')};
 `;

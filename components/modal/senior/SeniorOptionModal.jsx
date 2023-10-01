@@ -1,8 +1,7 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
-import OptionButton from '@components/common/btn/OptionButton';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/common';
-import React, { useState } from 'react'; // useState 추가
+import React, { useState } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -24,7 +23,7 @@ function SeniorOptionModal() {
   const [counter, setCounter] = useState(1);
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
-  console.log(selectedItem);
+  const img = require('@assets/menu/cafelatte.jpeg');
 
   const increaseCounter = () => {
     setCounter(counter + 1);
@@ -52,6 +51,7 @@ function SeniorOptionModal() {
       shots: optionList['shots'],
       whippings: optionList['whippings'],
       price: item.price + optionList['shots'] * 500 + optionList['whippings'] * 500,
+      img: item.img,
     };
 
     // 동일한 아이템이 이미 주문 목록에 있는지 확인
@@ -94,11 +94,15 @@ function SeniorOptionModal() {
         <Container>
           <MenuSection>
             <MenuImageView>
-              <Image
-                style={{ maxWidth: RFValue(100) }}
-                source={require('@assets/menu/americano.jpeg')}
-                resizeMode="contain"
-              />
+              {selectedItem.img !== undefined ? (
+                <Image
+                  style={{ width: RFValue(80), height: RFValue(80) }}
+                  source={{ uri: `data:image/png;base64,${selectedItem.img}` }}
+                  resizeMode="contain"
+                />
+              ) : (
+                <Image style={{ width: RFValue(80), height: RFValue(80) }} source={img} resizeMode="contain" />
+              )}
             </MenuImageView>
             <MenuOptionView>
               <MenuLabel>{selectedItem.name}</MenuLabel>
@@ -109,7 +113,6 @@ function SeniorOptionModal() {
                 <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} onPress={increaseCounter} />
               </QunatityOptionView>
               <OptionButtonView>
-                {/* selectedOption에 따라 옵션을 동적으로 변경 */}
                 {selectedItem.hotOrIced === 'HOT' ? (
                   <>
                     <HotOrIceSelectButton option="HOT" label="HOT" />
@@ -134,12 +137,18 @@ function SeniorOptionModal() {
           <MenuOptionList label="유료 옵션" />
 
           <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+            <ModalActionButton
+              title={'취소'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'seniorNormal'}
+              onPress={hideModal}
+            />
             <ModalActionButton
               title={'음료담기'}
               width={wp(25)}
               height={hp(6)}
-              color={'#675D50'}
+              color={'seniorConfirm'}
               onPress={() => AddOrder(selectedItem, counter)}
             />
           </ButtonSection>

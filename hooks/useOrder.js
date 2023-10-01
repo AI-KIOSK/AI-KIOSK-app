@@ -117,6 +117,18 @@ function useOrder() {
     }
   };
 
+  const completeOrderWithRequest = async (final) => {
+    console.log(format(final));
+
+    try {
+      const response = await postOrders(final);
+      setOrderResponse(response.data);
+      console.log(response);
+    } catch (err) {
+      console.log(format(err));
+    }
+  };
+
   return {
     order,
     request,
@@ -127,6 +139,7 @@ function useOrder() {
     deleteMenu,
     resetOrder,
     resetRequest,
+    completeOrderWithRequest,
     completeOrder,
   };
 }

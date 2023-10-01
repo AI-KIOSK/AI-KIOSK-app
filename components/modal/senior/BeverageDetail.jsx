@@ -14,9 +14,6 @@ export default function BeverageDetail() {
   const { modal, hideModal: hideBeverageDetailModal } = useModal('beverageDetail');
   const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
 
-  const Detail = '단 맛이 강해요.우유가 들어가 있어요.씁쓸한 맛이 강해요.과일 맛이 나요.';
-  console.log(selectedMenu && selectedMenu['description']);
-
   const DetailParser = (detail) => {
     if (detail) {
       const sentences = detail.split('.');

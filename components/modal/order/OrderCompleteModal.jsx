@@ -14,7 +14,6 @@ export default function OrderCompleteModal() {
 
   const setMain = () => {
     hideModal();
-    console.log('setmain');
     navigation.reset({ routes: [{ name: 'information' }] });
   };
 
