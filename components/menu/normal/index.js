@@ -3,9 +3,7 @@
 /**
  * 옵션 리스트
  */
-import FreeOption from './FreeOption';
+import OptionItem from './OptionItem';
 import OptionList from './OptionList';
-import PaidOption from './PaidOption';
-
 import OrderList from './OrderList';
-export { FreeOption, OptionList, PaidOption, OrderList };
+export { OptionItem, OptionList, OrderList };

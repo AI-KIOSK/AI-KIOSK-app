@@ -2,39 +2,48 @@ import { ModalActionButton } from '@components/common/btn';
 import TemperatureOptionButton from '@components/common/btn/TemperatureOptionButton';
 import { OptionList } from '@components/menu/normal';
 import { useModal } from '@hooks/common';
-import { useOrder } from '@hooks/order';
-import React, { useCallback } from 'react';
+import useMenu from '@hooks/useMenu';
+import { useOrder } from '@hooks/useOrder';
+import { freeOptionsData, paidOptionsData } from 'const/options';
+import React, { useCallback, useMemo } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useRecoilState } from 'recoil';
-import { chosenMenuInfo } from 'recoil/menu/atom';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
 import { HotOrIce, OptionTypes } from 'types/menu';
 
 function MenuSelectModal() {
   const { modal, hideModal } = useModal('menuSelectModal');
-  const [chosenMenu, resetChosenMenu] = useRecoilState(chosenMenuInfo);
-
+  const { selectedMenu, resetSelectedMenu } = useMenu();
   const { add, handleSelectMenu, resetOrder, order, handleQuantity } = useOrder();
 
   const handleCloseModal = useCallback(() => {
     hideModal();
-    resetChosenMenu(null);
+    resetSelectedMenu();
     resetOrder();
-  }, [hideModal, resetChosenMenu, resetOrder]);
+  }, [hideModal, resetOrder, resetSelectedMenu]);
 
   const handleAddMenu = () => {
     add();
     resetOrder();
     hideModal();
-    resetChosenMenu(null);
+    resetSelectedMenu();
   };
 
+  const freeOptions = useMemo(
+    () => freeOptionsData.filter((item) => (selectedMenu?.whipping ? true : item.id !== 'whippingAmount')),
+    [selectedMenu?.whipping],
+  );
+
+  const paidOptions = useMemo(
+    () => paidOptionsData.filter((item) => (selectedMenu?.whipping ? true : item.id !== 'whippings')),
+    [selectedMenu?.whipping],
+  );
+
   /** Do not render unless choose menu */
-  if (chosenMenu == null) return;
+  if (selectedMenu == null) return;
 
   return (
     <Modal visible={modal.visible} transparent={true} animationType="slide" onRequestClose={hideModal}>
@@ -44,12 +53,12 @@ function MenuSelectModal() {
             <MenuImageView>
               <Image
                 style={{ maxWidth: RFValue(100), height: RFValue(100) }}
-                source={{ url: `data:image/png;base64,${chosenMenu.img}` }}
+                source={{ url: `data:image/png;base64,${selectedMenu.img}` }}
                 resizeMode="contain"
               />
             </MenuImageView>
             <MenuOptionView>
-              <MenuLabel>{chosenMenu.name}</MenuLabel>
+              <MenuLabel>{selectedMenu.name}</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
                 <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} onPress={() => handleQuantity(-1)} />
@@ -58,21 +67,23 @@ function MenuSelectModal() {
               </QunatityOptionView>
               <OptionButtonView>
                 <TemperatureOptionButton
-                  option={chosenMenu.hotOrIced === HotOrIce.BOTH || HotOrIce.HOT ? HotOrIce.HOT : 'DISABLE'}
-                  label={'HOT'}
-                  onPress={() => handleSelectMenu('hotOrIced', HotOrIce.HOT)}
+                  title={HotOrIce.HOT}
+                  highlight={order.hotOrIce === HotOrIce.HOT}
+                  disabled={selectedMenu.hotOrIced === HotOrIce.ICE}
+                  onPress={() => handleSelectMenu('hotOrIce', HotOrIce.HOT)}
                 />
                 <TemperatureOptionButton
-                  option={chosenMenu.hotOrIced === HotOrIce.BOTH || HotOrIce.ICE ? HotOrIce.ICE : 'DISABLE'}
-                  label={'ICE'}
-                  onPress={() => handleSelectMenu('hotOrIced', HotOrIce.ICE)}
+                  title={HotOrIce.ICE}
+                  highlight={order.hotOrIce === HotOrIce.ICE}
+                  disabled={selectedMenu.hotOrIced === HotOrIce.HOT}
+                  onPress={() => handleSelectMenu('hotOrIce', HotOrIce.ICE)}
                 />
               </OptionButtonView>
             </MenuOptionView>
           </MenuSection>
 
-          <OptionList type={OptionTypes.FREE} />
-          <OptionList type={OptionTypes.PAID} />
+          <OptionList type={OptionTypes.FREE} data={freeOptions} />
+          <OptionList type={OptionTypes.PAID} data={paidOptions} />
 
           <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={handleCloseModal} />
           <ModalActionButton
