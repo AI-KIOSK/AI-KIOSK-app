@@ -2,18 +2,18 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { styled } from 'styled-components';
+import { styled } from 'styled-components/native';
 
 MenuIcon.propTypes = {
-  image: PropTypes.number,
   label: PropTypes.string,
   quantity: PropTypes.number,
+  image: PropTypes.string.isRequired,
 };
 
 function MenuIcon({ image, label, quantity }) {
   return (
     <Container>
-      <MenuImage source={{ url: `data:image/png;base64,${image}` }} />
+      <MenuImage source={{ url: `data:image/png;base64,${image}` }} resizeMode={'contain'} />
       <Label>
         {label} {quantity !== undefined && `${quantity}개`}
       </Label>
@@ -29,7 +29,6 @@ const Container = styled.View`
 const MenuImage = styled.Image`
   width: ${wp(12)}px;
   height: ${wp(12)}px;
-  border-radius: 8px;
 `;
 
 const Label = styled.Text`

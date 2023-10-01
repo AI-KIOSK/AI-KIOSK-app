@@ -1,75 +1,68 @@
-import MenuIcon from '@components/common/MenuIcon';
+import { MenuCard } from '@components/menu/common';
 import { useModal } from '@hooks/common';
-import { useFetch } from '@hooks/fetch';
+import { useFetch } from '@hooks/useFecth';
+import useMenu from '@hooks/useMenu';
 import { fetchMenus } from 'api/fetch';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Category } from 'recoil/Category';
-import { chosenMenuInfoSelector } from 'recoil/menu/selector';
 import styled from 'styled-components';
 
 function MenuScrollList() {
   const { openModal } = useModal('menuSelectModal');
-
-  const chooseMenu = useSetRecoilState(chosenMenuInfoSelector);
-
-  /** 헤더에서 선택한 카테고리 */
-  const category = useRecoilValue(Category);
-  /** 메뉴들 불러오기 */
   const { isLoading, data } = useFetch(fetchMenus);
-  /** 불러온 메뉴 카테고리에 따라 필터링하기 */
-  const filteredMenu = useMemo(
-    () => data.filter((item) => category === 0 || item.category.id === category),
-    [category, data],
-  );
+  const { category, selectMenu } = useMenu();
+
+  const filteredMenu = useMemo(() => data.filter((item) => item.category.category === category), [category, data]);
 
   const handleChooseMenu = (menu) => {
-    chooseMenu(menu);
+    selectMenu(menu);
     openModal();
   };
 
-  if (isLoading) return <ActivityIndicator size={'small'} color={'black'} />;
+  if (isLoading)
+    return (
+      <Container>
+        <ActivityIndicator size={'large'} color={'black'} />
+      </Container>
+    );
 
   return (
     <Container>
-      <ListContainer>
+      <ListWrapper>
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           numColumns={4}
           data={filteredMenu}
           renderItem={({ item }) => (
-            <Menu onPress={() => handleChooseMenu(item)} key={item.id}>
-              <MenuIcon image={item.img} label={item.name} />
-            </Menu>
+            <CardWrapper onPress={() => handleChooseMenu(item)} key={item.id}>
+              <MenuCard img={item.img} label={item.name} price={item.price} />
+            </CardWrapper>
           )}
         />
-      </ListContainer>
+      </ListWrapper>
     </Container>
   );
 }
 
 const Container = styled.View`
-  width: 100%;
-  height: 75%;
-
-  justify-content: space-around;
-  align-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
-`;
+  justify-content: space-around;
+  align-content: space-around;
 
-const ListContainer = styled.View`
-  height: 100%;
   width: 100%;
+  height: 75%;
 `;
 
-const Menu = styled.TouchableOpacity`
-  width: 25%;
-  min-height: ${hp(20)}px;
+const ListWrapper = styled.View``;
+
+const CardWrapper = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
+
+  width: 25%;
+  min-height: ${hp(20)}px;
 `;
 
 export default MenuScrollList;
