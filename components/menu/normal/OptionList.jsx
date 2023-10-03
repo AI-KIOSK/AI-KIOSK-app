@@ -3,21 +3,33 @@ import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import styled from 'styled-components/native';
-import { OptionTypes } from 'types/menu';
 
-import FreeOption from './FreeOption';
-import PaidOption from './PaidOption';
+import OptionItem from './OptionItem';
 
 OptionList.propTypes = {
   type: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+      options: PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string,
+          value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        }),
+      ),
+    }),
+  ),
 };
 
-export default function OptionList({ type }) {
+export default function OptionList({ type, data }) {
   return (
     <Container>
       <Label>{type}</Label>
       <HorizontalLine />
-      {type === OptionTypes.FREE ? <FreeOption /> : <PaidOption />}
+      {data.map((item, index) => (
+        <OptionItem id={data.id} key={index} label={item.label} options={item.options} />
+      ))}
     </Container>
   );
 }

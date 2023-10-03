@@ -1,50 +1,49 @@
+import useCategory from '@hooks/useCategory';
+import { useNavigation } from '@react-navigation/native';
 import React, { useMemo } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { useRecoilState } from 'recoil';
-import { Category } from 'recoil/Category';
 import styled from 'styled-components';
+import { CategoryTypes } from 'types/category';
 
-function HomeHeader(props) {
+function HomeHeader() {
+  const { category, onPressCategory } = useCategory();
+
+  const navigation = useNavigation();
   const menuItems = useMemo(
     () => [
       {
         id: 1,
-        menu: '커피',
+        label: CategoryTypes.COFFEE,
       },
       {
         id: 2,
-        menu: '논커피',
-      },
-      {
-        id: 4,
-        menu: '스무디',
+        label: CategoryTypes.NON_COFFEE,
       },
       {
         id: 3,
-        menu: '티',
+        label: CategoryTypes.TEA,
       },
       {
-        id: 5,
-        menu: '그외',
+        id: 4,
+        label: CategoryTypes.SMOOTHE,
       },
     ],
     [],
   );
 
-  const [category, setCategory] = useRecoilState(Category);
-
-  const categoryHandler = (id) => {
-    setCategory(id);
-  };
-
   return (
     <Container>
-      <Entypo name="home" size={RFValue(30)} color={'black'} />
+      <Entypo
+        name="home"
+        size={RFValue(30)}
+        color={'black'}
+        onPress={() => navigation.reset({ routes: [{ name: 'information' }] })}
+      />
       {menuItems.map((item) => (
-        <Button key={item.id} onPress={() => categoryHandler(item.id)}>
-          <Label>{item.menu}</Label>
+        <Button key={item.id} onPress={() => onPressCategory(item.label)} highlight={category === item.label}>
+          <Label>{item.label}</Label>
         </Button>
       ))}
     </Container>
@@ -61,11 +60,19 @@ const Container = styled.SafeAreaView`
 const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  background-color: #abc4aa;
+
+  ${({ theme, highlight }) =>
+    highlight
+      ? `
+    background-color: ${theme.colors.lavenderMist};
+  `
+      : `
+    border: 1px solid black;
+  `}
 
   width: ${wp(12)}px;
   height: ${hp(4)}px;
-  border-radius: 8px;
+  border-radius: ${RFValue(6)}px;
 `;
 
 const Label = styled.Text`

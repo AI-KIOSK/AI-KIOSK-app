@@ -6,7 +6,7 @@ import ForeignerMenuSelectModal from '@components/modal/menu/ForeignerMenuSelect
 import ForeignerOrderConfirmModal from '@components/modal/order/ForeignerOrderConfirmModal';
 import { ForeignerPaymentCompletedModal, ForeignerPaymentModal } from '@components/modal/payment';
 import ForeignerEarningPointsModal from '@components/modal/point/ForeignerEarningPointsModal';
-import { useFetch } from '@hooks/fetch';
+import { useFetch } from '@hooks/useFecth';
 import { fetchMenus } from 'api/fetch';
 import React from 'react';
 import { useRecoilValue } from 'recoil';

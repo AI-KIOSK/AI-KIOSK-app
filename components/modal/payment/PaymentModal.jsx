@@ -1,9 +1,8 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import { useFetch } from '@hooks/fetch';
-import { useOrder } from '@hooks/order';
+import { useFetch } from '@hooks/useFecth';
+import { useOrder } from '@hooks/useOrder';
 import { fetchPoints } from 'api/fetch';
-import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';

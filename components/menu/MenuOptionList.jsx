@@ -1,5 +1,5 @@
 import OptionButton from '@components/common/btn/OptionButton';
-import { useFetch } from '@hooks/fetch';
+import { useFetch } from '@hooks/useFecth';
 import { fetchMenus } from 'api/fetch';
 import PropTypes from 'prop-types';
 import React from 'react';
