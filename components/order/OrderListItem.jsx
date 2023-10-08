@@ -4,12 +4,15 @@ import { Image } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components/native';
 
 OrderListItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
     menuName: PropTypes.string,
+    nameEng: PropTypes.string,
     hotOrIced: PropTypes.string,
     orderQuantity: PropTypes.number,
     sweetness: PropTypes.string,
@@ -25,6 +28,8 @@ OrderListItem.propTypes = {
 };
 
 export default function OrderListItem({ item, onDelete }) {
+  const isForeigner = useRecoilValue(onForeigner);
+
   const generateOptionLabel = () => {
     const options = [];
     if (item.hotOrIced) {
@@ -50,7 +55,36 @@ export default function OrderListItem({ item, onDelete }) {
     }
     return options.join(', ');
   };
+  const generateOptionEngLabel = () => {
+    const options = [];
+    if (item.hotOrIced) {
+      options.push(item.hotOrIced);
+    }
+    if (item.sweetness === '덜 달게') {
+      options.push(item.sweetness);
+    }
+    if (item.pump !== 0) {
+      options.push(`${item.pump} Syrup`);
+    }
+    if (item.iceAmount) {
+      options.push(`Ice ${item.iceAmount}`);
+    }
+    if (item.whippingAmount) {
+      options.push(`Whipping ${item.whippingAmount}`);
+    }
+    if (item.shots !== 0) {
+      options.push(`Add ${item.shots} Shots`);
+    }
+    if (item.whippings !== 0) {
+      options.push(`Add ${item.whippings} Whippings`);
+    }
+    return options.join(', ');
+  };
   const img = require('@assets/menu/cafelatte.jpeg');
+  const totalQuantity = item.orderQuantity;
+
+  const totalQuantityText = totalQuantity === 1 ? 'Cup' : 'Cups';
+  console.log(item);
 
   return (
     <Container>
@@ -66,18 +100,46 @@ export default function OrderListItem({ item, onDelete }) {
             <Image style={{ width: RFValue(60), height: RFValue(60) }} source={img} resizeMode="contain" />
           )}
         </MenuImageView>
-        <MenuOptionView>
-          <NameContainer>
-            <MenuLabel>{item.menuName}</MenuLabel>
-          </NameContainer>
-          <AntDesign name={'closesquareo'} size={RFValue(24)} color={'#818181'} onPress={onDelete} />
-          <TextView>
-            <TotalPriceText>{item.price * item.orderQuantity}원</TotalPriceText>
-          </TextView>
-        </MenuOptionView>
+        {isForeigner ? (
+          <>
+            <MenuOptionView>
+              <NameContainer>
+                <MenuLabel>{item.nameEng}</MenuLabel>
+              </NameContainer>
+              <QuantityContainer>
+                <QuantityLabel>
+                  {item.orderQuantity} {totalQuantityText}
+                </QuantityLabel>
+              </QuantityContainer>
+              <AntDesign name={'closesquareo'} size={RFValue(20)} color={'#818181'} onPress={onDelete} />
+              <TextView>
+                <TotalPriceEngText>{item.price * item.orderQuantity} Won</TotalPriceEngText>
+              </TextView>
+            </MenuOptionView>
+          </>
+        ) : (
+          <>
+            <MenuOptionView>
+              <NameContainer>
+                <MenuLabel>{item.menuName}</MenuLabel>
+              </NameContainer>
+              <QuantityContainer>
+                <QuantityLabel>{item.orderQuantity}개</QuantityLabel>
+              </QuantityContainer>
+              <AntDesign name={'closesquareo'} size={RFValue(24)} color={'#818181'} onPress={onDelete} />
+              <TextView>
+                <TotalPriceText>{item.price * item.orderQuantity}원</TotalPriceText>
+              </TextView>
+            </MenuOptionView>
+          </>
+        )}
       </MainContent>
       <Option>
-        <OptionLabel>{generateOptionLabel()}</OptionLabel>
+        {isForeigner ? (
+          <OptionLabel>{generateOptionEngLabel()}</OptionLabel>
+        ) : (
+          <OptionLabel>{generateOptionLabel()}</OptionLabel>
+        )}
       </Option>
     </Container>
   );
@@ -131,16 +193,24 @@ const MenuOptionView = styled.View`
 `;
 
 const NameContainer = styled.View`
-  width: 45%;
+  width: 40%;
   justify-content: center;
   align-items: center;
 `;
 
 const MenuLabel = styled.Text`
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(14)}px;
   width: 93%;
   font-weight: 700;
 `;
+
+const QuantityContainer = styled.View`
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const QuantityLabel = styled(MenuLabel)``;
 
 const TextView = styled.View`
   justify-content: center;
@@ -150,4 +220,9 @@ const TextView = styled.View`
 const TotalPriceText = styled.Text`
   font-size: ${RFValue(16)}px;
   font-weight: 700;
+`;
+
+const TotalPriceEngText = styled(TotalPriceText)`
+  font-size: ${RFValue(12)}px;
+  margin-left: ${RFValue(8)}px;
 `;

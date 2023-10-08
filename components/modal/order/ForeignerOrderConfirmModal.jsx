@@ -38,8 +38,20 @@ export default function ForeignerOrderConfirmModal() {
               color={'cancel'}
               onPress={hideOrderConfirmModal}
             />
-            <ModalActionButton title={'saving points'} width={wp(25)} height={hp(6)} color={'blue'} onPress={onPressPoint} />
-            <ModalActionButton title={'Payment'} width={wp(70)} height={hp(6)} color={'cancel'} onPress={onPressOrder} />
+            <ModalActionButton
+              title={'saving points'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'blue'}
+              onPress={onPressPoint}
+            />
+            <ModalActionButton
+              title={'Payment'}
+              width={wp(70)}
+              height={hp(6)}
+              color={'cancel'}
+              onPress={onPressOrder}
+            />
           </ButtonSection>
         </Container>
       </ModalTemplate>
@@ -60,7 +72,6 @@ const Container = styled.View`
 `;
 
 const Title = styled.Text`
-
   font-size: ${RFValue(20)}px;
   font-weight: 700;
 
@@ -68,7 +79,6 @@ const Title = styled.Text`
 `;
 
 const OrderResultText = styled.Text`
-
   font-size: ${RFValue(18)}px;
   font-weight: 700;
 `;

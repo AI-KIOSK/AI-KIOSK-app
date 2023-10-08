@@ -1,13 +1,13 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/common';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { ModalTemperature } from 'recoil/Category';
+import { ModalTemperature, Temperature } from 'recoil/Category';
 import { OptionList } from 'recoil/menu/OptionList';
 import { SelectedMenu } from 'recoil/menu/SelectedMenu';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
@@ -21,6 +21,7 @@ function SeniorOptionModal() {
   const [optionList, setOptionList] = useRecoilState(OptionList);
   const resetOptionList = useResetRecoilState(OptionList);
   const [counter, setCounter] = useState(1);
+  const temperature = useRecoilValue(Temperature);
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
   const img = require('@assets/menu/cafelatte.jpeg');
@@ -121,12 +122,12 @@ function SeniorOptionModal() {
                 ) : selectedItem.hotOrIced === 'ICE' ? (
                   <>
                     <HotOrIceSelectButton option="DISABLE" label="HOT" />
-                    <HotOrIceSelectButton option="ICED" label="ICED" />
+                    <HotOrIceSelectButton option="ICE" label="ICED" />
                   </>
                 ) : (
                   <>
                     <HotOrIceSelectButton option="HOT" label="HOT" />
-                    <HotOrIceSelectButton option="ICED" label="ICED" />
+                    <HotOrIceSelectButton option="ICE" label="ICED" />
                   </>
                 )}
               </OptionButtonView>

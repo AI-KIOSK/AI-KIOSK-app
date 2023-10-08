@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 const orderRequest = atom({
   key: 'orderRequest',
   default: {
-    quantity: 1,
+    quantity: 0,
     totalPrice: 0,
     orderType: '',
     orders: [],
@@ -20,6 +20,7 @@ const menuWithOption = atom({
   default: {
     id: -1,
     menuName: '',
+    nameEng: '',
     hotOrIced: '',
     orderQuantity: 1,
     sweetness: '0%',

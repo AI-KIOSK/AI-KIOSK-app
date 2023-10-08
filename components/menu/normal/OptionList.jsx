@@ -5,6 +5,8 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import styled from 'styled-components/native';
 
 import OptionItem from './OptionItem';
+import { onForeigner } from 'recoil/common/Foreigner';
+import { useRecoilValue } from 'recoil';
 
 OptionList.propTypes = {
   type: PropTypes.string.isRequired,
@@ -23,13 +25,19 @@ OptionList.propTypes = {
 };
 
 export default function OptionList({ type, data }) {
+  const isForeigner = useRecoilValue(onForeigner);
+
   return (
     <Container>
       <Label>{type}</Label>
       <HorizontalLine />
-      {data.map((item, index) => (
-        <OptionItem id={data.id} key={index} label={item.label} options={item.options} />
-      ))}
+      {data.map((item, index) =>
+        isForeigner ? (
+          <OptionItem id={data.id} key={index} label={item.labelEng} options={item.options} />
+        ) : (
+          <OptionItem id={data.id} key={index} label={item.label} options={item.options} />
+        ),
+      )}
     </Container>
   );
 }

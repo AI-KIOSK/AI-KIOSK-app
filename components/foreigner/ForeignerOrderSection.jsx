@@ -1,17 +1,21 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
-import React, { useCallback, useMemo, useState } from 'react';
+import format from 'pretty-format';
+import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilValue } from 'recoil';
+import { orderRequest } from 'recoil/order/atom';
 import styled from 'styled-components/native';
 
 function ForeignerOrderSection() {
-  const { openModal } = useModal('foreignerOrderConfirmModal');
+  const { openModal } = useModal('orderConfirmModal');
 
-  const items = useMemo(() => [], []);
+  const request = useRecoilValue(orderRequest);
 
-  /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
+  const items = request.orders;
+
   const [offset, setOffset] = useState(0);
 
   const nextMenuSets = useCallback(() => {
@@ -22,6 +26,8 @@ function ForeignerOrderSection() {
     if (offset > 0) setOffset((prev) => prev - 1);
   }, [offset]);
 
+  console.log(items);
+
   return (
     <Container>
       <TitleView>
@@ -31,8 +37,8 @@ function ForeignerOrderSection() {
         <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : '#ABC4AA'} onPress={prevMenuSets} />
 
         <ContainedMenuList>
-          {items.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={` ${item.quantity}`} />
+          {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
+            <MenuIcon key={`addedItem${index}`} image={item.img} label={item.nameEng} quantity={item.orderQuantity} />
           ))}
         </ContainedMenuList>
         <AntDesign
@@ -44,7 +50,7 @@ function ForeignerOrderSection() {
       </ContainedMenuView>
       <ButtonContainer>
         <OrderButton onPress={openModal}>
-          <ButtonLabel>payment</ButtonLabel>
+          <ButtonLabel>Payment</ButtonLabel>
         </OrderButton>
       </ButtonContainer>
     </Container>
@@ -97,7 +103,7 @@ const ButtonContainer = styled.View`
 `;
 
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(12)}px;
+  width: ${wp(14)}px;
   height: ${wp(12)}px;
   padding: ${RFValue(8)}px;
 
@@ -113,8 +119,4 @@ const ButtonLabel = styled.Text`
   font-weight: 700;
 `;
 
-const Blank = styled.View`
-  width: 40px;
-  border: 1px solid black;
-`;
 export default ForeignerOrderSection;

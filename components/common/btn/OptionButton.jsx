@@ -1,10 +1,9 @@
-// OptionButton.js
 import PropTypes from 'prop-types';
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
-import { OptionList } from 'recoil/menu/OptionList'; // 예시로 만든 상태
+import { OptionList } from 'recoil/menu/OptionList';
 import { styled } from 'styled-components/native';
 
 OptionButton.propTypes = {

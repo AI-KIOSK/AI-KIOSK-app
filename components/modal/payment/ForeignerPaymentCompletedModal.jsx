@@ -30,7 +30,6 @@ function ForeignerPaymentCompletedModal() {
         <ButtonContainer>
           <RectButton onPress={pressBack} text={'Back'} fontColor="#000000" backColor="#ABC4AA" />
         </ButtonContainer>
-        
       </ModalTemplate>
     </Modal>
   );
@@ -44,7 +43,7 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  color: #675D50;
+  color: #675d50;
   font-weight: bold;
   font-size: ${RFValue(23)}px;
 `;

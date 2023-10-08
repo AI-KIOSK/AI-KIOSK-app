@@ -41,13 +41,12 @@ function ForeignerPaymentModal() {
           <TitleText>Payment details</TitleText>
         </TitleContainer>
         <PaymentContainer>
-
           <PointContainer>
-          <Row>
-            <TitleText>Order amount</TitleText>
-            <NormalText> 16000₩  </NormalText>
-          </Row>
-              <TitleText>Points</TitleText>
+            <Row>
+              <TitleText>Order amount</TitleText>
+              <NormalText> 16000₩ </NormalText>
+            </Row>
+            <TitleText>Points</TitleText>
             <Row>
               <NormalText>Retained</NormalText>
               <NormalText>1000 point</NormalText>
@@ -70,9 +69,9 @@ function ForeignerPaymentModal() {
           </PaymentPlanContainer>
         </PaymentContainer>
         <ButtonSection>
-            <ModalActionButton title={'cancel'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'Payment'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={pressPayment} />
-          </ButtonSection>
+          <ModalActionButton title={'cancel'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+          <ModalActionButton title={'Payment'} width={wp(25)} height={hp(6)} color={'#675D50'} onPress={pressPayment} />
+        </ButtonSection>
       </ModalTemplate>
     </Modal>
   );
@@ -135,8 +134,8 @@ const PaymentPlanItem = styled.TouchableOpacity`
   border-radius: 8px;
   width: ${wp(16)}px;
   height: ${hp(10)}px;
- background-color: #F3DEBA;
-  border-color: #675D50;
+  background-color: #f3deba;
+  border-color: #675d50;
   justify-content: center;
   align-items: center;
 `;

@@ -7,7 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import styled from 'styled-components';
 import { CategoryTypes } from 'types/category';
 
-function ForeignerHeader() {
+function YoungmanHeader() {
   const { category, onPressCategory } = useCategory();
 
   const navigation = useNavigation();
@@ -16,27 +16,22 @@ function ForeignerHeader() {
       {
         id: 1,
         label: CategoryTypes.RECOMMENDED,
-        label_eng: 'Recommended',
       },
       {
         id: 2,
         label: CategoryTypes.COFFEE,
-        label_eng: 'Coffee',
       },
       {
         id: 3,
         label: CategoryTypes.NON_COFFEE,
-        label_eng: 'Non Coffee',
       },
       {
         id: 4,
         label: CategoryTypes.TEA,
-        label_eng: 'Tea',
       },
       {
         id: 5,
         label: CategoryTypes.SMOOTHE,
-        label_eng: 'Smoothie',
       },
     ],
     [],
@@ -52,7 +47,7 @@ function ForeignerHeader() {
       />
       {menuItems.map((item) => (
         <Button key={item.id} onPress={() => onPressCategory(item.label)} highlight={category === item.label}>
-          <Label>{item.label_eng}</Label>
+          <Label>{item.label}</Label>
         </Button>
       ))}
     </Container>
@@ -79,14 +74,13 @@ const Button = styled.TouchableOpacity`
     border: 1px solid black;
   `}
 
-  width: ${wp(14)}px;
+  width: ${wp(12)}px;
   height: ${hp(4)}px;
   border-radius: ${RFValue(6)}px;
 `;
 
 const Label = styled.Text`
-  font-size: ${RFValue(8)}px;
-  font-weight: bold;
+  font-size: ${RFValue(10)}px;
 `;
 
-export default ForeignerHeader;
+export default YoungmanHeader;

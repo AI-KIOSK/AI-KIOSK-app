@@ -1,49 +1,37 @@
 import ForeignerMenuScrollList from '@components/foreigner/ForeignerMenuScrollList';
 import ForeignerOrderSection from '@components/foreigner/ForeignerOrderSection';
-import ForeignerSignUpCompletedModal from '@components/modal/auth/ForeignerSignUpCompletedModal';
-import ForeignerSignUpModal from '@components/modal/auth/ForeignerSignUpModal';
-import ForeignerMenuSelectModal from '@components/modal/menu/ForeignerMenuSelectModal';
-import ForeignerOrderConfirmModal from '@components/modal/order/ForeignerOrderConfirmModal';
-import { ForeignerPaymentCompletedModal, ForeignerPaymentModal } from '@components/modal/payment';
-import ForeignerEarningPointsModal from '@components/modal/point/ForeignerEarningPointsModal';
-import { useFetch } from '@hooks/useFecth';
-import { fetchMenus } from 'api/fetch';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { Category, Recommendation } from 'recoil/Category';
+import SignUpCompletedModal from '@components/modal/auth/SignUpCompletedModal';
+import SignUpModal from '@components/modal/auth/SignUpModal';
+import MenuSelectModal from '@components/modal/menu/MenuSelectModal';
+import { OrderConfirmModal } from '@components/modal/order';
+import { PaymentCompletedModal, PaymentModal } from '@components/modal/payment';
+import EarningPointsModal from '@components/modal/point/EarningPointsModal';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import styled from 'styled-components/native';
 
 function ForeignerHome(props) {
-  const { data, isLoading } = useFetch(fetchMenus);
-  const menuItems = data;
-  const category = useRecoilValue(Category);
-  const recommendation = useRecoilValue(Recommendation);
+  const [Foreigner, setForeigner] = useRecoilState(onForeigner);
 
-  const recData = menuItems.filter((item, index) => item.id < 2);
-  const norData = menuItems.filter((item, index) => item.id >= 2);
-
-  //   const filterMenuItemsByCategory = recData.filter((item) => item.category === category);
-  const filterMenuItemsByCategory = (category) => {
-    return norData.filter((item) => item.category.id === category);
-  };
-  const filterMenuItemsByRec = (category) => {
-    return recData.filter((item) => item.category.id === category);
-  };
+  useFocusEffect(
+    useCallback(() => {
+      setForeigner(1);
+    }, [setForeigner]),
+  );
 
   return (
     <Container>
-      <ForeignerMenuScrollList
-        filteredItem={filterMenuItemsByCategory(category)}
-        filteredItemRec={filterMenuItemsByRec(category)}
-      />
+      <ForeignerMenuScrollList />
       <ForeignerOrderSection />
-      <ForeignerMenuSelectModal />
-      <ForeignerOrderConfirmModal />
-      <ForeignerEarningPointsModal />
-      <ForeignerPaymentModal />
-      <ForeignerPaymentCompletedModal />
-      <ForeignerSignUpModal />
-      <ForeignerSignUpCompletedModal />
+      <MenuSelectModal />
+      <OrderConfirmModal />
+      <EarningPointsModal />
+      <PaymentModal />
+      <PaymentCompletedModal />
+      <SignUpModal />
+      <SignUpCompletedModal />
     </Container>
   );
 }

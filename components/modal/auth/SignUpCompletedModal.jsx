@@ -6,11 +6,13 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilValue } from 'recoil';
 import { signUpRequest } from 'recoil/auth/atom';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
 
 function SignUpCompletedModal() {
   const request = useRecoilValue(signUpRequest);
+  const isForeigner = useRecoilValue(onForeigner);
 
   const { modal, hideModal } = useModal('signupCompleteModal');
   const { openModal } = useModal('earningpointsModal');
@@ -23,16 +25,33 @@ function SignUpCompletedModal() {
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
-        <TitleContainer>
-          <TitleText>회원가입 완료</TitleText>
-        </TitleContainer>
-        <PhoneNumContainer>
-          <TitleText>반갑습니다{'\n'}</TitleText>
-          <TitleText>{request.phoneNumber.substring(4)} 님!</TitleText>
-        </PhoneNumContainer>
-        <ButtonSection>
-          <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
-        </ButtonSection>
+        {isForeigner ? (
+          <>
+            <TitleContainer>
+              <TitleText>Registration completed</TitleText>
+            </TitleContainer>
+            <PhoneNumContainer>
+              <TitleText>Hello,{'\n'}</TitleText>
+              <TitleText>{request.phoneNumber.substring(4)}!</TitleText>
+            </PhoneNumContainer>
+            <ButtonSection>
+              <ModalActionButton title={'Back'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
+            </ButtonSection>
+          </>
+        ) : (
+          <>
+            <TitleContainer>
+              <TitleText>회원가입 완료</TitleText>
+            </TitleContainer>
+            <PhoneNumContainer>
+              <TitleText>반갑습니다{'\n'}</TitleText>
+              <TitleText>{request.phoneNumber.substring(4)} 님!</TitleText>
+            </PhoneNumContainer>
+            <ButtonSection>
+              <ModalActionButton title={'돌아가기'} width={wp(25)} height={hp(6)} color={'back'} onPress={pressBack} />
+            </ButtonSection>
+          </>
+        )}
       </ModalTemplate>
     </Modal>
   );

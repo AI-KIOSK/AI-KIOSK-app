@@ -4,7 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useRecoilState } from 'recoil';
-import { Category, Temperature } from 'recoil/Category';
+import { Category, ModalTemperature, Temperature } from 'recoil/Category';
 import styled from 'styled-components';
 
 function SeniorHeader(props) {
@@ -46,6 +46,7 @@ function SeniorHeader(props) {
 
   const [category, setCategory] = useRecoilState(Category);
   const [temperature, setTemperature] = useRecoilState(Temperature);
+  const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
   const { navigate } = useNavigation();
 
   const categoryHandler = (id) => {
@@ -54,6 +55,7 @@ function SeniorHeader(props) {
 
   const temperatureHandler = (id) => {
     setTemperature(id);
+    setModalTemperature(id);
   };
 
   return (

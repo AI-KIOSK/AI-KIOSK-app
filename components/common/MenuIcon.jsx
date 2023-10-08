@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components/native';
 
 MenuIcon.propTypes = {
@@ -12,8 +14,9 @@ MenuIcon.propTypes = {
 
 function MenuIcon({ image, label, quantity }) {
   const img = require('@assets/menu/cafelatte.jpeg');
+  const isForeigner = useRecoilValue(onForeigner);
 
-  console.log(`menuIcon ${label}`);
+  // console.log(`menuIcon ${label}`);
 
   return (
     <Container>
@@ -22,9 +25,21 @@ function MenuIcon({ image, label, quantity }) {
       ) : (
         <MenuImage source={img} />
       )}
-      <Label>
-        {label} {quantity !== undefined && `${quantity}개`}
-      </Label>
+      {isForeigner ? (
+        quantity === 1 ? (
+          <Label>
+            {label} {quantity !== undefined && `${quantity} Cup`}
+          </Label>
+        ) : (
+          <Label>
+            {label} {quantity !== undefined && `${quantity} Cups`}
+          </Label>
+        )
+      ) : (
+        <Label>
+          {label} {quantity !== undefined && `${quantity}개`}
+        </Label>
+      )}
     </Container>
   );
 }

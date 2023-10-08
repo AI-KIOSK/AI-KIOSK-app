@@ -8,6 +8,8 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
+import { onForeigner } from 'recoil/common/Foreigner';
+import { useRecoilValue } from 'recoil';
 
 function SignUpModal() {
   const genderItems = useMemo(
@@ -16,33 +18,30 @@ function SignUpModal() {
         id: 'male',
         value: 'MALE',
         name: '남',
+        nameEng: 'Male',
       },
       {
         id: 'female',
         value: 'FEMALE',
         name: '여',
+        nameEng: 'Female',
       },
       {
         id: 'etc',
         value: 'etc',
         name: '기타',
+        nameEng: 'Etc',
       },
     ],
     [],
   );
 
+  const isForeigner = useRecoilValue(onForeigner);
   const { modal, hideModal } = useModal('signupModal');
   const { openModal } = useModal('signupCompleteModal');
 
-  const {
-    onPressGender,
-    onPressNextPhoneNumber,
-    onPressPrevPhoneNumber,
-    phoneNumberPrev,
-    phoneNumberNext,
-    signup,
-    isSuccess,
-  } = useSignUp();
+  const { onPressGender, onPressNextPhoneNumber, onPressPrevPhoneNumber, phoneNumberPrev, phoneNumberNext, signup } =
+    useSignUp();
 
   const pressSignUp = () => {
     signup();
@@ -53,57 +52,133 @@ function SignUpModal() {
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
-        <Container>
-          <TitleContainer>
-            <TitleText>회원가입</TitleText>
-          </TitleContainer>
-          <SignUpContainer>
-            <PhoneContainer>
-              <TitleText>전화번호</TitleText>
-              <PhoneNumber>
-                <PhoneSection>
-                  <NormalText>010</NormalText>
-                </PhoneSection>
-                <PhoneSection>
-                  <NormalText>-</NormalText>
-                </PhoneSection>
-                <PhoneSection>
-                  <InputBox
-                    value={phoneNumberPrev}
-                    maxLength={4}
-                    keyboardType="numeric"
-                    onChangeText={onPressPrevPhoneNumber}
-                  />
-                </PhoneSection>
-                <PhoneSection>
-                  <NormalText>-</NormalText>
-                </PhoneSection>
-                <PhoneSection>
-                  <InputBox
-                    value={phoneNumberNext}
-                    maxLength={4}
-                    keyboardType="numeric"
-                    onChangeText={onPressNextPhoneNumber}
-                  />
-                </PhoneSection>
-              </PhoneNumber>
-            </PhoneContainer>
-            <GenderContainer>
-              <TitleText>성별</TitleText>
-              <Row>
-                {genderItems.map((item) => (
-                  <GenderItem key={item.id} onPress={() => onPressGender(item.value)}>
-                    <NormalText>{item.name}</NormalText>
-                  </GenderItem>
-                ))}
-              </Row>
-            </GenderContainer>
-          </SignUpContainer>
-          <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'회원가입'} width={wp(25)} height={hp(6)} color={'sign'} onPress={pressSignUp} />
-          </ButtonSection>
-        </Container>
+        {isForeigner ? (
+          <>
+            <Container>
+              <TitleContainer>
+                <TitleText>Sign up</TitleText>
+              </TitleContainer>
+              <SignUpContainer>
+                <PhoneContainer>
+                  <TitleText>Phone Number</TitleText>
+                  <PhoneNumber>
+                    <PhoneSection>
+                      <NormalText>010</NormalText>
+                    </PhoneSection>
+                    <PhoneSection>
+                      <NormalText>-</NormalText>
+                    </PhoneSection>
+                    <PhoneSection>
+                      <InputBox
+                        value={phoneNumberPrev}
+                        maxLength={4}
+                        keyboardType="numeric"
+                        onChangeText={onPressPrevPhoneNumber}
+                      />
+                    </PhoneSection>
+                    <PhoneSection>
+                      <NormalText>-</NormalText>
+                    </PhoneSection>
+                    <PhoneSection>
+                      <InputBox
+                        value={phoneNumberNext}
+                        maxLength={4}
+                        keyboardType="numeric"
+                        onChangeText={onPressNextPhoneNumber}
+                      />
+                    </PhoneSection>
+                  </PhoneNumber>
+                </PhoneContainer>
+                <GenderContainer>
+                  <TitleText>Gender</TitleText>
+                  <Row>
+                    {genderItems.map((item) => (
+                      <GenderItem key={item.id} onPress={() => onPressGender(item.value)}>
+                        <NormalText>{item.nameEng}</NormalText>
+                      </GenderItem>
+                    ))}
+                  </Row>
+                </GenderContainer>
+              </SignUpContainer>
+              <ButtonSection>
+                <ModalActionButton
+                  title={'Cancel'}
+                  width={wp(25)}
+                  height={hp(6)}
+                  color={'cancel'}
+                  onPress={hideModal}
+                />
+                <ModalActionButton
+                  title={'Confirm'}
+                  width={wp(25)}
+                  height={hp(6)}
+                  color={'sign'}
+                  onPress={pressSignUp}
+                />
+              </ButtonSection>
+            </Container>
+          </>
+        ) : (
+          <>
+            <Container>
+              <TitleContainer>
+                <TitleText>회원가입</TitleText>
+              </TitleContainer>
+              <SignUpContainer>
+                <PhoneContainer>
+                  <TitleText>전화번호</TitleText>
+                  <PhoneNumber>
+                    <PhoneSection>
+                      <NormalText>010</NormalText>
+                    </PhoneSection>
+                    <PhoneSection>
+                      <NormalText>-</NormalText>
+                    </PhoneSection>
+                    <PhoneSection>
+                      <InputBox
+                        value={phoneNumberPrev}
+                        maxLength={4}
+                        keyboardType="numeric"
+                        onChangeText={onPressPrevPhoneNumber}
+                      />
+                    </PhoneSection>
+                    <PhoneSection>
+                      <NormalText>-</NormalText>
+                    </PhoneSection>
+                    <PhoneSection>
+                      <InputBox
+                        value={phoneNumberNext}
+                        maxLength={4}
+                        keyboardType="numeric"
+                        onChangeText={onPressNextPhoneNumber}
+                      />
+                    </PhoneSection>
+                  </PhoneNumber>
+                </PhoneContainer>
+                <GenderContainer>
+                  <TitleText>성별</TitleText>
+                  <Row>
+                    {genderItems.map((item) => (
+                      <GenderItem key={item.id} onPress={() => onPressGender(item.value)}>
+                        <NormalText>{item.name}</NormalText>
+                      </GenderItem>
+                    ))}
+                  </Row>
+                </GenderContainer>
+              </SignUpContainer>
+              <ButtonSection>
+                <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+                <ModalActionButton
+                  title={'회원가입'}
+                  width={wp(25)}
+                  height={hp(6)}
+                  color={'sign'}
+                  onPress={pressSignUp}
+                />
+              </ButtonSection>
+            </Container>
+          </>
+        )}
       </ModalTemplate>
     </Modal>
   );

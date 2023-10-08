@@ -3,4 +3,5 @@ export const CategoryTypes = {
   NON_COFFEE: '논커피',
   TEA: '티',
   SMOOTHE: '스무디',
+  RECOMMENDED: '추천',
 };

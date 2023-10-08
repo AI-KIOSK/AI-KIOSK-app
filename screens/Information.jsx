@@ -1,18 +1,29 @@
+import { useOrder } from '@hooks/useOrder';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components';
 
 function Information() {
   const { navigate } = useNavigation();
   const [shoppingList, setShoppingList] = useRecoilState(ShoppingList);
+  const [phone, setPhone] = useRecoilState(phoneNumber);
+  const { resetOrder, resetRequest } = useOrder();
+  const [Foreigner, setForeigner] = useRecoilState(onForeigner);
+
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
+      resetOrder();
+      resetRequest();
       setShoppingList([]);
-    }, [setShoppingList]),
+      setForeigner(0);
+      setPhone('');
+    }, [setShoppingList, setPhone]),
   );
 
   return (

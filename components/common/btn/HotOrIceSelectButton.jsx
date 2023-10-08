@@ -4,6 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
 import { ModalTemperature } from 'recoil/Category';
+import { OptionList } from 'recoil/menu/OptionList';
 import { styled } from 'styled-components/native';
 
 HotOrIceSelectButton.propTypes = {
@@ -12,16 +13,24 @@ HotOrIceSelectButton.propTypes = {
 };
 
 export default function HotOrIceSelectButton({ option, label }) {
-  const isDisabled = option !== 'HOT' && option !== 'ICED';
+  const [optionList, setOptionList] = useRecoilState(OptionList);
+  const isDisabled = option !== 'HOT' && option !== 'ICE';
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
   const pressTemperature = (temperature) => {
     setModalTemperature(temperature);
+    setModalTemperature(temperature);
+    if (temperature === 'HOT') {
+      setOptionList((prevOptionList) => ({
+        ...prevOptionList,
+        ['iceAmount']: '',
+      }));
+    }
   };
 
   // Container의 색상을 modalTemperature와 option에 따라 동적으로 설정
   const getContainerColor = () => {
-    if (modalTemperature === 'ICED' && option === 'ICED') {
+    if (modalTemperature === 'ICE' && option === 'ICE') {
       return '#99eeff'; // ICE 선택 시 파란색
     } else if (modalTemperature === 'HOT' && option === 'HOT') {
       return '#FEE5E6'; // HOT 선택 시 빨간색
@@ -68,7 +77,7 @@ const Container = styled.TouchableOpacity`
     border: 3px solid #FEC3C4;
     border-radius: 8px;
   `
-      : option === 'ICED'
+      : option === 'ICE'
       ? `
     border: 3px solid #002b85;
     border-radius: 8px;
@@ -92,7 +101,7 @@ const ButtonText = styled.Text`
       ? `
     color: #FEC3C4;
   `
-      : option === 'ICED'
+      : option === 'ICE'
       ? `
     color: #002b85;
   `
