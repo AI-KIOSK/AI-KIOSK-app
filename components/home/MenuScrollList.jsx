@@ -21,14 +21,11 @@ function MenuScrollList() {
     openModal();
   };
 
-  if (isLoading)
-    return (
-      <Container>
-        <ActivityIndicator size={'large'} color={'black'} />
-      </Container>
-    );
-
-  return (
+  return isLoading ? (
+    <Container>
+      <ActivityIndicator size={'large'} color={'black'} />
+    </Container>
+  ) : (
     <Container>
       <ListWrapper>
         <FlatList

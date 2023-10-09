@@ -13,8 +13,6 @@ MenuIcon.propTypes = {
 function MenuIcon({ image, label, quantity }) {
   const img = require('@assets/menu/cafelatte.jpeg');
 
-  console.log(`menuIcon ${label}`);
-
   return (
     <Container>
       {image !== undefined ? (
