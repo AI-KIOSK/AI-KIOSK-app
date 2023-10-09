@@ -1,13 +1,11 @@
 import { ModalActionButton } from '@components/common/btn';
 import { OrderList } from '@components/menu/normal';
-
 import { useModal } from '@hooks/common';
+import { useOrder } from '@hooks/useOrder';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { useRecoilState } from 'recoil';
-import { orderRequest } from 'recoil/order/atom';
 import { styled } from 'styled-components/native';
 import ModalTemplate from 'styles/ModalTemplate';
 
@@ -16,7 +14,7 @@ export default function OrderConfirmModal() {
   const { openModal: openEarningPointsModal } = useModal('earningpointsModal');
   const { openModal: openPaymentModal } = useModal('paymentModal');
 
-  const [request, setRequest] = useRecoilState(orderRequest);
+  const { request } = useOrder();
 
   const onPressOrder = () => {
     hideOrderConfirmModal();
@@ -45,7 +43,13 @@ export default function OrderConfirmModal() {
               color={'cancel'}
               onPress={hideOrderConfirmModal}
             />
-            <ModalActionButton title={'적립하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={onPressPoint} />
+            <ModalActionButton
+              title={'적립하기'}
+              width={wp(25)}
+              height={hp(6)}
+              color={'normal'}
+              onPress={onPressPoint}
+            />
             <ModalActionButton
               title={'결제하기'}
               width={wp(70)}
