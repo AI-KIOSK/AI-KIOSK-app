@@ -1,20 +1,23 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
+import format from 'pretty-format';
 import { useOrder } from '@hooks/useOrder';
 import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilValue } from 'recoil';
+import { orderRequest } from 'recoil/order/atom';
 import styled from 'styled-components/native';
 
 function YoungmanOrderSection() {
   const { openModal } = useModal('orderConfirmModal');
 
+  const request = useRecoilValue(orderRequest);
   const { request } = useOrder();
 
   const items = request.orders;
 
-  /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
 
   const nextMenuSets = useCallback(() => {
@@ -35,6 +38,7 @@ function YoungmanOrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
+//             <MenuIcon key={`addedItem${index}`} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
             <SelectedMenuCard key={`addedItem${index}`}>
               <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
               <TextWrapper>

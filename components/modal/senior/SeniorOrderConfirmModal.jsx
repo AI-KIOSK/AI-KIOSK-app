@@ -6,6 +6,7 @@ import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
 import { FinalOrder, ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components/native';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
@@ -18,6 +19,7 @@ export default function SeniorOrderConfirmModal() {
   const totalPrice = shoppingList.reduce((accumulator, item) => accumulator + item.price * item.orderQuantity, 0);
   const totalOrder = shoppingList.reduce((accumulator, item) => accumulator + item.orderQuantity, 0);
   const [fianlOrder, setFinalOrder] = useRecoilState(FinalOrder);
+  const phone = useRecoilValue(phoneNumber);
 
   function createRequestBody(phoneNumber, quantity, totalPrice, orderType, orders) {
     const requestBody = {
@@ -31,14 +33,14 @@ export default function SeniorOrderConfirmModal() {
   }
 
   const onPressOrder = () => {
-    const requestBody = createRequestBody('4722', totalOrder, totalPrice, 'CARD', shoppingList);
+    const requestBody = createRequestBody(phone, totalOrder, totalPrice, 'CARD', shoppingList);
     setFinalOrder(requestBody);
     hideOrderConfirmModal();
     openPaymentModal();
   };
 
   const onPressPoint = () => {
-    const requestBody = createRequestBody('4722', totalOrder, totalPrice, 'CARD', shoppingList);
+    const requestBody = createRequestBody(phone, totalOrder, totalPrice, 'CARD', shoppingList);
     setFinalOrder(requestBody);
     hideOrderConfirmModal();
     openEarningPointsModal();

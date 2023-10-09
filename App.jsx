@@ -1,5 +1,6 @@
 import ForeignerHeader from '@components/common/ForeignerHeader';
 import HomeHeader from '@components/common/header/HomeHeader';
+import YoungmanHeader from '@components/common/header/YoungmanHeader';
 import SeniorHeader from '@components/common/SeniorHeader';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -26,7 +27,7 @@ export default function App() {
             <Stack.Screen name="home" component={Home} options={{ header: () => <HomeHeader /> }} />
             <Stack.Screen name="camera" component={FaceRecognition} />
             <Stack.Screen name="seniorHome" component={SeniorHome} options={{ header: () => <SeniorHeader /> }} />
-            <Stack.Screen name="youngmanHome" component={YoungmanHome} options={{ header: () => <HomeHeader /> }} />
+            <Stack.Screen name="youngmanHome" component={YoungmanHome} options={{ header: () => <YoungmanHeader /> }} />
             <Stack.Screen
               name="foreignerHome"
               component={ForeignerHome}

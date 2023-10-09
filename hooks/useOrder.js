@@ -29,6 +29,7 @@ function useOrder() {
 
   const add = () =>
     setRequest((prev) => {
+      console.log(order.orderQuantity);
       const { orders } = prev;
 
       if (orders.length === 0) {
@@ -88,7 +89,7 @@ function useOrder() {
           quantity: newOrders.reduce((acc, cur) => acc + cur.orderQuantity, 0),
         };
       }
-
+      console.log();
       return newItem;
     });
 

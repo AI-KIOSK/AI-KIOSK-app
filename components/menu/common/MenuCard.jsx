@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Platform } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import styled from 'styled-components/native';
 
 const MenuCard = ({ img, label, price }) => {
+  const isForeigner = useRecoilValue(onForeigner);
+
   return (
     <Container>
       <MenuImage source={{ uri: `data:image/png;base64,${img}` }} />
@@ -12,7 +17,7 @@ const MenuCard = ({ img, label, price }) => {
         <MenuName>{label}</MenuName>
       </TextWrapper>
       <TextWrapper>
-        <Price>{price.toLocaleString()}원</Price>
+        {isForeigner ? <Price>{price.toLocaleString()} Won</Price> : <Price>{price.toLocaleString()}원</Price>}
       </TextWrapper>
     </Container>
   );
@@ -37,7 +42,18 @@ const Container = styled.View`
   padding: ${RFValue(4)}px;
   border-radius: ${RFValue(6)}px;
 
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  ${() =>
+    Platform.OS === 'android'
+      ? `
+    shadow-color: 'black';
+    shadow-offset: 0px 4px;
+    shadow-color: #000;
+    shadow-opacity: 0.25;
+    elevation: 4;
+    `
+      : `
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  `}
 
   ${({ theme }) => `
     background: ${theme.colors.chanpagneBeige};

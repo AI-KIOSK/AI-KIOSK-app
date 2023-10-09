@@ -10,6 +10,8 @@ import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components';
 import ModalTemplate from 'styles/ModalTemplate';
 import { HotOrIce, OptionTypes } from 'types/menu';
@@ -18,6 +20,7 @@ function MenuSelectModal() {
   const { modal, hideModal } = useModal('menuSelectModal');
   const { selectedMenu, resetSelectedMenu } = useMenu();
   const { add, handleSelectMenu, resetOrder, order, handleQuantity } = useOrder();
+  const isForeigner = useRecoilValue(onForeigner);
 
   const handleCloseModal = useCallback(() => {
     hideModal();
@@ -56,7 +59,6 @@ function MenuSelectModal() {
     [selectedMenu?.whipping],
   );
 
-  /** Do not render unless choose menu */
   if (selectedMenu == null) return;
 
   return (
@@ -67,14 +69,14 @@ function MenuSelectModal() {
             <MenuImageView>
               <Image
                 style={{ maxWidth: RFValue(100), height: RFValue(100) }}
-                source={{ url: `data:image/png;base64,${selectedMenu.img}` }}
+                source={{ uri: `data:image/png;base64,${selectedMenu.img}` }}
                 resizeMode="contain"
               />
             </MenuImageView>
             <MenuOptionView>
-              <MenuLabel>{selectedMenu.name}</MenuLabel>
+              {isForeigner ? <MenuLabel>{selectedMenu.nameEng}</MenuLabel> : <MenuLabel>{selectedMenu.name}</MenuLabel>}
               <QunatityOptionView>
-                <QuantityLabel>수량</QuantityLabel>
+                {isForeigner ? <QuantityLabel>Quantity </QuantityLabel> : <QuantityLabel>수량</QuantityLabel>}
                 <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} onPress={() => handleQuantity(-1)} />
                 <QuantityLabel>{order.orderQuantity}</QuantityLabel>
                 <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} onPress={() => handleQuantity(1)} />
@@ -96,17 +98,44 @@ function MenuSelectModal() {
             </MenuOptionView>
           </MenuSection>
 
-          <OptionList type={OptionTypes.FREE} data={freeOptions} />
-          <OptionList type={OptionTypes.PAID} data={paidOptions} />
+          <OptionList type={OptionTypes.FREE_ENG} data={freeOptions} />
+          <OptionList type={OptionTypes.PAID_ENG} data={paidOptions} />
 
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={handleCloseModal} />
-          <ModalActionButton
-            title={'음료담기'}
-            width={wp(25)}
-            height={hp(6)}
-            color={'#675D50'}
-            onPress={handleAddMenu}
-          />
+          {isForeigner ? (
+            <>
+              <ModalActionButton
+                title={'Cancel'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'cancel'}
+                onPress={handleCloseModal}
+              />
+              <ModalActionButton
+                title={'Add'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'#675D50'}
+                onPress={handleAddMenu}
+              />
+            </>
+          ) : (
+            <>
+              <ModalActionButton
+                title={'취소'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'cancel'}
+                onPress={handleCloseModal}
+              />
+              <ModalActionButton
+                title={'음료담기'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'#675D50'}
+                onPress={handleAddMenu}
+              />
+            </>
+          )}
         </Container>
       </ModalTemplate>
     </Modal>
@@ -153,7 +182,7 @@ const MenuLabel = styled.Text`
 `;
 
 const QunatityOptionView = styled.View`
-  width: 40%;
+  width: 50%;
   justify-content: space-around;
   flex-direction: row;
   align-items: center;

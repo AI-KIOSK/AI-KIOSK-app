@@ -15,8 +15,7 @@ function OrderSection() {
   const request = useRecoilValue(orderRequest);
 
   const items = request.orders;
-  console.log(format(items));
-  /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
+
   const [offset, setOffset] = useState(0);
 
   const nextMenuSets = useCallback(() => {

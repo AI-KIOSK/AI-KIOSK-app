@@ -5,6 +5,8 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilState } from 'recoil';
+import { phoneNumber } from 'recoil/auth/atom';
 import { styled } from 'styled-components';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 
@@ -12,6 +14,7 @@ function SeniorEarningPointsModal() {
   const { modal, hideModal } = useModal('seniorEarningPointsModal');
   const { openModal } = useModal('paymentModal');
   const { openModal: openOtherModal } = useModal('signupModal');
+  const [phone, setPhoneNumber] = useRecoilState(phoneNumber);
 
   const pressPayment = () => {
     hideModal();
@@ -34,9 +37,9 @@ function SeniorEarningPointsModal() {
           <NormalText> (회원만 적립이 가능합니다.){'\n'}</NormalText>
           <PhoneNumberPrint>
             <PhoneNumberText>010 - </PhoneNumberText>
-            <PhoneNumberText></PhoneNumberText>
+            <PhoneNumberText>{phone.substring(0, 4)}</PhoneNumberText>
             <PhoneNumberText>-</PhoneNumberText>
-            <PhoneNumberText></PhoneNumberText>
+            <PhoneNumberText>{phone.substring(4)}</PhoneNumberText>
           </PhoneNumberPrint>
           <Numpad />
         </EarningPointContainer>

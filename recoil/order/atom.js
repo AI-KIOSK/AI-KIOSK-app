@@ -21,6 +21,7 @@ const menuWithOption = atom({
   default: {
     id: -1,
     menuName: '',
+    nameEng: '',
     hotOrIced: HotOrIce.ICE,
     orderQuantity: 1,
     sweetness: '0%',

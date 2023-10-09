@@ -3,7 +3,6 @@ import { useModal } from '@hooks/common';
 import { useFetch } from '@hooks/useFecth';
 import useMenu from '@hooks/useMenu';
 import { fetchMenus } from 'api/fetch';
-import format from 'pretty-format';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';

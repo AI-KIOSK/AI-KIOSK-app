@@ -5,6 +5,7 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { orderResponse } from 'recoil/order/atom';
 import { styled } from 'styled-components';
 
@@ -16,6 +17,7 @@ function PaymentCompletedModal() {
   const navigation = useNavigation();
 
   const response = useRecoilValue(orderResponse);
+  const isForeigner = useRecoilValue(onForeigner);
 
   const { resetOrder, resetRequest } = useOrder();
   const pressBack = () => {
@@ -28,16 +30,33 @@ function PaymentCompletedModal() {
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
-        <TitleContainer>
-          <TitleText>주문이 완료되었습니다.</TitleText>
-        </TitleContainer>
-        <OrderNumContainer>
-          <TitleText>주문번호{'\n'}</TitleText>
-          <TitleText>{response?.data.id} 번</TitleText>
-        </OrderNumContainer>
-        <ButtonContainer>
-          <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#000000" backColor="#ABC4AA" />
-        </ButtonContainer>
+        {isForeigner ? (
+          <>
+            <TitleContainer>
+              <TitleText>Your order has been completed.</TitleText>
+            </TitleContainer>
+            <OrderNumContainer>
+              <TitleText>Order Number{'\n'}</TitleText>
+              <TitleText>No. {response?.data.id}</TitleText>
+            </OrderNumContainer>
+            <ButtonContainer>
+              <RectButton onPress={pressBack} text={'Back'} fontColor="#000000" backColor="#ABC4AA" />
+            </ButtonContainer>
+          </>
+        ) : (
+          <>
+            <TitleContainer>
+              <TitleText>주문이 완료되었습니다.</TitleText>
+            </TitleContainer>
+            <OrderNumContainer>
+              <TitleText>주문번호{'\n'}</TitleText>
+              <TitleText>{response?.data.id} 번</TitleText>
+            </OrderNumContainer>
+            <ButtonContainer>
+              <RectButton onPress={pressBack} text={'돌아가기'} fontColor="#000000" backColor="#ABC4AA" />
+            </ButtonContainer>
+          </>
+        )}
       </ModalTemplate>
     </Modal>
   );

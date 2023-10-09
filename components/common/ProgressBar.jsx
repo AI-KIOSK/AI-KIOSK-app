@@ -2,11 +2,15 @@ import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import styled from 'styled-components/native';
 
 const ProgressBar = ({ target, totalStep, currentStep, onPress }) => {
+  const isForeigner = useRecoilValue(onForeigner);
+
   const barArray = useMemo(
-    () => target.map((item, index) => ({ step: index, label: item.label, value: item.value })),
+    () => target.map((item, index) => ({ step: index, label: item.label, labelEng: item.labelEng, value: item.value })),
     [target],
   );
 
@@ -21,7 +25,7 @@ const ProgressBar = ({ target, totalStep, currentStep, onPress }) => {
             onPress={() => onPress(item.value, index)}
             left={barItemWidth * index - wp(4) / 2}
           >
-            <Label>{item.label}</Label>
+            {isForeigner ? <Label>{item.labelEng}</Label> : <Label>{item.label}</Label>}
           </LabelTouchWrapper>
         ))}
       </LabelWrapper>
@@ -70,20 +74,8 @@ const Bar = styled.View`
 
   border: 1.5px solid #675d50;
   ${({ highlight }) => highlight && `background-color: #CDDCCC`};
-  ${({ isFirst, isLast }) =>
-    isFirst
-      ? `
-      border-radius: 50% 0 0 50%;  
-  `
-      : isLast
-      ? `
-      border-radius: 0 50% 50% 0;
-      border-left-width: 0;
-      `
-      : `
-      border-left-width: 0;
-      border-right-width: 1px;
-      `}
+  border-radius: ${({ isFirst, isLast }) =>
+    isFirst ? `${wp(4)}px 0px 0px ${wp(4)}px` : isLast ? `0px ${wp(4)}px ${wp(4)}px 0px` : '0px'};
 `;
 
 const LabelWrapper = styled.View`
@@ -111,7 +103,7 @@ const Circle = styled.View`
   width: ${wp(4)}px;
   height: ${wp(4)}px;
 
-  border-radius: 50%;
+  border-radius: ${wp(4) / 2}px;
   background-color: ${({ theme }) => theme.colors.lavenderMist};
 `;
 

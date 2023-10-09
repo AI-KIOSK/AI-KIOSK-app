@@ -4,8 +4,9 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { phoneNumber } from 'recoil/auth/atom';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
@@ -17,6 +18,7 @@ function EarningPointsModal() {
   const { openModal: openOtherModal } = useModal('signupModal');
 
   const [phone, setPhone] = useRecoilState(phoneNumber);
+  const isForeigner = useRecoilValue(onForeigner);
 
   const pressPayment = () => {
     hideModal();
@@ -35,25 +37,81 @@ function EarningPointsModal() {
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
-        <TitleContainer>
-          <TitleText>적립하기</TitleText>
-        </TitleContainer>
-        <EarningPointContainer>
-          <NormalText> 적립을 위해 휴대폰번호를 입력해주세요.{'\n'}</NormalText>
-          <NormalText> (회원만 적립이 가능합니다.){'\n'}</NormalText>
-          <PhoneNumberPrint>
-            <PhoneNumberText>010 - </PhoneNumberText>
-            <PhoneNumberText>{phone.substring(0, 4)}</PhoneNumberText>
-            <PhoneNumberText>-</PhoneNumberText>
-            <PhoneNumberText>{phone.substring(4)}</PhoneNumberText>
-          </PhoneNumberPrint>
-          <Numpad />
-        </EarningPointContainer>
-        <ButtonContainer_1>
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={onPressHide} />
-          <ModalActionButton title={'결제하기'} width={wp(25)} height={hp(6)} color={'blue'} onPress={pressPayment} />
-          <ModalActionButton title={'회원가입'} width={wp(70)} height={hp(6)} color={'cancel'} onPress={pressSignUp} />
-        </ButtonContainer_1>
+        {isForeigner ? (
+          <>
+            <TitleContainer>
+              <TitleText>Earning Points</TitleText>
+            </TitleContainer>
+            <EarningPointContainer>
+              <NormalEngText>Please enter your mobile phone number for Earning Points.{'\n'}</NormalEngText>
+              <NormalText> (Only members can save points.){'\n'}</NormalText>
+              <PhoneNumberPrint>
+                <PhoneNumberText>010 - </PhoneNumberText>
+                <PhoneNumberText>{phone.substring(0, 4)}</PhoneNumberText>
+                <PhoneNumberText>-</PhoneNumberText>
+                <PhoneNumberText>{phone.substring(4)}</PhoneNumberText>
+              </PhoneNumberPrint>
+              <Numpad />
+            </EarningPointContainer>
+            <ButtonContainer_1>
+              <ModalActionButton
+                title={'Cancel'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'cancel'}
+                onPress={onPressHide}
+              />
+              <ModalActionButton
+                title={'Payment'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'blue'}
+                onPress={pressPayment}
+              />
+              <ModalActionButton
+                title={'Sign up'}
+                width={wp(70)}
+                height={hp(6)}
+                color={'cancel'}
+                onPress={pressSignUp}
+              />
+            </ButtonContainer_1>
+          </>
+        ) : (
+          <>
+            <TitleContainer>
+              <TitleText>적립하기</TitleText>
+            </TitleContainer>
+            <EarningPointContainer>
+              <NormalText> 적립을 위해 휴대폰번호를 입력해주세요.{'\n'}</NormalText>
+              <NormalText> (회원만 적립이 가능합니다.){'\n'}</NormalText>
+              <PhoneNumberPrint>
+                <PhoneNumberText>010 - </PhoneNumberText>
+                <PhoneNumberText>{phone.substring(0, 4)}</PhoneNumberText>
+                <PhoneNumberText>-</PhoneNumberText>
+                <PhoneNumberText>{phone.substring(4)}</PhoneNumberText>
+              </PhoneNumberPrint>
+              <Numpad />
+            </EarningPointContainer>
+            <ButtonContainer_1>
+              <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'cancel'} onPress={onPressHide} />
+              <ModalActionButton
+                title={'결제하기'}
+                width={wp(25)}
+                height={hp(6)}
+                color={'blue'}
+                onPress={pressPayment}
+              />
+              <ModalActionButton
+                title={'회원가입'}
+                width={wp(70)}
+                height={hp(6)}
+                color={'cancel'}
+                onPress={pressSignUp}
+              />
+            </ButtonContainer_1>
+          </>
+        )}
       </ModalTemplate>
     </Modal>
   );
@@ -91,15 +149,15 @@ const PhoneNumberText = styled.Text`
   letter-spacing: 2px;
 `;
 
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
 const NormalText = styled.Text`
-  align-text: center;
+  align-items: center;
+  text-align: center;
   font-weight: bold;
   font-size: ${RFValue(16)}px;
+`;
+
+const NormalEngText = styled(NormalText)`
+  font-size: ${RFValue(20)}px;
 `;
 
 const ButtonContainer_1 = styled.View`
