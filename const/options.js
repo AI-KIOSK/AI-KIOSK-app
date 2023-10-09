@@ -32,19 +32,20 @@ const freeOptionsData = [
     labelEng: 'Ice Amount',
     options: [
       {
+        label: '기본',
+        labelEng: 'Normal',
+        value: '기본',
+      },
+      {
         label: '없음',
         labelEng: 'No',
         value: '없음',
       },
       {
-        label: '기본',
-        labelEng: 'Normal',
-        value: '많이',
-      },
-      {
-        label: '기본',
+        label: '많이',
         labelEng: 'Many',
         value: '많이',
+        
       },
     ],
   },
@@ -54,19 +55,20 @@ const freeOptionsData = [
     labelEng: 'Whipping Amount',
     options: [
       {
+        label: '기본',
+        labelEng: 'Normal',
+        value: '기본',
+      },
+      {
         label: '없음',
         labelEng: 'No',
         value: '없음',
       },
       {
-        label: '기본',
-        labelEng: 'Normal',
-        value: '많이',
-      },
-      {
-        label: '기본',
+        label: '많이',
         labelEng: 'Many',
         value: '많이',
+        
       },
     ],
   },

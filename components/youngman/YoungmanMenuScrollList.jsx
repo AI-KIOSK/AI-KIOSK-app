@@ -87,7 +87,16 @@ function YoungmanMenuScrollList() {
       </Container>
     );
 
-  return (
+  const handleChooseMenu = (menu) => {
+    selectMenu(menu);
+    openModal();
+  };
+
+  return isLoading ? (
+    <Container>
+      <ActivityIndicator size={'large'} color={'black'} />
+    </Container>
+  ) : (
     <Container>
       <ListContainer>
         {category === '추천' ? (

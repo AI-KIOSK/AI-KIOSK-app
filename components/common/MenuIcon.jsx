@@ -16,8 +16,6 @@ function MenuIcon({ image, label, quantity }) {
   const img = require('@assets/menu/cafelatte.jpeg');
   const isForeigner = useRecoilValue(onForeigner);
 
-  // console.log(`menuIcon ${label}`);
-
   return (
     <Container>
       {image !== undefined ? (

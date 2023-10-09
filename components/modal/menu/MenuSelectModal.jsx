@@ -36,8 +36,22 @@ function MenuSelectModal() {
   };
 
   const freeOptions = useMemo(
-    () => freeOptionsData.filter((item) => (selectedMenu?.whipping ? true : item.id !== 'whippingAmount')),
-    [selectedMenu?.whipping],
+    () =>
+      freeOptionsData.reduce((acc, cur) => {
+        switch (cur.id) {
+          case 'whippingAmount':
+            if (selectedMenu?.whipping) return [...acc, cur];
+            else return [...acc];
+
+          case 'iceAmount':
+            if (order?.hotOrIced === HotOrIce.HOT) return [...acc];
+            else return [...acc, cur];
+
+          default:
+            return [...acc, cur];
+        }
+      }, []),
+    [order?.hotOrIced, selectedMenu?.whipping],
   );
 
   const paidOptions = useMemo(
@@ -69,16 +83,16 @@ function MenuSelectModal() {
               </QunatityOptionView>
               <OptionButtonView>
                 <TemperatureOptionButton
-                  title={HotOrIce.HOT}
-                  highlight={order.hotOrIce === HotOrIce.HOT}
-                  disabled={selectedMenu.hotOrIced === HotOrIce.ICE}
-                  onPress={() => handleSelectMenu('hotOrIce', HotOrIce.HOT)}
+                  title={HotOrIce.ICE}
+                  highlight={order.hotOrIced === HotOrIce.ICE}
+                  disabled={selectedMenu.hotOrIced === HotOrIce.HOT}
+                  onPress={() => handleSelectMenu('hotOrIced', HotOrIce.ICE)}
                 />
                 <TemperatureOptionButton
-                  title={HotOrIce.ICE}
-                  highlight={order.hotOrIce === HotOrIce.ICE}
-                  disabled={selectedMenu.hotOrIced === HotOrIce.HOT}
-                  onPress={() => handleSelectMenu('hotOrIce', HotOrIce.ICE)}
+                  title={HotOrIce.HOT}
+                  highlight={order.hotOrIced === HotOrIce.HOT}
+                  disabled={selectedMenu.hotOrIced === HotOrIce.ICE}
+                  onPress={() => handleSelectMenu('hotOrIced', HotOrIce.HOT)}
                 />
               </OptionButtonView>
             </MenuOptionView>

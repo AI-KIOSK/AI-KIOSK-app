@@ -1,4 +1,3 @@
-import format from 'pretty-format';
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -15,23 +14,26 @@ const ProgressBar = ({ target, totalStep, currentStep, onPress }) => {
     [target],
   );
 
+  const barItemWidth = useMemo(() => wp(12), []);
+
   return (
     <Container>
-      <LabelWrapper width={`${23 * (totalStep - 1)}%`}>
+      <LabelWrapper width={barItemWidth * (totalStep - 1)}>
         {barArray.map((item, index) => (
           <LabelTouchWrapper
             key={item.step}
             onPress={() => onPress(item.value, index)}
-            left={`${(100 / (barArray.length - 1)) * index}%`}
+            left={barItemWidth * index - wp(4) / 2}
           >
             {isForeigner ? <Label>{item.labelEng}</Label> : <Label>{item.label}</Label>}
           </LabelTouchWrapper>
         ))}
       </LabelWrapper>
       <BarWrapper>
-        <Circle currentStep={currentStep} />
+        <Circle posX={barItemWidth * currentStep - wp(4) / 2} />
         {barArray.slice(1).map((item, index) => (
           <Bar
+            width={barItemWidth}
             key={index}
             isFirst={index === 0}
             isLast={barArray.length - 2 === index}
@@ -60,14 +62,14 @@ const Container = styled.View`
 `;
 
 const BarWrapper = styled.View`
-  width: 25%;
+  width: 100%;
   z-index: 3;
   flex-direction: row;
   align-items: center;
 `;
 
 const Bar = styled.View`
-  width: 100%;
+  width: ${({ width }) => width}px;
   height: ${hp(2)}px;
 
   border: 1.5px solid #675d50;
@@ -77,7 +79,7 @@ const Bar = styled.View`
 `;
 
 const LabelWrapper = styled.View`
-  width: ${({ width }) => width};
+  width: ${({ width }) => width}px;
   height: ${hp(2)}px;
   z-index: 10;
 
@@ -88,15 +90,15 @@ const LabelWrapper = styled.View`
 
 const LabelTouchWrapper = styled.TouchableOpacity`
   position: absolute;
-  height: ${hp(4.625)}px;
+  height: ${hp(6)}px;
 
   z-index: 0;
-  left: ${({ left }) => left};
+  left: ${({ left }) => left}px;
 `;
 const Circle = styled.View`
   z-index: 1;
   position: absolute;
-  left: ${({ currentStep }) => `${90 * currentStep}%`};
+  left: ${({ posX }) => posX}px;
 
   width: ${wp(4)}px;
   height: ${wp(4)}px;
@@ -106,7 +108,9 @@ const Circle = styled.View`
 `;
 
 const Label = styled.Text`
+  width: ${wp(4)}px;
   font-size: ${RFValue(8)}px;
+  text-align: center;
 `;
 
 export default ProgressBar;

@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { HotOrIce } from 'types/menu';
 
 const orderRequest = atom({
   key: 'orderRequest',
@@ -21,7 +22,7 @@ const menuWithOption = atom({
     id: -1,
     menuName: '',
     nameEng: '',
-    hotOrIced: '',
+    hotOrIced: HotOrIce.ICE,
     orderQuantity: 1,
     sweetness: '0%',
     pump: 0,

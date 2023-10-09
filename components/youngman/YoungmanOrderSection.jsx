@@ -1,9 +1,10 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import format from 'pretty-format';
+import { useOrder } from '@hooks/useOrder';
 import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useRecoilValue } from 'recoil';
 import { orderRequest } from 'recoil/order/atom';
@@ -13,6 +14,7 @@ function YoungmanOrderSection() {
   const { openModal } = useModal('orderConfirmModal');
 
   const request = useRecoilValue(orderRequest);
+  const { request } = useOrder();
 
   const items = request.orders;
 
@@ -36,7 +38,16 @@ function YoungmanOrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
-            <MenuIcon key={`addedItem${index}`} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
+//             <MenuIcon key={`addedItem${index}`} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
+            <SelectedMenuCard key={`addedItem${index}`}>
+              <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
+              <TextWrapper>
+                <MenuName>{item.menuName}</MenuName>
+              </TextWrapper>
+              <TextWrapper>
+                <Price>{item.price.toLocaleString()}원</Price>
+              </TextWrapper>
+            </SelectedMenuCard>
           ))}
         </ContainedMenuList>
         <AntDesign
@@ -100,9 +111,49 @@ const ButtonContainer = styled.View`
   align-items: center;
 `;
 
+const SelectedMenuCard = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-content: space-around;
+
+  width: ${wp(16)}px;
+  height: ${hp(12)}px;
+
+  padding: ${RFValue(4)}px;
+  border-radius: ${RFValue(6)}px;
+  ${({ theme }) => `
+    background: ${theme.colors.chanpagneBeige};
+    `}
+`;
+
+const MenuImage = styled.Image`
+  width: 100%;
+  height: 80%;
+
+  object-fit: contain;
+  border-radius: ${wp(2)}px;
+`;
+
+const TextWrapper = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MenuName = styled.Text`
+  font-size: ${RFValue(10)}px;
+  font-weight: 600;
+`;
+
+const Price = styled.Text`
+  font-size: ${RFValue(9)}px;
+`;
+
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(12)}px;
-  height: ${wp(12)}px;
+  width: ${wp(16)}px;
+  height: ${wp(16)}px;
   padding: ${RFValue(8)}px;
 
   justify-content: center;
@@ -117,8 +168,4 @@ const ButtonLabel = styled.Text`
   font-weight: 700;
 `;
 
-const Blank = styled.View`
-  width: 40px;
-  border: 1px solid black;
-`;
 export default YoungmanOrderSection;

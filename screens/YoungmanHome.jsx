@@ -8,7 +8,9 @@ import YoungmanMenuScrollList from '@components/youngman/YoungmanMenuScrollList'
 import YoungmanOrderSection from '@components/youngman/YoungmanOrderSection';
 import React from 'react';
 import styled from 'styled-components/native';
+
 function YoungmanHome() {
+
   return (
     <Container>
       <YoungmanMenuScrollList />
