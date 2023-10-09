@@ -1,53 +1,59 @@
-import MenuIcon from '@components/common/MenuIcon';
+import { MenuCard } from '@components/menu/common';
 import { useModal } from '@hooks/common';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FlatList } from 'react-native';
+import { useFetch } from '@hooks/useFecth';
+import useMenu from '@hooks/useMenu';
+import { fetchMenus } from 'api/fetch';
+import React, { useMemo } from 'react';
+import { ActivityIndicator, FlatList } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styled from 'styled-components';
 
-YoungmanMenuScrollList.propTypes = {
-  filteredItem: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      category: PropTypes.string,
-      recommendation: PropTypes.string,
-      img: PropTypes.number,
-      price: PropTypes.number,
-    }),
-  ),
-};
-
-function YoungmanMenuScrollList({ filteredItemRec,  filteredItem}) {
+function YoungmanMenuScrollList() {
   const { openModal } = useModal('menuSelectModal');
+  const { isLoading, data } = useFetch(fetchMenus);
+  const { category, selectMenu } = useMenu();
 
-  return (
+  const filteredMenu = useMemo(() => data.filter((item) => item.category.category === category), [category, data]);
+
+  const handleChooseMenu = (menu) => {
+    selectMenu(menu);
+    openModal();
+  };
+
+  return isLoading ? (
+    <Container>
+      <ActivityIndicator size={'large'} color={'black'} />
+    </Container>
+  ) : (
     <Container>
       <ListContainer>
-        <Title> recommendation menu</Title>
-        <FlatList
-          contentContainerStyle={{ flexGrow: 1 }}
-          numColumns={4}
-          data={filteredItemRec}
-          renderItem={({ item }) => (
-            <Menu onPress={openModal} key={item.id}>
-              <MenuIcon image={item.img} label={item.name} />
-            </Menu>
-          )}
-        />
-        <Title> normal menu</Title>
-        <FlatList
-          contentContainerStyle={{ flexGrow: 1 }}
-          numColumns={4}
-          data={filteredItem}
-          renderItem={({ item }) => (
-            <Menu onPress={openModal} key={item.id}>
-              <MenuIcon image={item.img} label={item.name} />
-            </Menu>
-          )}
-        />
+        <RecommendContainer>
+          <Title> recommendation menu</Title>
+          <FlatList
+            contentContainerStyle={{ flexGrow: 1 }}
+            numColumns={4}
+            data={data}
+            renderItem={({ item }) => (
+              <CardWrapper onPress={() => handleChooseMenu(item)} key={`recommend${item.id}`}>
+                <MenuCard img={item.img} label={item.name} price={item.price} />
+              </CardWrapper>
+            )}
+          />
+        </RecommendContainer>
+        <NormalContainer>
+          <Title> normal menu</Title>
+          <FlatList
+            contentContainerStyle={{ flexGrow: 1 }}
+            numColumns={4}
+            data={filteredMenu}
+            renderItem={({ item }) => (
+              <CardWrapper onPress={() => handleChooseMenu(item)} key={item.id}>
+                <MenuCard img={item.img} label={item.name} price={item.price} />
+              </CardWrapper>
+            )}
+          />
+        </NormalContainer>
       </ListContainer>
     </Container>
   );
@@ -68,19 +74,25 @@ const ListContainer = styled.View`
   width: 100%;
 `;
 
-const Menu = styled.TouchableOpacity`
-  width: 25%;
-  min-height: ${hp(20)}px;
-  align-items: center;
-  justify-content: center;
+const RecommendContainer = styled.View`
+  height: 35%;
+`;
+const NormalContainer = styled.View`
+  height: 65%;
 `;
 
+const CardWrapper = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+
+  width: 25%;
+  min-height: ${hp(20)}px;
+`;
 
 const Title = styled.Text`
   margin-left: 20px;
   font-size: ${RFValue(20)}px;
   font-weight: 700;
 `;
-
 
 export default YoungmanMenuScrollList;

@@ -1,39 +1,18 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
-import React, { useCallback, useMemo, useState } from 'react';
+import { useOrder } from '@hooks/useOrder';
+import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styled from 'styled-components/native';
 
 function YoungmanOrderSection() {
   const { openModal } = useModal('orderConfirmModal');
 
-  const items = useMemo(
-    () => [
-      {
-        id: 1,
-        quantity: 1,
-        img: require('@assets/menu/americano.jpeg'),
-      },
-      {
-        id: 2,
-        quantity: 4,
-        img: require('@assets/menu/cafelatte.jpeg'),
-      },
-      {
-        id: 3,
-        quantity: 2,
-        img: require('@assets/menu/einspanner.jpeg'),
-      },
-      {
-        id: 4,
-        quantity: 2,
-        img: require('@assets/menu/banillalatte.jpeg'),
-      },
-    ],
-    [],
-  );
+  const { request } = useOrder();
+
+  const items = request.orders;
 
   /** 담은 메뉴 출력되는 범위의 시작 인덱스 */
   const [offset, setOffset] = useState(0);
@@ -55,8 +34,16 @@ function YoungmanOrderSection() {
         <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : '#ABC4AA'} onPress={prevMenuSets} />
 
         <ContainedMenuList>
-          {items.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={`수량 ${item.quantity}`} />
+          {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
+            <SelectedMenuCard key={`addedItem${index}`}>
+              <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
+              <TextWrapper>
+                <MenuName>{item.menuName}</MenuName>
+              </TextWrapper>
+              <TextWrapper>
+                <Price>{item.price.toLocaleString()}원</Price>
+              </TextWrapper>
+            </SelectedMenuCard>
           ))}
         </ContainedMenuList>
         <AntDesign
@@ -120,9 +107,49 @@ const ButtonContainer = styled.View`
   align-items: center;
 `;
 
+const SelectedMenuCard = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-content: space-around;
+
+  width: ${wp(16)}px;
+  height: ${hp(12)}px;
+
+  padding: ${RFValue(4)}px;
+  border-radius: ${RFValue(6)}px;
+  ${({ theme }) => `
+    background: ${theme.colors.chanpagneBeige};
+    `}
+`;
+
+const MenuImage = styled.Image`
+  width: 100%;
+  height: 80%;
+
+  object-fit: contain;
+  border-radius: ${wp(2)}px;
+`;
+
+const TextWrapper = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MenuName = styled.Text`
+  font-size: ${RFValue(10)}px;
+  font-weight: 600;
+`;
+
+const Price = styled.Text`
+  font-size: ${RFValue(9)}px;
+`;
+
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(12)}px;
-  height: ${wp(12)}px;
+  width: ${wp(16)}px;
+  height: ${wp(16)}px;
   padding: ${RFValue(8)}px;
 
   justify-content: center;
@@ -137,8 +164,4 @@ const ButtonLabel = styled.Text`
   font-weight: 700;
 `;
 
-const Blank = styled.View`
-  width: 40px;
-  border: 1px solid black;
-`;
 export default YoungmanOrderSection;
