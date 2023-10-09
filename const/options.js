@@ -26,15 +26,15 @@ const freeOptionsData = [
     label: '얼음',
     options: [
       {
+        label: '기본',
+        value: '기본',
+      },
+      {
         label: '없음',
         value: '없음',
       },
       {
-        label: '기본',
-        value: '많이',
-      },
-      {
-        label: '기본',
+        label: '많이',
         value: '많이',
       },
     ],
@@ -44,15 +44,15 @@ const freeOptionsData = [
     label: '휘핑',
     options: [
       {
+        label: '기본',
+        value: '기본',
+      },
+      {
         label: '없음',
         value: '없음',
       },
       {
-        label: '기본',
-        value: '많이',
-      },
-      {
-        label: '기본',
+        label: '많이',
         value: '많이',
       },
     ],
