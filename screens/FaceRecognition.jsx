@@ -1,18 +1,23 @@
+import CheckPhotoModal from '@components/modal/common/CheckPhotoModal';
+import { useModal } from '@hooks/common';
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useRecoilState } from 'recoil';
+import { capturedImage } from 'recoil/auth/atom';
 import styled from 'styled-components';
 
 function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type] = useState(Camera.Constants.Type.front);
-  const [capturedImage, setCapturedImage] = useState(null);
+  const [capturedPhoto, setCapturedPhoto] = useRecoilState(capturedImage);
 
   const cameraRef = useRef(null);
   const { navigate } = useNavigation();
+  const { modal, openModal } = useModal('checkPhotoModal');
 
   useEffect(() => {
     (async () => {
@@ -34,28 +39,33 @@ function FaceRecognition() {
     const photo = await cameraRef.current.takePictureAsync({
       base64: true,
     });
+    console.log(Object.keys(photo)); // use photo['base64']
+    console.log(photo['width'], photo['height']); // width=2448, height=3264
 
-    setCapturedImage(photo);
+    setCapturedPhoto(photo);
+    openModal();
   };
 
   return (
     <Container>
       <CameraContainer>
         <Camera style={{ flex: 1 }} type={type} ref={cameraRef}></Camera>
+        <ImageContainer>
+          <ImageBackground source={require('../assets/faceLine.png')} />
+        </ImageContainer>
       </CameraContainer>
+      <TextContainer>
+        <Guide>가능한 안내선에 맞게 촬영해주세요.</Guide>
+      </TextContainer>
       <ButtonContainer>
-        <Button onPress={takePictureHandler}>
-          <Label>사진 찍기</Label>
-        </Button>
         <Button onPress={() => navigate('information')}>
           <Label>뒤로가기</Label>
         </Button>
+        <Button onPress={takePictureHandler}>
+          <Label>사진 찍기</Label>
+        </Button>
       </ButtonContainer>
-      {capturedImage && (
-        <ImagePreviewContainer>
-          <ImagePreview source={{ uri: capturedImage.uri }} />
-        </ImagePreviewContainer>
-      )}
+      <CheckPhotoModal />
     </Container>
   );
 }
@@ -71,6 +81,24 @@ const CameraContainer = styled.View`
   width: 100%;
 `;
 
+const ImageContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
+
+const ImageBackground = styled.Image`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  object-fit: contain;
+`;
+
 const ButtonContainer = styled.View`
   flex: 1;
   flex-direction: row;
@@ -79,29 +107,32 @@ const ButtonContainer = styled.View`
   width: 100%;
 `;
 
+const TextContainer = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: ${RFValue(20)}px;
+`;
+
+const Guide = styled.Text`
+  font-weight: bold;
+  font-size: ${RFValue(20)}px;
+`;
+
 const Button = styled.TouchableOpacity`
   width: ${wp(32)}px;
   height: ${hp(6)}px;
   justify-content: center;
   align-items: center;
   background-color: #abc4aa;
-  border-color: #000000;
+  border-color: #f3deba;
   border-width: 3px;
   border-radius: 8px;
 `;
 
 const Label = styled.Text`
-  font-size: ${RFValue(12)}px;
-`;
-
-const ImagePreviewContainer = styled.View`
-  flex: 4;
-  align-items: center;
-`;
-
-const ImagePreview = styled.Image`
-  width: ${wp(80)}px;
-  height: ${hp(40)}px;
+  font-size: ${RFValue(20)}px;
+  font-weight: 700;
 `;
 
 export default FaceRecognition;

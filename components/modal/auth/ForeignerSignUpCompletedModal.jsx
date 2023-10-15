@@ -1,4 +1,4 @@
-import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
+import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
 import React from 'react';
 import { Modal } from 'react-native';

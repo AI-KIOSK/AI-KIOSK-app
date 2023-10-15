@@ -24,7 +24,7 @@ function YoungmanMenuScrollList() {
     openModal();
   };
 
-  return dataLoading || gptLoading ? (
+  return (dataLoading || gptLoading) && category === '추천' ? (
     <Container>
       <TitleView>
         <Title>추천 메뉴를 불러오고 있어요...</Title>
