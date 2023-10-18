@@ -49,7 +49,7 @@ function FaceRecognition() {
       <CameraContainer>
         <Camera style={{ flex: 1 }} type={type} ref={cameraRef}></Camera>
         <ImageContainer>
-          <ImageBackground source={require('../assets/faceLine.png')} />
+          <ImageBackground source={require('../assets/faceGuideLine1.png')} />
         </ImageContainer>
       </CameraContainer>
       <TextContainer>
@@ -83,7 +83,7 @@ const ImageContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 105%;
   position: absolute;
   top: 0;
   left: 0;
