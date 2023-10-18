@@ -22,7 +22,6 @@ export default function OrderConfirmModal() {
   const totalQuantity = request.quantity;
 
   const totalQuantityText = totalQuantity === 1 ? 'Cup' : 'Cups';
-  // const { request } = useOrder();
 
   const onPressOrder = () => {
     hideOrderConfirmModal();

@@ -41,10 +41,13 @@ function ForeignerOrderSection() {
             <SelectedMenuCard key={`addedItem${index}`}>
               <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
               <TextWrapper>
-                <MenuName>{item.menuName}</MenuName>
+                <MenuName>{item.nameEng}</MenuName>
               </TextWrapper>
               <TextWrapper>
-                <Quantity>{item.orderQuantity}개</Quantity>
+                <Quantity>
+                  {item.orderQuantity}
+                  {item.orderQuantity > 1 ? ' cups' : ' cup'}
+                </Quantity>
               </TextWrapper>
             </SelectedMenuCard>
           ))}
@@ -134,7 +137,7 @@ const TextWrapper = styled.View`
 `;
 
 const MenuName = styled.Text`
-  font-size: ${RFValue(10)}px;
+  font-size: ${RFValue(8)}px;
   font-weight: 600;
 `;
 
