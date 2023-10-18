@@ -1,6 +1,8 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import format from 'pretty-format';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -20,22 +22,31 @@ function CheckPhotoModal(img) {
   const onPressConfirm = () => {
     // axios.get
     // API로 유저 정보 받아오기
-    // const userInfo = {'gender':response.gender, 'age':response.age, 'foreign':response.foreign}
 
-    // setUser(userInfo);
-    // if (userInfo.foreign === true) {
-    //   navigation.navigate('foreignerHome');
-    // }
-    // else if(response.age === '중년' || response.age ==- '노년'){
-    //     navigation.navigate('seniorHome');
-    // }
-    // else{
-    //     navigation.navigate('youngmanHome');
-    // }
-    navigation.reset({ routes: [{ name: 'information' }] });
-    navigation.navigate('youngmanHome');
+    console.log(`image: ${capturedPhoto.width}`);
+    axios
+      .post('https://ai.cloudyong.store', {
+        img: capturedPhoto.base64,
+      })
+      .then((res) => {
+        const {
+          data: { age, gender, nationality },
+        } = res;
 
-    hideModal();
+        switch (nationality) {
+          case 'EASTERN':
+            if (age !== '노년') navigation.navigate('youngmanHome', { age, gender });
+            else navigation.navigate('seniorHome', { age, gender });
+            break;
+          case 'WESTERN':
+            navigation.navigate('foreignerHome', { age, gender });
+            break;
+          default:
+            break;
+        }
+        hideModal();
+      })
+      .catch((err) => {});
   };
 
   return (

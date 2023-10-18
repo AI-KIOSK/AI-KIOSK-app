@@ -17,11 +17,11 @@ function FaceRecognition() {
 
   const cameraRef = useRef(null);
   const { navigate } = useNavigation();
-  const { modal, openModal } = useModal('checkPhotoModal');
+  const { openModal } = useModal('checkPhotoModal');
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -39,8 +39,6 @@ function FaceRecognition() {
     const photo = await cameraRef.current.takePictureAsync({
       base64: true,
     });
-    console.log(Object.keys(photo)); // use photo['base64']
-    console.log(photo['width'], photo['height']); // width=2448, height=3264
 
     setCapturedPhoto(photo);
     openModal();
