@@ -11,6 +11,7 @@ const OptionItem = ({ id, label, options }) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const onPressBar = (value, index) => {
+    console.log(value);
     handleSelectMenu(id, value);
     setCurrentStep(index);
   };

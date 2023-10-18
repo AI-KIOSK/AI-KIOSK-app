@@ -31,8 +31,10 @@ function useOrder() {
     setRequest((prev) => {
       console.log(order.orderQuantity);
       const { orders } = prev;
+      console.log(order);
 
       if (orders.length === 0) {
+        console.log('길이 0');
         return {
           ...prev,
           orders: [order],
@@ -65,6 +67,7 @@ function useOrder() {
       let newItem = null;
       /** 기존 메뉴와 옵션 다 똑같은 경우 */
       if (flag) {
+        console.log('동일 메뉴 존재');
         findOrder.orderQuantity += order.orderQuantity;
 
         const newOrders = prev.orders.map((item) =>
@@ -80,7 +83,7 @@ function useOrder() {
         };
       } else {
         /** 기존과 옵션 다른 경우 */
-
+        console.log('동일메뉴 없음');
         const newOrders = [...prev.orders, order];
         newItem = {
           ...prev,
@@ -89,7 +92,6 @@ function useOrder() {
           quantity: newOrders.reduce((acc, cur) => acc + cur.orderQuantity, 0),
         };
       }
-      console.log();
       return newItem;
     });
 
