@@ -18,4 +18,14 @@ const signUpResponse = atom({
   default: null,
 });
 
-export { signUpResponse, phoneNumber, signUpRequest };
+const capturedImage = atom({
+  key: 'capturedImage',
+  default: {
+    width: 0,
+    height: 0,
+    base64: '',
+    uri: '',
+  },
+});
+
+export { signUpResponse, phoneNumber, signUpRequest, capturedImage };

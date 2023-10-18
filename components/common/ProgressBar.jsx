@@ -108,9 +108,8 @@ const Circle = styled.View`
 `;
 
 const Label = styled.Text`
-  width: ${wp(4)}px;
+  width: ${wp(7)}px;
   font-size: ${RFValue(8)}px;
-  text-align: center;
 `;
 
 export default ProgressBar;

@@ -1,8 +1,11 @@
+import { useRoute } from '@react-navigation/native';
 import { testGPT } from 'api/gpt';
 import format from 'pretty-format';
 import { useEffect, useState } from 'react';
 
 const useGpt = () => {
+  const { age, gender } = useRoute().params;
+
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [answer, setAnswer] = useState('입력 값 없음');
@@ -34,14 +37,13 @@ const useGpt = () => {
     '녹차프라페',
     '자바칩프라페',
   ];
-  const gender = ['남성', '여성'];
-  const age = ['청소년', '청년', '증년', '노년'];
+
   const recommend_num = 5;
 
-  const query = `${menus.join(', ')} 중에서 ${age[ageIndex]}층 ${
-    gender[genderIndex]
-  }이 좋아할만한 카페메뉴를 추천해줘. 답변은 설명 없이 ["메뉴1", "메뉴2", "메뉴3", ...] 형식으로 ${recommend_num}개 작성해줘`;
-
+  const query = `${menus.join(
+    ', ',
+  )} 중에서 ${age}층 ${gender}이 좋아할만한 카페메뉴를 추천해줘. 답변은 설명 없이 ["메뉴1", "메뉴2", "메뉴3", ...] 형식으로 ${recommend_num}개 작성해줘`;
+  console.log(query);
   useEffect(() => {
     const getAnswer = async (question) => {
       setAnswer('입력 값 없음');

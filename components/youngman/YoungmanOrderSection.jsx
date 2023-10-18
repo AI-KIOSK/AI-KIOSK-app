@@ -1,15 +1,20 @@
+import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
+import format from 'pretty-format';
 import { useOrder } from '@hooks/useOrder';
 import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useRecoilValue } from 'recoil';
+import { orderRequest } from 'recoil/order/atom';
 import styled from 'styled-components/native';
 
 function YoungmanOrderSection() {
   const { openModal } = useModal('orderConfirmModal');
 
-  const { request } = useOrder();
+  const request = useRecoilValue(orderRequest);
+  // const { request } = useOrder();
 
   const items = request.orders;
 
@@ -147,7 +152,7 @@ const Price = styled.Text`
 `;
 
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(16)}px;
+  width: ${wp(18)}px;
   height: ${wp(16)}px;
   padding: ${RFValue(8)}px;
 

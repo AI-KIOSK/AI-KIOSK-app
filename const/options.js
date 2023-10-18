@@ -45,7 +45,6 @@ const freeOptionsData = [
         label: '많이',
         labelEng: 'Many',
         value: '많이',
-        
       },
     ],
   },
@@ -68,13 +67,12 @@ const freeOptionsData = [
         label: '많이',
         labelEng: 'Many',
         value: '많이',
-        
       },
     ],
   },
   {
     id: 'pump',
-    label: '설탕시럼',
+    label: '설탕시럽',
     labelEng: 'Syrup',
     options: [
       {
@@ -94,7 +92,7 @@ const freeOptionsData = [
       },
       {
         label: '3펌프',
-        labelEng: '3 pump',
+        labelEng: '3 pumps',
         value: 3,
       },
     ],

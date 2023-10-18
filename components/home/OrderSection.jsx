@@ -42,7 +42,7 @@ function OrderSection() {
                 <MenuName>{item.menuName}</MenuName>
               </TextWrapper>
               <TextWrapper>
-                <Price>{item.price.toLocaleString()}원</Price>
+                <Quantity>{item.orderQuantity}개</Quantity>
               </TextWrapper>
             </SelectedMenuCard>
           ))}
@@ -108,7 +108,7 @@ const SelectedMenuCard = styled.View`
   align-content: space-around;
 
   width: ${wp(16)}px;
-  height: ${hp(12)}px;
+  height: ${hp(14)}px;
 
   padding: ${RFValue(4)}px;
   border-radius: ${RFValue(6)}px;
@@ -136,7 +136,7 @@ const MenuName = styled.Text`
   font-weight: 600;
 `;
 
-const Price = styled.Text`
+const Quantity = styled.Text`
   font-size: ${RFValue(9)}px;
 `;
 
@@ -149,7 +149,7 @@ const ButtonContainer = styled.View`
 `;
 
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(16)}px;
+  width: ${wp(18)}px;
   height: ${wp(16)}px;
   padding: ${RFValue(8)}px;
 

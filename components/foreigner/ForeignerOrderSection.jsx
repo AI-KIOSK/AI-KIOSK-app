@@ -3,7 +3,7 @@ import { useModal } from '@hooks/common';
 import format from 'pretty-format';
 import React, { useCallback, useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { heightPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useRecoilValue } from 'recoil';
 import { orderRequest } from 'recoil/order/atom';
@@ -38,7 +38,18 @@ function ForeignerOrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
-            <MenuIcon key={`addedItem${index}`} image={item.img} label={item.nameEng} quantity={item.orderQuantity} />
+            <SelectedMenuCard key={`addedItem${index}`}>
+              <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
+              <TextWrapper>
+                <MenuName>{item.nameEng}</MenuName>
+              </TextWrapper>
+              <TextWrapper>
+                <Quantity>
+                  {item.orderQuantity}
+                  {item.orderQuantity > 1 ? ' cups' : ' cup'}
+                </Quantity>
+              </TextWrapper>
+            </SelectedMenuCard>
           ))}
         </ContainedMenuList>
         <AntDesign
@@ -91,7 +102,47 @@ const ContainedMenuView = styled.View`
 const ContainedMenuList = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  width: 60%;
+  width: 70%;
+`;
+
+const SelectedMenuCard = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-content: space-around;
+
+  width: ${wp(16)}px;
+  height: ${hp(14)}px;
+
+  padding: ${RFValue(4)}px;
+  border-radius: ${RFValue(6)}px;
+  ${({ theme }) => `
+    background: ${theme.colors.chanpagneBeige};
+    `}
+`;
+
+const MenuImage = styled.Image`
+  width: 100%;
+  height: 80%;
+
+  object-fit: contain;
+  border-radius: ${wp(2)}px;
+`;
+
+const TextWrapper = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MenuName = styled.Text`
+  font-size: ${RFValue(8)}px;
+  font-weight: 600;
+`;
+
+const Quantity = styled.Text`
+  font-size: ${RFValue(9)}px;
 `;
 
 const ButtonContainer = styled.View`
@@ -103,8 +154,8 @@ const ButtonContainer = styled.View`
 `;
 
 const OrderButton = styled.TouchableOpacity`
-  width: ${wp(14)}px;
-  height: ${wp(12)}px;
+  width: ${wp(20)}px;
+  height: ${wp(16)}px;
   padding: ${RFValue(8)}px;
 
   justify-content: center;
