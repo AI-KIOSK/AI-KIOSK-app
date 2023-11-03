@@ -1,6 +1,7 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
-import React from 'react';
+import useAudio from '@hooks/useAudio';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -12,6 +13,7 @@ import ModalTemplate from 'styles/ModalTemplate';
 
 export default function BeverageDetail() {
   const { modal, hideModal: hideBeverageDetailModal } = useModal('beverageDetail');
+  const { play, isLoading } = useAudio(require('@assets/audio/beverageInfo.mp3'));
   const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
 
   const DetailParser = (detail) => {
@@ -34,6 +36,10 @@ export default function BeverageDetail() {
   const onPressCancel = () => {
     hideBeverageDetailModal();
   };
+
+  useEffect(() => {
+    if ((isLoading, modal.visible)) play();
+  }, [isLoading, modal.visible, play]);
 
   const parsedSentences = DetailParser(selectedMenu && selectedMenu['description']);
 

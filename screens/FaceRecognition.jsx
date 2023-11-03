@@ -1,5 +1,6 @@
 import CheckPhotoModal from '@components/modal/common/CheckPhotoModal';
 import { useModal } from '@hooks/common';
+import useAudio from '@hooks/useAudio';
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import React, { useState, useEffect, useRef } from 'react';
@@ -14,6 +15,7 @@ function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type] = useState(Camera.Constants.Type.front);
   const [capturedPhoto, setCapturedPhoto] = useRecoilState(capturedImage);
+  const { play, isLoading } = useAudio(require('../assets/audio/photo.mp3'));
 
   const cameraRef = useRef(null);
   const { navigate } = useNavigation();
@@ -25,6 +27,10 @@ function FaceRecognition() {
       setHasPermission(status === 'granted');
     })();
   }, []);
+
+  useEffect(() => {
+    if (isLoading) play();
+  }, [isLoading, play]);
 
   if (hasPermission === null) {
     return <View />;

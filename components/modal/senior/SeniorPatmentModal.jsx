@@ -1,9 +1,10 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import useAudio from '@hooks/useAudio';
 import { useFetch } from '@hooks/useFecth';
 import { useOrder } from '@hooks/useOrder';
 import { fetchPoints } from 'api/fetch';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -32,7 +33,11 @@ function SeniorPaymentModal() {
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
   const { handleOrderType, completeOrderWithRequest } = useOrder();
-  console.log(finalOrder);
+  const { play, isLoading: isAudioLoading } = useAudio(require('@assets/audio/payment.mp3'));
+
+  useEffect(() => {
+    if (isAudioLoading && modal.visible) play();
+  }, [isAudioLoading, modal.visible, play]);
 
   const pressPayment = () => {
     completeOrderWithRequest(finalOrder);

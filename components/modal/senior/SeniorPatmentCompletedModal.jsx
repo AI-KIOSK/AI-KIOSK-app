@@ -1,6 +1,7 @@
 import { useModal } from '@hooks/common';
+import useAudio from '@hooks/useAudio';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
@@ -12,6 +13,12 @@ function SeniorPaymentCompletedModal() {
   const orderNum = '14';
   const { modal, hideModal } = useModal('paymentCompletedModal');
   const navigation = useNavigation();
+
+  const { play, isLoading } = useAudio(require('@assets/audio/ordercomplete.mp3'));
+
+  useEffect(() => {
+    if (isLoading && modal.visible) play();
+  }, [isLoading, modal.visible, play]);
 
   const pressBack = () => {
     hideModal();
