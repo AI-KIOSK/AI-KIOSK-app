@@ -2,13 +2,12 @@ import { useOrder } from '@hooks/useOrder';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
 import { phoneNumber } from 'recoil/auth/atom';
 import { onForeigner } from 'recoil/common/Foreigner';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components';
-
 function Information() {
   const { navigate } = useNavigation();
   const [shoppingList, setShoppingList] = useRecoilState(ShoppingList);
@@ -99,6 +98,7 @@ const Button = styled.TouchableOpacity`
 
 const Label = styled.Text`
   font-size: ${RFValue(12)}px;
+  font-family: SCDream4;
 `;
 
 export default Information;
