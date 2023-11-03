@@ -2,10 +2,8 @@ import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import format from 'pretty-format';
 import React from 'react';
 import { Modal } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { capturedImage } from 'recoil/auth/atom';
@@ -46,7 +44,9 @@ function CheckPhotoModal(img) {
         }
         hideModal();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   return (

@@ -27,7 +27,7 @@ function ForeignerMenuScrollList() {
   return (dataLoading || gptLoading) && category === '추천' ? (
     <Container>
       <TitleView>
-        <Title>추천 메뉴를 불러오고 있어요...</Title>
+        <Title>Loading...</Title>
         <ActivityIndicator size={'large'} color={'black'} />
       </TitleView>
     </Container>
