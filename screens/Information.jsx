@@ -1,8 +1,9 @@
+import useAudio from '@hooks/useAudio';
 import { useOrder } from '@hooks/useOrder';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
 import { phoneNumber } from 'recoil/auth/atom';
 import { onForeigner } from 'recoil/common/Foreigner';
@@ -15,7 +16,7 @@ function Information() {
   const [phone, setPhone] = useRecoilState(phoneNumber);
   const { resetOrder, resetRequest } = useOrder();
   const [Foreigner, setForeigner] = useRecoilState(onForeigner);
-
+  const { play, isLoading } = useAudio(require('../assets/audio/main.mp3'));
   useFocusEffect(
     useCallback(() => {
       resetOrder();
@@ -25,6 +26,21 @@ function Information() {
       setPhone('');
     }, [setShoppingList, setPhone]),
   );
+
+  // useEffect(() => {
+  //   async function playSound() {
+  //     console.log('Loading Sound');
+  //     const { sound } = await Audio.Sound.createAsync(require('../assets/audio/main.mp3'));
+
+  //     console.log('Playing Sound');
+  //     await sound.playAsync();
+  //   }
+  //   playSound();
+  // }, []);
+
+  useEffect(() => {
+    if (isLoading) play();
+  }, [isLoading, play]);
 
   return (
     <Container>

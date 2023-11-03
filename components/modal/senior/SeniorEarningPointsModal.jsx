@@ -1,7 +1,8 @@
 import { ModalActionButton } from '@components/common/btn';
 import Numpad from '@components/modal/point/Numpad';
 import { useModal } from '@hooks/common';
-import React from 'react';
+import useAudio from '@hooks/useAudio';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -15,6 +16,11 @@ function SeniorEarningPointsModal() {
   const { openModal } = useModal('paymentModal');
   const { openModal: openOtherModal } = useModal('signupModal');
   const [phone, setPhoneNumber] = useRecoilState(phoneNumber);
+  const { play, isLoading } = useAudio(require('@assets/audio/point.mp3'));
+
+  useEffect(() => {
+    if (isLoading && modal.visible) play();
+  }, [isLoading, modal.visible, play]);
 
   const pressPayment = () => {
     hideModal();

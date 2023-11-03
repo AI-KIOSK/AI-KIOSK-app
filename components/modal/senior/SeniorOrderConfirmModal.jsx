@@ -1,7 +1,8 @@
 import { ModalActionButton } from '@components/common/btn';
 import { OrderList } from '@components/order';
 import { useModal } from '@hooks/common';
-import React from 'react';
+import useAudio from '@hooks/useAudio';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -20,6 +21,12 @@ export default function SeniorOrderConfirmModal() {
   const totalOrder = shoppingList.reduce((accumulator, item) => accumulator + item.orderQuantity, 0);
   const [fianlOrder, setFinalOrder] = useRecoilState(FinalOrder);
   const phone = useRecoilValue(phoneNumber);
+
+  const { play, isLoading } = useAudio(require('@assets/audio/orderlist.mp3'));
+
+  useEffect(() => {
+    if (modal.visible && isLoading) play();
+  }, [isLoading, modal.visible, play]);
 
   function createRequestBody(phoneNumber, quantity, totalPrice, orderType, orders) {
     const requestBody = {

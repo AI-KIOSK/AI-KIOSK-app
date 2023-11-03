@@ -1,6 +1,7 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/common';
+import useAudio from '@hooks/useAudio';
 import React, { useEffect, useState } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -25,6 +26,11 @@ function SeniorOptionModal() {
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
 
   const img = require('@assets/menu/cafelatte.jpeg');
+  const { play, isLoading } = useAudio(require('@assets/audio/seniorOption.mp3'));
+
+  useEffect(() => {
+    if (modal.visible && isLoading) play();
+  }, [isLoading, modal.visible, play]);
 
   const increaseCounter = () => {
     setCounter(counter + 1);

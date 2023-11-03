@@ -1,7 +1,8 @@
 import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/common';
+import useAudio from '@hooks/useAudio';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -11,8 +12,12 @@ import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 function SeniorSignUpCompletedModal() {
   const phoneNum = '4722';
   const { modal, hideModal } = useModal('signupCompleteModal');
-
+  const { play, isLoading } = useAudio(require('@assets/audio/signupcomplete.mp3'));
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (isLoading && modal.visible) play();
+  }, [isLoading, modal.visible, play]);
 
   const pressBack = () => {
     hideModal();

@@ -8,9 +8,10 @@ import SeniorSignUpCompletedModal from '@components/modal/senior/SeniorSignUpCom
 import SeniorSignUpModal from '@components/modal/senior/SeniorSignUpModal';
 import SeniorMenuList from '@components/senior/SeniorMenuList';
 import SeniorSubInfo from '@components/senior/SeniorSubInfo';
+import useAudio from '@hooks/useAudio';
 import { useFetch } from '@hooks/useFecth';
 import { fetchMenus } from 'api/fetch';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { Category, Temperature } from 'recoil/Category';
@@ -22,6 +23,11 @@ function SeniorHome() {
   const category = useRecoilValue(Category);
   const temperature = useRecoilValue(Temperature);
 
+  const { play, isLoading: isAudioLoading } = useAudio(require('../assets/audio/senior.mp3'));
+
+  useEffect(() => {
+    if (isAudioLoading) play();
+  }, [isAudioLoading, play]);
   /** 메뉴들 불러오기 */
   const { isLoading, data } = useFetch(fetchMenus);
   /** 불러온 메뉴 카테고리에 따라 필터링하기 */
@@ -58,6 +64,7 @@ function SeniorHome() {
       <SeniorOrderConfirmModal />
       <SeniorOptionModal />
       <SeniorEarningPointsModal />
+
       <SeniorPaymentModal />
       <SeniorPaymentCompletedModal />
       <BeverageDetail />
