@@ -52,7 +52,7 @@ const TitleContainer = styled.View`
 
 const TitleText = styled.Text`
   color: #675d50;
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(26)}px;
 `;
 

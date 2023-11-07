@@ -89,7 +89,7 @@ const Container = styled.View`
 
 const Label = styled.Text`
   font-size: ${RFValue(18)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const HorizontalLine = styled.View`
@@ -114,5 +114,5 @@ const OptionSubList = styled.View`
 const OptionLabel = styled.Text`
   margin: ${RFValue(3)}px;
   font-size: ${RFValue(13)}px;
-  font-weight: bold;
+  font-family: SCDream6;
 `;

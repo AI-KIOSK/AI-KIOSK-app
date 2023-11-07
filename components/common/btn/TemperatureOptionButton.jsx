@@ -76,6 +76,7 @@ const Container = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   font-size: ${RFValue(13)}px;
+  font-family: SCDream6;
   ${({ title }) =>
     title === 'HOT'
       ? `

@@ -49,7 +49,7 @@ const Container = styled.View`
 
 const Label = styled.Text`
   font-size: ${RFValue(18)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const HorizontalLine = styled.View`

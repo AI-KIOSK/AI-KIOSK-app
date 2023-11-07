@@ -53,4 +53,5 @@ const Container = styled.TouchableOpacity`
 const ButtonText = styled.Text`
   font-size: ${RFValue(13)}px;
   color: ${({ isSelected }) => (isSelected ? 'black' : 'black')};
+  font-family: SCDream5;
 `;

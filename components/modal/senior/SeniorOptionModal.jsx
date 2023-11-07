@@ -202,7 +202,7 @@ const MenuOptionView = styled.View`
 const MenuLabel = styled.Text`
   font-size: ${RFValue(24)}px;
   width: 100%;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const QunatityOptionView = styled.View`
@@ -214,7 +214,7 @@ const QunatityOptionView = styled.View`
 
 const QuantityLabel = styled.Text`
   font-size: ${RFValue(18)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const OptionButtonView = styled.View`

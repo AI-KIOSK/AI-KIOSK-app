@@ -86,7 +86,7 @@ const Button = styled.TouchableOpacity`
 
 const Label = styled.Text`
   font-size: ${RFValue(8)}px;
-  font-weight: bold;
+  font-family: SCDream6;
 `;
 
 export default ForeignerHeader;

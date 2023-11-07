@@ -86,7 +86,7 @@ const Container = styled.View`
 const Title = styled.Text`
   color: #002b85;
   font-size: ${RFValue(20)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 
   width: 100%;
 `;
@@ -101,6 +101,7 @@ const DetailContainer = styled.View`
 const DetailLabel = styled.Text`
   font-size: ${RFValue(15)}px;
   margin-bottom: ${RFValue(8)}px;
+  font-family: SCDream4;
 `;
 
 const ButtonSection = styled.View`

@@ -79,7 +79,7 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(20)}px;
 `;
 const PhoneNumberPrint = styled.View`
@@ -98,13 +98,13 @@ const EarningPointContainer = styled.View`
 `;
 
 const PhoneNumberText = styled.Text`
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(16)}px;
   letter-spacing: 2px;
 `;
 
 const NormalText = styled.Text`
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(16)}px;
 `;
 

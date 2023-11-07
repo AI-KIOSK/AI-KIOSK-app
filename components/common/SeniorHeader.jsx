@@ -131,7 +131,7 @@ const TemperatureButton = styled(Button)`
 
 const Label = styled.Text`
   font-size: ${RFValue(14)}px;
-  font-weight: bold;
+  font-family: SCDream6;
 `;
 
 export default SeniorHeader;

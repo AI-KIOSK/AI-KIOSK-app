@@ -110,6 +110,7 @@ const Circle = styled.View`
 const Label = styled.Text`
   width: ${wp(7)}px;
   font-size: ${RFValue(8)}px;
+  font-family: SCDream4;
 `;
 
 export default ProgressBar;

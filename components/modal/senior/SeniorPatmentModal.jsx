@@ -108,7 +108,7 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(20)}px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -171,7 +171,7 @@ const Row = styled.View`
 `;
 
 const NormalText = styled.Text`
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(18)}px;
 `;
 

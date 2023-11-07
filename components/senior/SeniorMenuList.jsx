@@ -80,7 +80,7 @@ const NextButton = styled(PrevButton)``;
 
 const ButtonLabel = styled.Text`
   font-size: ${RFValue(22)}px;
-  font-weight: bold;
+  font-family: SCDream6;
 `;
 
 export default SeniorMenuList;

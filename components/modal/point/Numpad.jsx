@@ -58,6 +58,7 @@ const Column = styled.TouchableOpacity`
 const Text = styled.Text`
   font-size: ${RFValue(27)}px;
   color: #675d50;
+  font-family: SCDream4;
 `;
 
 export default Numpad;

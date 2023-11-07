@@ -103,14 +103,14 @@ const Container = styled.View`
 
 const Title = styled.Text`
   font-size: ${RFValue(20)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 
   width: 100%;
 `;
 
 const OrderResultText = styled.Text`
   font-size: ${RFValue(16)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const ButtonSection = styled.View`

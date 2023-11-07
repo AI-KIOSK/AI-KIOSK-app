@@ -56,7 +56,7 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  font-weight: bold;
+  font-family: SCDream6;
   font-size: ${RFValue(23)}px;
 `;
 

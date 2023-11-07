@@ -75,7 +75,7 @@ const TitleView = styled.View`
 
 const Title = styled.Text`
   font-size: ${RFValue(20)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const ContainedMenuView = styled.View`
@@ -111,7 +111,7 @@ const OrderButton = styled.TouchableOpacity`
 
 const ButtonLabel = styled.Text`
   font-size: ${RFValue(26)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 export default SeniorSubInfo;

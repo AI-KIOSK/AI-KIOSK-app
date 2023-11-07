@@ -170,7 +170,7 @@ const Option = styled.View`
 
 const OptionLabel = styled.Text`
   font-size: ${RFValue(12)}px;
-  font-weight: 700;
+  font-family: SCDream6;
   padding-left: ${RFValue(5)}px;
 `;
 
@@ -201,7 +201,7 @@ const NameContainer = styled.View`
 const MenuLabel = styled.Text`
   font-size: ${RFValue(14)}px;
   width: 93%;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const QuantityContainer = styled.View`
@@ -219,10 +219,11 @@ const TextView = styled.View`
 
 const TotalPriceText = styled.Text`
   font-size: ${RFValue(16)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const TotalPriceEngText = styled(TotalPriceText)`
   font-size: ${RFValue(12)}px;
   margin-left: ${RFValue(8)}px;
+  font-family: SCDream6;
 `;

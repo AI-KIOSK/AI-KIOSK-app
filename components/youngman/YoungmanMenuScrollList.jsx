@@ -101,7 +101,7 @@ const TitleView = styled.View`
 const Title = styled.Text`
   margin-bottom: 20px;
   font-size: ${RFValue(20)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 export default YoungmanMenuScrollList;

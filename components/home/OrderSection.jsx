@@ -83,7 +83,7 @@ const TitleView = styled.View`
 const Title = styled.Text`
   color: #ffffff;
   font-size: ${RFValue(16)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 
 const ContainedMenuView = styled.View`
@@ -133,11 +133,12 @@ const TextWrapper = styled.View`
 
 const MenuName = styled.Text`
   font-size: ${RFValue(10)}px;
-  font-weight: 600;
+  font-family: SCDream6;
 `;
 
 const Quantity = styled.Text`
   font-size: ${RFValue(9)}px;
+  font-family: SCDream4;
 `;
 
 const ButtonContainer = styled.View`
@@ -162,6 +163,6 @@ const OrderButton = styled.TouchableOpacity`
 
 const ButtonLabel = styled.Text`
   font-size: ${RFValue(16)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 `;
 export default OrderSection;

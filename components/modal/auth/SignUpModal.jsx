@@ -200,8 +200,8 @@ const TitleContainer = styled.View`
 `;
 
 const TitleText = styled.Text`
-  font-weight: bold;
   font-size: ${RFValue(20)}px;
+  font-family: SCDream6;
 `;
 
 const SignUpContainer = styled.View`
@@ -265,6 +265,7 @@ const Row = styled.View`
 const NormalText = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(16)}px;
+  font-family: SCDream6;
 `;
 const ButtonSection = styled.View`
   width: 100%;

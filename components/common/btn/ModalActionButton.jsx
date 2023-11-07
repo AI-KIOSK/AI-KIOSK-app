@@ -59,7 +59,7 @@ const Container = styled.TouchableOpacity`
 
 const Title = styled.Text`
   font-size: ${RFValue(20)}px;
-  font-weight: 700;
+  font-family: SCDream6;
 
   ${({ color }) => {
     switch (color) {

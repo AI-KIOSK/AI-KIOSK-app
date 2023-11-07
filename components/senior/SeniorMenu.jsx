@@ -168,7 +168,7 @@ const NameContainer = styled.View`
 const Name = styled.Text`
   font-size: ${RFValue(18)}px;
   text-align: center;
-  font-weight: bold;
+  font-family: SCDream6;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -185,7 +185,7 @@ const Button = styled.TouchableOpacity`
 
 const Label = styled.Text`
   font-size: ${RFValue(10)}px;
-  font-weight: bold;
+  font-family: SCDream6;
   color: #000000;
 `;
 
@@ -199,7 +199,7 @@ const CounterGroup = styled.View`
 const Counter = styled.Text`
   color: #000000;
   font-size: ${RFValue(12)}px;
-  font-weight: bold;
+  font-family: SCDream6;
 `;
 
 const CounterButton = styled.TouchableOpacity`
@@ -214,7 +214,7 @@ const CounterButton = styled.TouchableOpacity`
 
 const CounterButtonText = styled.Text`
   font-size: ${RFValue(12)}px;
-  font-weight: bold;
+  font-family: SCDream6;
   color: #000;
 `;
 

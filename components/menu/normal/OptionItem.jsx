@@ -53,7 +53,7 @@ const LabelContainer = styled.View`
 
 const OptionLabel = styled.Text`
   font-size: ${RFValue(13)}px;
-  font-weight: bold;
+  font-family: SCDream6;
 `;
 
 const OptionSection = styled.View`

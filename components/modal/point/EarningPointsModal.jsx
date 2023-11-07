@@ -127,6 +127,7 @@ const TitleContainer = styled.View`
 const TitleText = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(20)}px;
+  font-family: SCDream6;
 `;
 const PhoneNumberPrint = styled.View`
   margin-top: ${wp(2)}px;
@@ -147,17 +148,19 @@ const PhoneNumberText = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(16)}px;
   letter-spacing: 2px;
+  font-family: SCDream6;
 `;
 
 const NormalText = styled.Text`
   align-items: center;
   text-align: center;
-  font-weight: bold;
   font-size: ${RFValue(16)}px;
+  font-family: SCDream6;
 `;
 
 const NormalEngText = styled(NormalText)`
   font-size: ${RFValue(20)}px;
+  font-family: SCDream6;
 `;
 
 const ButtonContainer_1 = styled.View`

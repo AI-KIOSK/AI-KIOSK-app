@@ -76,11 +76,12 @@ const TextWrapper = styled.View`
 
 const MenuName = styled.Text`
   font-size: ${RFValue(10)}px;
-  font-weight: 600;
+  font-family: SCDream6;
 `;
 
 const Price = styled.Text`
   font-size: ${RFValue(9)}px;
+  font-family: SCDream4;
 `;
 
 export default MenuCard;
