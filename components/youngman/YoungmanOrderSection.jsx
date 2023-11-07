@@ -40,7 +40,7 @@ function YoungmanOrderSection() {
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
             //             <MenuIcon key={`addedItem${index}`} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
             <SelectedMenuCard key={`addedItem${index}`}>
-              <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
+              <MenuImage source={{ uri: item.img }} />
               <TextWrapper>
                 <MenuName>{item.menuName}</MenuName>
               </TextWrapper>
@@ -118,7 +118,7 @@ const SelectedMenuCard = styled.View`
   justify-content: center;
   align-content: space-around;
 
-  width: ${wp(16)}px;
+  width: ${wp(14)}px;
   height: ${hp(12)}px;
 
   padding: ${RFValue(4)}px;
@@ -130,9 +130,9 @@ const SelectedMenuCard = styled.View`
 
 const MenuImage = styled.Image`
   width: 100%;
-  height: 80%;
+  height: 65%;
 
-  object-fit: contain;
+  object-fit: cover;
   border-radius: ${wp(2)}px;
 `;
 
