@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
-import format from 'pretty-format';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
+// TODO 로딩 상태 관리 다시 하기
 function useFetch(query, params) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -12,9 +12,9 @@ function useFetch(query, params) {
     useCallback(() => {
       async function fetch() {
         try {
-          setIsLoading(true);
           const response = await query(params);
           setData(response.data.data);
+          setIsLoading(false);
           setIsError(false);
         } catch (err) {
           setError(err);
@@ -22,8 +22,8 @@ function useFetch(query, params) {
           setIsError(true);
         }
       }
+      setIsLoading(true);
       fetch();
-      setIsLoading(false);
     }, [params, query]),
   );
 
