@@ -1,5 +1,5 @@
 import { ModalActionButton } from '@components/common/btn';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import useAudio from '@hooks/useAudio';
 import { useFetch } from '@hooks/useFecth';
 import { useOrder } from '@hooks/useOrder';

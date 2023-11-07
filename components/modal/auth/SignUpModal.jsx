@@ -1,5 +1,5 @@
 import { ModalActionButton } from '@components/common/btn';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import { useSignUp } from '@hooks/customer';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';

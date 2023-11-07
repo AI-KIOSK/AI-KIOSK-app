@@ -1,6 +1,6 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import MenuOptionList from '@components/menu/MenuOptionList';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import useAudio from '@hooks/useAudio';
 import React, { useEffect, useState } from 'react';
 import { Image, Modal } from 'react-native';

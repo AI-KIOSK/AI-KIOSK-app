@@ -1,7 +1,7 @@
 import { ModalActionButton } from '@components/common/btn';
 import TemperatureOptionButton from '@components/common/btn/TemperatureOptionButton';
 import { OptionList } from '@components/menu/normal';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import useMenu from '@hooks/useMenu';
 import { useOrder } from '@hooks/useOrder';
 import { freeOptionsData, paidOptionsData } from 'const/options';

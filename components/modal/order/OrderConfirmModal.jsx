@@ -1,6 +1,6 @@
 import { ModalActionButton } from '@components/common/btn';
 import { OrderList } from '@components/menu/normal';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import React from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';

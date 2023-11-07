@@ -1,5 +1,5 @@
 import { MenuCard } from '@components/menu/common';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import { useFetch } from '@hooks/useFecth';
 import useGpt from '@hooks/useGpt';
 import useMenu from '@hooks/useMenu';

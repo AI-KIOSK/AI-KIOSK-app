@@ -1,4 +1,4 @@
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import format from 'pretty-format';
 import React, { useCallback, useState } from 'react';
 import { Image, View } from 'react-native';

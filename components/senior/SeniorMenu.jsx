@@ -1,4 +1,4 @@
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';

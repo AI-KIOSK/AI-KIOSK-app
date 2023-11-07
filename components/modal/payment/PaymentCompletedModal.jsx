@@ -1,4 +1,4 @@
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import { useOrder } from '@hooks/useOrder';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';

@@ -6,68 +6,63 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { styled } from 'styled-components';
 import { useRecoilState } from 'recoil';
 import RectButton from '../common/RectButton';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 
+function ForeignerWithoutPointPaymentModal() {
+  const paymentPlans = useMemo(
+    () => [
+      {
+        id: 'card',
+        value: 'card',
+        name: 'card',
+      },
+      {
+        id: 'kakaopay',
+        value: 'kakaopay',
+        name: 'kakaopay',
+      },
+    ],
+    [],
+  );
 
-function ForeignerWithoutPointPaymentModal(){
-    const paymentPlans = useMemo(
-        () => [
-            {
-              id: 'card',
-              value: 'card',
-              name: 'card',
-            },
-            {
-              id: 'kakaopay',
-              value: 'kakaopay',
-              name: 'kakaopay',
-            },
-          ],
-          [],
+  const { modal, hideModal } = useModal('foreignerPaymentModal');
+  const { openModal } = useModal('foreignerPaymentCompletedModal');
 
-    );
+  const pressPayment = () => {
+    hideModal();
+    openModal();
+  };
 
-    const {modal, hideModal} = useModal('foreignerPaymentModal');
-    const {openModal} = useModal('foreignerPaymentCompletedModal');
-  
-    const pressPayment = () => {
-      hideModal();
-      openModal();
-    };
-
-
-      return (
-        <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
-          <ModalTemplate>
-            <TitleContainer>
-              <TitleText>Payment details</TitleText>
-            </TitleContainer>
-            <PaymentContainer>
-              <Row>
-                <TitleText>Order amount</TitleText>
-                <NormalText> 16000₩  </NormalText>
-              </Row>
-              <PaymentPlanContainer>
-                <TitleText>Payment method</TitleText>
-                <Row>
-                  {paymentPlans.map((item) => (
-                    <PaymentPlanItem key={item.id}>
-                      <NormalText>{item.name}</NormalText>
-                    </PaymentPlanItem>
-                  ))}
-                </Row>
-              </PaymentPlanContainer>
-            </PaymentContainer>
-            <ButtonContainer>
-              <RectButton onPress={hideModal} text={'Back'} fontColor="#002B85" backColor="#DBEDFF" />
-              <RectButton onPress={pressPayment} text={'Payment'} fontColor="#FFA3A3" backColor="#FEF4F4" />
-            </ButtonContainer>
-          </ModalTemplate>
-        </Modal>
-      );
+  return (
+    <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
+      <ModalTemplate>
+        <TitleContainer>
+          <TitleText>Payment details</TitleText>
+        </TitleContainer>
+        <PaymentContainer>
+          <Row>
+            <TitleText>Order amount</TitleText>
+            <NormalText> 16000₩ </NormalText>
+          </Row>
+          <PaymentPlanContainer>
+            <TitleText>Payment method</TitleText>
+            <Row>
+              {paymentPlans.map((item) => (
+                <PaymentPlanItem key={item.id}>
+                  <NormalText>{item.name}</NormalText>
+                </PaymentPlanItem>
+              ))}
+            </Row>
+          </PaymentPlanContainer>
+        </PaymentContainer>
+        <ButtonContainer>
+          <RectButton onPress={hideModal} text={'Back'} fontColor="#002B85" backColor="#DBEDFF" />
+          <RectButton onPress={pressPayment} text={'Payment'} fontColor="#FFA3A3" backColor="#FEF4F4" />
+        </ButtonContainer>
+      </ModalTemplate>
+    </Modal>
+  );
 }
-
-
 
 const TitleContainer = styled.View`
   flex: 0.8;
@@ -89,19 +84,19 @@ const PaymentContainer = styled.View`
 `;
 
 const PointContainer = styled.View`
-    flex: 3;
-    justify-content: center;
-    align-items: center;
+  flex: 3;
+  justify-content: center;
+  align-items: center;
 `;
 
 const InputBox = styled.TextInput`
-    color: #002b85;
-    border-width: 3px;
-    flex-direction: row;
-    border-color: #002b85;
-    padding: 0px 10px;
-    justify-content: space-around;
-    align-items: center;
+  color: #002b85;
+  border-width: 3px;
+  flex-direction: row;
+  border-color: #002b85;
+  padding: 0px 10px;
+  justify-content: space-around;
+  align-items: center;
   font-size: ${RFValue(16)}px;
 `;
 
@@ -140,6 +135,4 @@ const ButtonContainer = styled.View`
   align-items: center;
 `;
 
-
 export default ForeignerWithoutPointPaymentModal;
-

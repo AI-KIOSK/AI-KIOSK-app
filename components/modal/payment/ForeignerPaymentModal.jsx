@@ -1,4 +1,4 @@
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';

@@ -1,5 +1,5 @@
 import { ModalActionButton } from '@components/common/btn';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import React from 'react';

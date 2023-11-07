@@ -1,5 +1,5 @@
 import { ModalActionButton } from '@components/common/btn';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import { useSignUp } from '@hooks/customer';
 import useAudio from '@hooks/useAudio';
 import React, { useEffect, useMemo, useState } from 'react'; // 추가: useState import

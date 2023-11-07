@@ -1,5 +1,5 @@
 import CheckPhotoModal from '@components/modal/common/CheckPhotoModal';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import useAudio from '@hooks/useAudio';
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';

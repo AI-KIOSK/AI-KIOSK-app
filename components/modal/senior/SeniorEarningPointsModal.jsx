@@ -1,6 +1,6 @@
 import { ModalActionButton } from '@components/common/btn';
 import Numpad from '@components/modal/point/Numpad';
-import { useModal } from '@hooks/common';
+import { useModal } from '@hooks/useModal';
 import useAudio from '@hooks/useAudio';
 import React, { useEffect } from 'react';
 import { Modal } from 'react-native';
