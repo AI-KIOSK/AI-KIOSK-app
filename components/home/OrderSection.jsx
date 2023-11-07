@@ -37,7 +37,7 @@ function OrderSection() {
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
             <SelectedMenuCard key={`addedItem${index}`}>
-              <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} resizeMode="contain" />
+              <MenuImage source={{ uri: item.img }} />
               <TextWrapper>
                 <MenuName>{item.menuName}</MenuName>
               </TextWrapper>
@@ -107,8 +107,8 @@ const SelectedMenuCard = styled.View`
   justify-content: center;
   align-content: space-around;
 
-  width: ${wp(16)}px;
-  height: ${hp(14)}px;
+  width: ${wp(14)}px;
+  height: ${hp(12)}px;
 
   padding: ${RFValue(4)}px;
   border-radius: ${RFValue(6)}px;
@@ -121,7 +121,7 @@ const MenuImage = styled.Image`
   width: 100%;
   height: 80%;
 
-  object-fit: contain;
+  object-fit: cover;
   border-radius: ${wp(2)}px;
 `;
 

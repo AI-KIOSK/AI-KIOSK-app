@@ -12,7 +12,7 @@ const MenuCard = ({ img, label, price }) => {
 
   return (
     <Container>
-      <MenuImage source={{ uri: `data:image/png;base64,${img}` }} />
+      <MenuImage source={{ uri: img }} />
       <TextWrapper>
         <MenuName>{label}</MenuName>
       </TextWrapper>
@@ -64,7 +64,7 @@ const MenuImage = styled.Image`
   width: 100%;
   height: 65%;
 
-  object-fit: contain;
+  object-fit: cover;
   border-radius: ${wp(2)}px;
 `;
 

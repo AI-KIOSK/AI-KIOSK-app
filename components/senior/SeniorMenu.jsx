@@ -103,11 +103,7 @@ function SeniorMenu({ item }) {
 
   return (
     <Container>
-      {item.img !== undefined ? (
-        <MenuImage source={{ uri: `data:image/png;base64,${item.img}` }} />
-      ) : (
-        <MenuImage source={img} />
-      )}
+      {item.img !== undefined ? <MenuImage source={{ uri: item.img }} /> : <MenuImage source={img} />}
       <Info>
         <NameContainer>
           <Name>{item.name}</Name>

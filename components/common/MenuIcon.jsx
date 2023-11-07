@@ -18,11 +18,8 @@ function MenuIcon({ image, label, quantity }) {
 
   return (
     <Container>
-      {image !== undefined ? (
-        <MenuImage source={{ uri: `data:image/png;base64,${image}` }} />
-      ) : (
-        <MenuImage source={img} />
-      )}
+      <MenuImage source={{ uri: image }} />
+
       {isForeigner ? (
         quantity === 1 ? (
           <Label>
@@ -48,8 +45,9 @@ const Container = styled.View`
 `;
 
 const MenuImage = styled.Image`
-  width: ${wp(12)}px;
-  height: ${wp(12)}px;
+  object-fit: cover;
+  width: ${wp(13)}px;
+  height: ${wp(13)}px;
 `;
 
 const Label = styled.Text`

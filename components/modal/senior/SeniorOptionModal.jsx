@@ -103,9 +103,9 @@ function SeniorOptionModal() {
             <MenuImageView>
               {selectedItem.img !== undefined ? (
                 <Image
-                  style={{ width: RFValue(80), height: RFValue(80) }}
-                  source={{ uri: `data:image/png;base64,${selectedItem.img}` }}
-                  resizeMode="contain"
+                  style={{ width: RFValue(100), height: RFValue(100) }}
+                  source={{ uri: selectedItem.img }}
+                  resizeMode="cover"
                 />
               ) : (
                 <Image style={{ width: RFValue(80), height: RFValue(80) }} source={img} resizeMode="contain" />

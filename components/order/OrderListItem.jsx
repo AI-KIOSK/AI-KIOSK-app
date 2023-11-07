@@ -92,8 +92,8 @@ export default function OrderListItem({ item, onDelete }) {
         <MenuImageView>
           {item.img !== undefined ? (
             <Image
-              style={{ width: RFValue(60), height: RFValue(60) }}
-              source={{ uri: `data:image/png;base64,${item.img}` }}
+              style={{ width: RFValue(200), height: RFValue(100) }}
+              source={{ uri: item.img }}
               resizeMode="contain"
             />
           ) : (
