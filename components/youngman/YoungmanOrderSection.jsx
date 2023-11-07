@@ -1,8 +1,7 @@
-import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import format from 'pretty-format';
-import { useOrder } from '@hooks/useOrder';
 import React, { useCallback, useState } from 'react';
+import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -24,6 +23,8 @@ function YoungmanOrderSection() {
     if (offset <= items.length / 3 - 1) setOffset((prev) => prev + 1);
   }, [items.length, offset]);
 
+  console.log(format(items));
+
   const prevMenuSets = useCallback(() => {
     if (offset > 0) setOffset((prev) => prev - 1);
   }, [offset]);
@@ -38,16 +39,17 @@ function YoungmanOrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
-            //             <MenuIcon key={`addedItem${index}`} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
-            <SelectedMenuCard key={`addedItem${index}`}>
-              <MenuImage source={{ uri: item.img }} />
-              <TextWrapper>
-                <MenuName>{item.menuName}</MenuName>
-              </TextWrapper>
-              <TextWrapper>
-                <Price>{item.price.toLocaleString()}원</Price>
-              </TextWrapper>
-            </SelectedMenuCard>
+            <View key={`addedItem-${index}`} style={{ width: '33.3%', alignItems: 'center' }}>
+              <SelectedMenuCard>
+                <MenuImage source={{ uri: item.img }} />
+                <TextWrapper>
+                  <MenuName>{item.menuName}</MenuName>
+                </TextWrapper>
+                <TextWrapper>
+                  <Price>{item.orderQuantity}개</Price>
+                </TextWrapper>
+              </SelectedMenuCard>
+            </View>
           ))}
         </ContainedMenuList>
         <AntDesign
@@ -59,7 +61,7 @@ function YoungmanOrderSection() {
       </ContainedMenuView>
       <ButtonContainer>
         <OrderButton onPress={openModal}>
-          <ButtonLabel>결제하기</ButtonLabel>
+          <ButtonLabel>담은음료</ButtonLabel>
         </OrderButton>
       </ButtonContainer>
     </Container>
@@ -99,8 +101,8 @@ const ContainedMenuView = styled.View`
 
 const ContainedMenuList = styled.View`
   flex-direction: row;
-  justify-content: space-between;
-  width: 60%;
+
+  width: 75%;
 `;
 
 const ButtonContainer = styled.View`

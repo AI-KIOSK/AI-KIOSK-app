@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import styled from 'styled-components/native';
 
 import OptionItem from './OptionItem';
-import { onForeigner } from 'recoil/common/Foreigner';
-import { useRecoilValue } from 'recoil';
 
 OptionList.propTypes = {
   type: PropTypes.string.isRequired,
@@ -33,9 +33,9 @@ export default function OptionList({ type, data }) {
       <HorizontalLine />
       {data.map((item, index) =>
         isForeigner ? (
-          <OptionItem id={data.id} key={index} label={item.labelEng} options={item.options} />
+          <OptionItem id={item.id} key={index} label={item.labelEng} options={item.options} />
         ) : (
-          <OptionItem id={data.id} key={index} label={item.label} options={item.options} />
+          <OptionItem id={item.id} key={index} label={item.label} options={item.options} />
         ),
       )}
     </Container>

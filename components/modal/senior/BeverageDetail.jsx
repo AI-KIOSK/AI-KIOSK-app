@@ -99,7 +99,7 @@ const DetailContainer = styled.View`
 `;
 
 const DetailLabel = styled.Text`
-  font-size: ${RFValue(15)}px;
+  font-size: ${RFValue(18)}px;
   margin-bottom: ${RFValue(8)}px;
   font-family: SCDream4;
 `;

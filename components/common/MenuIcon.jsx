@@ -51,7 +51,6 @@ const MenuImage = styled.Image`
 `;
 
 const Label = styled.Text`
-  margin-top: ${RFValue(4)}px;
   font-size: ${RFValue(8)}px;
   font-family: SCDream6;
 `;

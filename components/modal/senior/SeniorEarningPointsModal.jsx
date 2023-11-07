@@ -16,7 +16,7 @@ function SeniorEarningPointsModal() {
   const { openModal } = useModal('paymentModal');
   const { openModal: openOtherModal } = useModal('signupModal');
   const [phone, setPhoneNumber] = useRecoilState(phoneNumber);
-  const { play, isLoading } = useAudio(require('@assets/audio/point.mp3'));
+  const { play, isLoading, stop } = useAudio(require('@assets/audio/point.mp3'));
 
   useEffect(() => {
     if (isLoading && modal.visible) play();
@@ -50,7 +50,16 @@ function SeniorEarningPointsModal() {
           <Numpad />
         </EarningPointContainer>
         <ButtonContainer_1>
-          <ModalActionButton title={'취소'} width={wp(25)} height={hp(6)} color={'seniorNormal'} onPress={hideModal} />
+          <ModalActionButton
+            title={'취소'}
+            width={wp(25)}
+            height={hp(6)}
+            color={'seniorNormal'}
+            onPress={() => {
+              hideModal();
+              stop();
+            }}
+          />
           <ModalActionButton
             title={'결제하기'}
             width={wp(25)}

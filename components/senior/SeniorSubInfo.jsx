@@ -1,7 +1,9 @@
 import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
 import React, { useCallback, useState } from 'react';
+import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useRecoilValue } from 'recoil';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
@@ -27,24 +29,26 @@ function SeniorSubInfo() {
 
   return (
     <Container>
+      <TitleView>
+        <Title>담은 음료</Title>
+      </TitleView>
+
       <ContainedMenuView>
-        <TitleView>
-          <Title>담은 음료</Title>
-        </TitleView>
+        <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
 
         <ContainedMenuList>
-          <AntDesign name="caretleft" size={50} color={offset < 1 ? 'lightgray' : 'black'} onPress={prevMenuSets} />
-
           {shoppingList.slice(offset * 3, offset * 3 + 3).map((item) => (
-            <MenuIcon key={item.id} image={item.img} label={item.menuName} quantity={item.orderQuantity} />
+            <View key={item.id} style={{ width: '33.3%', alignItems: 'center' }}>
+              <MenuIcon image={item.img} label={item.menuName} quantity={item.orderQuantity} />
+            </View>
           ))}
-          <AntDesign
-            name="caretright"
-            size={50}
-            color={offset <= shoppingList.length / 3 - 1 ? 'black' : 'lightgray'}
-            onPress={nextMenuSets}
-          />
         </ContainedMenuList>
+        <AntDesign
+          name="caretright"
+          size={50}
+          color={offset <= shoppingList.length / 3 - 1 ? 'black' : 'lightgray'}
+          onPress={nextMenuSets}
+        />
       </ContainedMenuView>
       <ButtonContainer>
         <OrderButton onPress={handleOrderButtonClick}>
@@ -80,15 +84,17 @@ const Title = styled.Text`
 
 const ContainedMenuView = styled.View`
   align-items: center;
+  flex-direction: row;
   justify-content: space-around;
-  flex: 3;
-  height: 100%;
+  width: 75%;
+  height: 70%;
 `;
 
 const ContainedMenuList = styled.View`
   flex-direction: row;
-  justify-content: space-between;
-  width: 90%;
+
+  width: 75%;
+  margin-bottom: ${hp(1.625)}px;
 `;
 
 const ButtonContainer = styled.View`

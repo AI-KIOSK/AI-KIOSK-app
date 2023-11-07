@@ -1,7 +1,6 @@
-import MenuIcon from '@components/common/MenuIcon';
 import { useModal } from '@hooks/common';
-import format from 'pretty-format';
 import React, { useCallback, useState } from 'react';
+import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -38,18 +37,20 @@ function ForeignerOrderSection() {
 
         <ContainedMenuList>
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
-            <SelectedMenuCard key={`addedItem${index}`}>
-              <MenuImage source={{ uri: item.img }} />
-              <TextWrapper>
-                <MenuName>{item.nameEng}</MenuName>
-              </TextWrapper>
-              <TextWrapper>
-                <Quantity>
-                  {item.orderQuantity}
-                  {item.orderQuantity > 1 ? ' cups' : ' cup'}
-                </Quantity>
-              </TextWrapper>
-            </SelectedMenuCard>
+            <View key={`addedItem${index}`} style={{ width: '33.3%', alignItems: 'center' }}>
+              <SelectedMenuCard key={`addedItem${index}`}>
+                <MenuImage source={{ uri: item.img }} />
+                <TextWrapper>
+                  <MenuName>{item.nameEng}</MenuName>
+                </TextWrapper>
+                <TextWrapper>
+                  <Quantity>
+                    {item.orderQuantity}
+                    {item.orderQuantity > 1 ? ' cups' : ' cup'}
+                  </Quantity>
+                </TextWrapper>
+              </SelectedMenuCard>
+            </View>
           ))}
         </ContainedMenuList>
         <AntDesign
@@ -101,8 +102,7 @@ const ContainedMenuView = styled.View`
 
 const ContainedMenuList = styled.View`
   flex-direction: row;
-  justify-content: space-between;
-  width: 70%;
+  width: 75%;
 `;
 
 const SelectedMenuCard = styled.View`

@@ -115,25 +115,25 @@ function SeniorOptionModal() {
               <MenuLabel>{selectedItem.name}</MenuLabel>
               <QunatityOptionView>
                 <QuantityLabel>수량</QuantityLabel>
-                <AntDesign name={'caretdown'} size={24} color={'#F3DEBA'} onPress={decreaseCounter} />
+                <AntDesign name={'minus'} size={RFValue(24)} color={'#F3DEBA'} onPress={decreaseCounter} />
                 <QuantityLabel>{counter}</QuantityLabel>
-                <AntDesign name={'caretup'} size={24} color={'#F3DEBA'} onPress={increaseCounter} />
+                <AntDesign name={'plus'} size={RFValue(24)} color={'#F3DEBA'} onPress={increaseCounter} />
               </QunatityOptionView>
               <OptionButtonView>
                 {selectedItem.hotOrIced === 'HOT' ? (
                   <>
-                    <HotOrIceSelectButton option="HOT" label="HOT" />
-                    <HotOrIceSelectButton option="DISABLE" label="ICED" />
+                    <HotOrIceSelectButton option="HOT" label="뜨거운거" />
+                    <HotOrIceSelectButton option="DISABLE" label="차가운거" />
                   </>
                 ) : selectedItem.hotOrIced === 'ICE' ? (
                   <>
-                    <HotOrIceSelectButton option="DISABLE" label="HOT" />
-                    <HotOrIceSelectButton option="ICE" label="ICED" />
+                    <HotOrIceSelectButton option="DISABLE" label="뜨거운거" />
+                    <HotOrIceSelectButton option="ICE" label="차가운거" />
                   </>
                 ) : (
                   <>
-                    <HotOrIceSelectButton option="HOT" label="HOT" />
-                    <HotOrIceSelectButton option="ICE" label="ICED" />
+                    <HotOrIceSelectButton option="HOT" label="뜨거운거" />
+                    <HotOrIceSelectButton option="ICE" label="차가운거" />
                   </>
                 )}
               </OptionButtonView>

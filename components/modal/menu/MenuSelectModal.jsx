@@ -5,6 +5,7 @@ import { useModal } from '@hooks/common';
 import useMenu from '@hooks/useMenu';
 import { useOrder } from '@hooks/useOrder';
 import { freeOptionsData, paidOptionsData } from 'const/options';
+import format from 'pretty-format';
 import React, { useCallback, useMemo } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -54,10 +55,7 @@ function MenuSelectModal() {
     [order?.hotOrIced, selectedMenu?.whipping],
   );
 
-  const paidOptions = useMemo(
-    () => paidOptionsData.filter((item) => (selectedMenu?.whipping ? true : item.id !== 'whippings')),
-    [selectedMenu?.whipping],
-  );
+  const paidOptions = paidOptionsData;
 
   if (selectedMenu == null) return;
 
