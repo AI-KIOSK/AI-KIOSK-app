@@ -13,6 +13,7 @@ import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
+import format from 'pretty-format';
 
 function PaymentModal() {
   const paymentPlans = useMemo(
@@ -48,6 +49,8 @@ function PaymentModal() {
     openModal();
   };
 
+  console.log(format(request));
+
   return (
     <Modal visible={modal.visible} animationType="slide" transparent={true} onRequestClose={hideModal}>
       <ModalTemplate>
@@ -77,7 +80,11 @@ function PaymentModal() {
                 <TitleText>Payment Method</TitleText>
                 <Row>
                   {paymentPlans.map((item) => (
-                    <PaymentPlanItem key={item.id} onPress={() => handleOrderType(item.value)}>
+                    <PaymentPlanItem
+                      key={item.id}
+                      onPress={() => handleOrderType(item.value)}
+                      highlight={item.value === request.orderType}
+                    >
                       <NormalText>{item.nameEng}</NormalText>
                     </PaymentPlanItem>
                   ))}
@@ -121,7 +128,11 @@ function PaymentModal() {
                 <TitleText>결제수단</TitleText>
                 <Row>
                   {paymentPlans.map((item) => (
-                    <PaymentPlanItem key={item.id} onPress={() => handleOrderType(item.value)}>
+                    <PaymentPlanItem
+                      key={item.id}
+                      onPress={() => handleOrderType(item.value)}
+                      highlight={item.value === request.orderType}
+                    >
                       <NormalText>{item.name}</NormalText>
                     </PaymentPlanItem>
                   ))}
@@ -206,10 +217,12 @@ const PaymentPlanItem = styled.TouchableOpacity`
   border-radius: 8px;
   width: ${wp(22)}px;
   height: ${hp(10)}px;
-  background-color: #f3deba;
+
   border-color: #675d50;
   justify-content: center;
   align-items: center;
+  background-color: #f3deba;
+  ${({ highlight }) => highlight && `opacity: 0.5;`}
 `;
 
 const Row = styled.View`

@@ -13,8 +13,8 @@ export default function OrderList() {
   return (
     <Container>
       <OrderedList>
-        {shoppingList.orders.map((order) => (
-          <OrderListItem key={order.id} item={order} onDelete={() => deleteMenu(order.id)} />
+        {shoppingList.orders.map((order, index) => (
+          <OrderListItem key={index} item={order} onDelete={() => deleteMenu(index)} />
         ))}
       </OrderedList>
     </Container>

@@ -39,7 +39,7 @@ function ForeignerOrderSection() {
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
             <View key={`addedItem${index}`} style={{ width: '33.3%', alignItems: 'center' }}>
               <SelectedMenuCard key={`addedItem${index}`}>
-                <MenuImage source={{ uri: item.img }} />
+                <MenuImage source={{ uri: item.hotOrIced === 'ICE' ? item.iceImgUrl : item.hotImgUrl }} />
                 <TextWrapper>
                   <MenuName>{item.nameEng}</MenuName>
                 </TextWrapper>

@@ -9,11 +9,12 @@ ModalActionButton.propTypes = {
   height: PropTypes.number,
   onPress: PropTypes.func,
   color: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
-function ModalActionButton({ title, width, height, onPress, color }) {
+function ModalActionButton({ title, width, height, onPress, color, disabled }) {
   return (
-    <Container width={width} height={height} onPress={onPress} color={color}>
+    <Container width={width} height={height} onPress={onPress} color={color} disabled={disabled}>
       <Title color={color}>{title}</Title>
     </Container>
   );

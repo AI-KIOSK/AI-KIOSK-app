@@ -33,11 +33,6 @@ function SeniorPaymentModal() {
   const { modal, hideModal } = useModal('paymentModal');
   const { openModal } = useModal('paymentCompletedModal');
   const { handleOrderType, completeOrderWithRequest } = useOrder();
-  const { play, isLoading: isAudioLoading } = useAudio(require('@assets/audio/payment.mp3'));
-
-  useEffect(() => {
-    if (isAudioLoading && modal.visible) play();
-  }, [isAudioLoading, modal.visible, play]);
 
   const pressPayment = () => {
     completeOrderWithRequest(finalOrder);

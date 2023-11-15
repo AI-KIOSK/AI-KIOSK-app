@@ -1,8 +1,9 @@
 import { ModalActionButton } from '@components/common/btn';
 import { OrderList } from '@components/order';
+import useFocus from '@hooks/useFocus';
 import { useModal } from '@hooks/useModal';
 import useAudio from '@hooks/useAudio';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -11,6 +12,7 @@ import { phoneNumber } from 'recoil/auth/atom';
 import { FinalOrder, ShoppingList } from 'recoil/menu/ShoppingList';
 import { styled } from 'styled-components/native';
 import SeniorModalTemplate from 'styles/SeniorModalTemplate';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function SeniorOrderConfirmModal() {
   const { modal, hideModal: hideOrderConfirmModal } = useModal('orderConfirmModal');
@@ -22,11 +24,14 @@ export default function SeniorOrderConfirmModal() {
   const [fianlOrder, setFinalOrder] = useRecoilState(FinalOrder);
   const phone = useRecoilValue(phoneNumber);
 
-  const { play, isLoading } = useAudio(require('@assets/audio/orderlist.mp3'));
+  const { setCurFocus } = useFocus();
 
-  useEffect(() => {
-    if (modal.visible && isLoading) play();
-  }, [isLoading, modal.visible, play]);
+  useFocusEffect(
+    useCallback(() => {
+      if (modal.visible) setCurFocus('MODAL_ORDER_CONFIRM');
+      else setCurFocus('');
+    }, [modal.visible]),
+  );
 
   function createRequestBody(phoneNumber, quantity, totalPrice, orderType, orders) {
     const requestBody = {

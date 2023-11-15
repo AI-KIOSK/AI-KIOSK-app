@@ -57,6 +57,7 @@ export default function OrderConfirmModal() {
                   width={wp(30)}
                   height={hp(6)}
                   color={'blue'}
+                  disabled={request.totalPrice === 0}
                   onPress={onPressPoint}
                 />
                 <ModalActionButton
@@ -64,6 +65,7 @@ export default function OrderConfirmModal() {
                   width={wp(70)}
                   height={hp(6)}
                   color={'cancel'}
+                  disabled={request.totalPrice === 0}
                   onPress={onPressOrder}
                 />
               </ButtonSection>
@@ -86,6 +88,7 @@ export default function OrderConfirmModal() {
                   height={hp(6)}
                   color={'blue'}
                   onPress={onPressPoint}
+                  disabled={request.totalPrice === 0}
                 />
                 <ModalActionButton
                   title={'결제하기'}
@@ -93,6 +96,7 @@ export default function OrderConfirmModal() {
                   height={hp(6)}
                   color={'cancel'}
                   onPress={onPressOrder}
+                  disabled={request.totalPrice === 0}
                 />
               </ButtonSection>
             </>

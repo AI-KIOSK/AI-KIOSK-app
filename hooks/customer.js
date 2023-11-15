@@ -52,6 +52,7 @@ function useSignUp() {
   };
 
   return {
+    gender,
     phoneNumberPrev,
     phoneNumberNext,
     onPressPrevPhoneNumber,

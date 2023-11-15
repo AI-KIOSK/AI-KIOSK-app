@@ -14,12 +14,6 @@ function SeniorPaymentCompletedModal() {
   const { modal, hideModal } = useModal('paymentCompletedModal');
   const navigation = useNavigation();
 
-  const { play, isLoading } = useAudio(require('@assets/audio/ordercomplete.mp3'));
-
-  useEffect(() => {
-    if (isLoading && modal.visible) play();
-  }, [isLoading, modal.visible, play]);
-
   const pressBack = () => {
     hideModal();
     navigation.reset({ routes: [{ name: 'information' }] });

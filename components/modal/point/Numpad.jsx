@@ -5,6 +5,8 @@ import { useRecoilState } from 'recoil';
 import { phoneNumber } from 'recoil/auth/atom';
 import styled from 'styled-components/native';
 
+import Feather from 'react-native-vector-icons/Feather';
+
 function Numpad(props) {
   const [phone, setPhoneNumber] = useRecoilState(phoneNumber);
 
@@ -16,15 +18,26 @@ function Numpad(props) {
     }
   };
 
-  const items = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0]];
+  const deleteNumber = () => {
+    if (phone.length > 0) {
+      setPhoneNumber((prev) => prev.slice(0, -1));
+    }
+  };
+
+  const items = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [0, -1],
+  ];
 
   return (
     <Container>
       {items.map((item, rowIndex) => (
         <Row key={rowIndex}>
           {item.map((number, columnIndex) => (
-            <Column key={columnIndex} onPress={() => handleNumberPress(number)}>
-              <Text>{number}</Text>
+            <Column key={columnIndex} onPress={number !== -1 ? () => handleNumberPress(number) : () => deleteNumber()}>
+              {number === -1 ? <Feather name="delete" size={RFValue(24)} color={'black'} /> : <Text>{number}</Text>}
             </Column>
           ))}
         </Row>
@@ -34,14 +47,13 @@ function Numpad(props) {
 }
 
 const Container = styled.View`
-  flex: 3;
   justify-content: center;
   align-items: center;
-  width: ${wp(50)}px;
 `;
 
 const Row = styled.View`
   flex-direction: row;
+  margin-left: auto;
 `;
 
 const Column = styled.TouchableOpacity`

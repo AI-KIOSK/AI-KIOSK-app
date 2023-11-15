@@ -39,7 +39,11 @@ function SeniorSubInfo() {
         <ContainedMenuList>
           {shoppingList.slice(offset * 3, offset * 3 + 3).map((item) => (
             <View key={item.id} style={{ width: '33.3%', alignItems: 'center' }}>
-              <MenuIcon image={item.img} label={item.menuName} quantity={item.orderQuantity} />
+              <MenuIcon
+                image={item.hotOrIced === 'ICE' ? item.iceImgUrl : item.hotImgUrl}
+                label={item.menuName}
+                quantity={item.orderQuantity}
+              />
             </View>
           ))}
         </ContainedMenuList>
@@ -98,14 +102,15 @@ const ContainedMenuList = styled.View`
 `;
 
 const ButtonContainer = styled.View`
-  flex: 1;
-  height: 100%;
+  width: 25%;
+  height: 70%;
+
   justify-content: center;
   align-items: center;
 `;
 
 const OrderButton = styled.TouchableOpacity`
-  width: 90%;
+  width: 80%;
   height: 90%;
   justify-content: center;
   align-items: center;

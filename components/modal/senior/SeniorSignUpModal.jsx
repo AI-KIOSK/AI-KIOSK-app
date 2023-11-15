@@ -1,8 +1,7 @@
 import { ModalActionButton } from '@components/common/btn';
-import { useModal } from '@hooks/useModal';
 import { useSignUp } from '@hooks/customer';
-import useAudio from '@hooks/useAudio';
-import React, { useEffect, useMemo, useState } from 'react'; // 추가: useState import
+import { useModal } from '@hooks/useModal';
+import React, { useMemo, useState } from 'react'; // 추가: useState import
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -38,12 +37,6 @@ function SeniorSignUpModal() {
   const [input2, setInput2] = useState('');
   const [gender, setGender] = useState('');
   const { signupWithRequest } = useSignUp();
-
-  const { play, isLoading } = useAudio(require('@assets/audio/signup.mp3'));
-
-  useEffect(() => {
-    if (isLoading && modal.visible) play();
-  }, [isLoading, modal.visible, play]);
 
   const pressSignUp = () => {
     const combinedNumber = input1 + input2;

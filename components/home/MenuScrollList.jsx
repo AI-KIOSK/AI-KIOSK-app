@@ -1,7 +1,7 @@
 import { MenuCard } from '@components/menu/common';
-import { useModal } from '@hooks/useModal';
 import { useFetch } from '@hooks/useFecth';
 import useMenu from '@hooks/useMenu';
+import { useModal } from '@hooks/useModal';
 import { fetchMenus } from 'api/fetch';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
@@ -33,7 +33,7 @@ function MenuScrollList() {
           data={filteredMenu}
           renderItem={({ item }) => (
             <CardWrapper onPress={() => handleChooseMenu(item)} key={item.id}>
-              <MenuCard img={item.img} label={item.name} price={item.price} />
+              <MenuCard img={item.iceImgUrl} label={item.name} price={item.price} />
             </CardWrapper>
           )}
         />

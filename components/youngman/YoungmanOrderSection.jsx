@@ -41,7 +41,7 @@ function YoungmanOrderSection() {
           {items.slice(offset * 3, offset * 3 + 3).map((item, index) => (
             <View key={`addedItem-${index}`} style={{ width: '33.3%', alignItems: 'center' }}>
               <SelectedMenuCard>
-                <MenuImage source={{ uri: item.img }} />
+                <MenuImage source={{ uri: item.hotOrIced === 'ICE' ? item.iceImgUrl : item.hotImgUrl }} />
                 <TextWrapper>
                   <MenuName>{item.menuName}</MenuName>
                 </TextWrapper>
@@ -132,7 +132,7 @@ const SelectedMenuCard = styled.View`
 
 const MenuImage = styled.Image`
   width: 100%;
-  height: 65%;
+  height: 80%;
 
   object-fit: cover;
   border-radius: ${wp(2)}px;

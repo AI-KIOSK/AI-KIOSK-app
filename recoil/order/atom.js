@@ -26,12 +26,13 @@ const menuWithOption = atom({
     orderQuantity: 1,
     sweetness: '0%',
     pump: 0,
-    iceAmount: '없음',
+    iceAmount: '기본',
     whippingAmount: '없음',
     shots: 0,
     whippings: 0,
     price: 0,
-    img: '',
+    iceImgUrl: '',
+    hotImgUrl: '',
   },
 });
 

@@ -42,7 +42,7 @@ function YoungmanMenuScrollList() {
               data={filteredRecMenu}
               renderItem={({ item }) => (
                 <CardWrapper onPress={() => handleChooseMenu(item)} key={item.id}>
-                  <MenuCard img={item.img} label={item.name} price={item.price} />
+                  <MenuCard img={item.iceImgUrl} label={item.name} price={item.price} />
                 </CardWrapper>
               )}
             />
@@ -55,7 +55,7 @@ function YoungmanMenuScrollList() {
               data={filteredMenu}
               renderItem={({ item }) => (
                 <CardWrapper onPress={() => handleChooseMenu(item)} key={item.id}>
-                  <MenuCard img={item.img} label={item.name} price={item.price} />
+                  <MenuCard img={item.iceImgUrl} label={item.name} price={item.price} />
                 </CardWrapper>
               )}
             />

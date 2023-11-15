@@ -22,7 +22,8 @@ OrderListItem.propTypes = {
     shots: PropTypes.number,
     whippings: PropTypes.number,
     price: PropTypes.number,
-    img: PropTypes.string,
+    iceImgUrl: PropTypes.string,
+    hotImgUrl: PropTypes.string,
   }),
   onDelete: PropTypes.func,
 };
@@ -90,15 +91,11 @@ export default function OrderListItem({ item, onDelete }) {
     <Container>
       <MainContent>
         <MenuImageView>
-          {item.img !== undefined ? (
-            <Image
-              style={{ width: RFValue(200), height: RFValue(100) }}
-              source={{ uri: item.img }}
-              resizeMode="contain"
-            />
-          ) : (
-            <Image style={{ width: RFValue(60), height: RFValue(60) }} source={img} resizeMode="contain" />
-          )}
+          <Image
+            style={{ width: RFValue(60), height: RFValue(60) }}
+            source={{ uri: item.hotOrIced === 'ICE' ? item.iceImgUrl : item.hotImgUrl }}
+            resizeMode="cover"
+          />
         </MenuImageView>
         {isForeigner ? (
           <>

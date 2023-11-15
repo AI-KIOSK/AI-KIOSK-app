@@ -95,13 +95,13 @@ function useOrder() {
       return newItem;
     });
 
-  const deleteMenu = (itemId) => {
-    const deleteItem = request.orders.find((item) => item.id === itemId);
+  const deleteMenu = (itemIndex) => {
+    const deleteItem = request.orders.find((item, index) => itemIndex === index);
     setRequest((prev) => ({
       ...prev,
       quantity: prev.quantity - deleteItem.orderQuantity,
       totalPrice: prev.totalPrice - deleteItem.price * deleteItem.orderQuantity,
-      orders: prev.orders.filter((item) => item.id !== itemId),
+      orders: prev.orders.filter((item, index) => itemIndex !== index),
     }));
   };
 

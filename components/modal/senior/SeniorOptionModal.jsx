@@ -1,8 +1,8 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/useModal';
-import useAudio from '@hooks/useAudio';
-import React, { useEffect, useState } from 'react';
+import format from 'pretty-format';
+import React, { useState } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -24,13 +24,6 @@ function SeniorOptionModal() {
   const [counter, setCounter] = useState(1);
   const temperature = useRecoilValue(Temperature);
   const [modalTemperature, setModalTemperature] = useRecoilState(ModalTemperature);
-
-  const img = require('@assets/menu/cafelatte.jpeg');
-  const { play, isLoading } = useAudio(require('@assets/audio/seniorOption.mp3'));
-
-  useEffect(() => {
-    if (modal.visible && isLoading) play();
-  }, [isLoading, modal.visible, play]);
 
   const increaseCounter = () => {
     setCounter(counter + 1);
@@ -58,7 +51,8 @@ function SeniorOptionModal() {
       shots: optionList['shots'],
       whippings: optionList['whippings'],
       price: item.price + optionList['shots'] * 500 + optionList['whippings'] * 500,
-      img: item.img,
+      iceImgUrl: item.iceImgUrl,
+      hotImgUrl: item.hotImgUrl,
     };
 
     // 동일한 아이템이 이미 주문 목록에 있는지 확인
@@ -95,21 +89,19 @@ function SeniorOptionModal() {
     hideModal();
   };
 
+  console.log(format(temperature));
+
   return (
     <Modal visible={modal.visible} transparent={true} animationType="slide" onRequestClose={hideModal}>
       <SeniorModalTemplate>
         <Container>
           <MenuSection>
             <MenuImageView>
-              {selectedItem.img !== undefined ? (
-                <Image
-                  style={{ width: RFValue(100), height: RFValue(100) }}
-                  source={{ uri: selectedItem.img }}
-                  resizeMode="cover"
-                />
-              ) : (
-                <Image style={{ width: RFValue(80), height: RFValue(80) }} source={img} resizeMode="contain" />
-              )}
+              <Image
+                style={{ width: RFValue(100), height: RFValue(100) }}
+                source={{ uri: temperature === 'HOT' ? selectedItem.hotImgUrl : selectedItem.iceImgUrl }}
+                resizeMode="cover"
+              />
             </MenuImageView>
             <MenuOptionView>
               <MenuLabel>{selectedItem.name}</MenuLabel>

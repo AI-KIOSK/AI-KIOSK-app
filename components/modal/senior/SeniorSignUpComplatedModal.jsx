@@ -12,12 +12,8 @@ import SeniorModalTemplate from 'styles/SeniorModalTemplate';
 function SeniorSignUpCompletedModal() {
   const phoneNum = '4722';
   const { modal, hideModal } = useModal('signupCompleteModal');
-  const { play, isLoading } = useAudio(require('@assets/audio/signupcomplete.mp3'));
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    if (isLoading && modal.visible) play();
-  }, [isLoading, modal.visible, play]);
+  const navigation = useNavigation();
 
   const pressBack = () => {
     hideModal();

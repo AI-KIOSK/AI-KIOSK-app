@@ -1,15 +1,15 @@
 import { ModalActionButton } from '@components/common/btn';
-import { useModal } from '@hooks/useModal';
 import { useSignUp } from '@hooks/customer';
+import { useModal } from '@hooks/useModal';
 import React, { useMemo } from 'react';
 import { Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useRecoilValue } from 'recoil';
+import { onForeigner } from 'recoil/common/Foreigner';
 import { styled } from 'styled-components';
 
 import ModalTemplate from '../../../styles/ModalTemplate';
-import { onForeigner } from 'recoil/common/Foreigner';
-import { useRecoilValue } from 'recoil';
 
 function SignUpModal() {
   const genderItems = useMemo(
@@ -40,8 +40,15 @@ function SignUpModal() {
   const { modal, hideModal } = useModal('signupModal');
   const { openModal } = useModal('signupCompleteModal');
 
-  const { onPressGender, onPressNextPhoneNumber, onPressPrevPhoneNumber, phoneNumberPrev, phoneNumberNext, signup } =
-    useSignUp();
+  const {
+    gender,
+    onPressGender,
+    onPressNextPhoneNumber,
+    onPressPrevPhoneNumber,
+    phoneNumberPrev,
+    phoneNumberNext,
+    signup,
+  } = useSignUp();
 
   const pressSignUp = () => {
     signup();
@@ -93,7 +100,11 @@ function SignUpModal() {
                   <TitleText>Gender</TitleText>
                   <Row>
                     {genderItems.map((item) => (
-                      <GenderItem key={item.id} onPress={() => onPressGender(item.value)}>
+                      <GenderItem
+                        key={item.id}
+                        onPress={() => onPressGender(item.value)}
+                        highlight={gender === item.value}
+                      >
                         <NormalText>{item.nameEng}</NormalText>
                       </GenderItem>
                     ))}
@@ -159,7 +170,11 @@ function SignUpModal() {
                   <TitleText>성별</TitleText>
                   <Row>
                     {genderItems.map((item) => (
-                      <GenderItem key={item.id} onPress={() => onPressGender(item.value)}>
+                      <GenderItem
+                        key={item.id}
+                        onPress={() => onPressGender(item.value)}
+                        highlight={gender === item.value}
+                      >
                         <NormalText>{item.name}</NormalText>
                       </GenderItem>
                     ))}
@@ -255,6 +270,8 @@ const GenderItem = styled.TouchableOpacity`
   background-color: #abc4aa;
   justify-content: center;
   align-items: center;
+
+  ${({ highlight }) => highlight && `opacity: 0.5;`}
 `;
 
 const Row = styled.View`

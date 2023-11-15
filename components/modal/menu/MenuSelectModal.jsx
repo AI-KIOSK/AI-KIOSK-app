@@ -1,11 +1,10 @@
 import { ModalActionButton } from '@components/common/btn';
 import TemperatureOptionButton from '@components/common/btn/TemperatureOptionButton';
 import { OptionList } from '@components/menu/normal';
-import { useModal } from '@hooks/useModal';
 import useMenu from '@hooks/useMenu';
+import { useModal } from '@hooks/useModal';
 import { useOrder } from '@hooks/useOrder';
 import { freeOptionsData, paidOptionsData } from 'const/options';
-import format from 'pretty-format';
 import React, { useCallback, useMemo } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -67,7 +66,7 @@ function MenuSelectModal() {
             <MenuImageView>
               <Image
                 style={{ maxWidth: RFValue(200), height: RFValue(200) }}
-                source={{ uri: selectedMenu.img }}
+                source={{ uri: order.hotOrIced === 'ICE' ? selectedMenu.iceImgUrl : selectedMenu.hotImgUrl }}
                 resizeMode="contain"
               />
             </MenuImageView>

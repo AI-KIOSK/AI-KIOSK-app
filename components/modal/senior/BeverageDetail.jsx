@@ -13,7 +13,6 @@ import ModalTemplate from 'styles/ModalTemplate';
 
 export default function BeverageDetail() {
   const { modal, hideModal: hideBeverageDetailModal } = useModal('beverageDetail');
-  const { play, isLoading } = useAudio(require('@assets/audio/beverageInfo.mp3'));
   const [selectedMenu, setSelectedMenu] = useRecoilState(SelectedMenu);
 
   const DetailParser = (detail) => {
@@ -36,10 +35,6 @@ export default function BeverageDetail() {
   const onPressCancel = () => {
     hideBeverageDetailModal();
   };
-
-  useEffect(() => {
-    if ((isLoading, modal.visible)) play();
-  }, [isLoading, modal.visible, play]);
 
   const parsedSentences = DetailParser(selectedMenu && selectedMenu['description']);
 

@@ -16,7 +16,8 @@ SeniorMenu.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     whipping: PropTypes.bool,
-    img: PropTypes.string,
+    hotImgUrl: PropTypes.string,
+    iceImgUrl: PropTypes.string,
   }),
 };
 
@@ -54,7 +55,8 @@ function SeniorMenu({ item }) {
       shots: 0,
       whippings: 0,
       price: item.price,
-      img: item.img,
+      iceImgUrl: item.iceImgUrl,
+      hotImgUrl: item.hotImgUrl,
     };
 
     // 동일한 아이템이 이미 주문 목록에 있는지 확인
@@ -103,7 +105,7 @@ function SeniorMenu({ item }) {
 
   return (
     <Container>
-      {item.img !== undefined ? <MenuImage source={{ uri: item.img }} /> : <MenuImage source={img} />}
+      <MenuImage source={{ uri: temperature === 'ICE' ? item.iceImgUrl : item.hotImgUrl }} />
       <Info>
         <NameContainer>
           <Name>{item.name}</Name>
