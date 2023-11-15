@@ -31,7 +31,7 @@ export default function HotOrIceSelectButton({ option, label }) {
   // Container의 색상을 modalTemperature와 option에 따라 동적으로 설정
   const getContainerColor = () => {
     if (modalTemperature === 'ICE' && option === 'ICE') {
-      return '#99eeff'; // ICE 선택 시 파란색
+      return '#265183'; // ICE 선택 시 파란색
     } else if (modalTemperature === 'HOT' && option === 'HOT') {
       return '#FEE5E6'; // HOT 선택 시 빨간색
     } else {
@@ -103,11 +103,11 @@ const ButtonText = styled.Text`
   `
       : option === 'ICE'
       ? `
-    color: #002b85;
+    color: #f0f0f0;
   `
       : `
     /* 비활성화 상태일 때 글자색 회색으로 변경 */
-    color: #808080;
+    color: #f0f0f0;
   `}
 
   ${({ disabled }) =>
