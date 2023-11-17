@@ -1,7 +1,9 @@
+import Logo from '@components/common/icon/Logo';
 import useAudio from '@hooks/useAudio';
 import { useOrder } from '@hooks/useOrder';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect } from 'react';
+import { Platform } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
@@ -43,30 +45,29 @@ function Information() {
 
   return (
     <Container>
-      <Info source={require('@assets/information.png')} resizeMode="contain" />
-
-      <Button onPress={() => navigate('camera')}>
-        <Label>AI Kiosk 사용하기</Label>
-      </Button>
-
-      <Button onPress={() => navigate('home')}>
+      <Info source={require('@assets/logo.png')} resizeMode="contain" />
+      <NormalButton onPress={() => navigate('home')}>
         <Label>일반 키오스크</Label>
         <Label>사용하기</Label>
-      </Button>
+      </NormalButton>
+      <KioskButton onPress={() => navigate('camera')}>
+        <KioskLabel>AI Kiosk</KioskLabel>
+        <KioskLabel>사용하기</KioskLabel>
+      </KioskButton>
 
-      <Button onPress={() => navigate('seniorHome')}>
+      {/* <Button onPress={() => navigate('seniorHome')}>
         <Label>노인 키오스크</Label>
         <Label>사용하기</Label>
-      </Button>
+      </Button> */}
 
-      <Button onPress={() => navigate('youngmanHome')}>
+      {/* <Button onPress={() => navigate('youngmanHome')}>
         <Label>청년 키오스크</Label>
         <Label>test</Label>
       </Button>
       <Button onPress={() => navigate('foreignerHome')}>
         <Label>Foreigner KIOSK</Label>
         <Label>test</Label>
-      </Button>
+      </Button> */}
     </Container>
   );
 }
@@ -74,17 +75,22 @@ function Information() {
 const Container = styled.View`
   flex: 1;
 
+  /* background-color: #f5e9d9; */
+  /* background-color: #f0f0f0; */
+  background-color: #a9907e;
+  /* background-color: white; */
+
+  /* background-color: #9d9d9d; */
+  /* background-color: #675d50; */
   justify-content: space-around;
   align-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
-
-  background: #ffffff;
 `;
 
 const Info = styled.Image`
-  width: ${wp(120)}px;
-  height: ${wp(90)}px;
+  width: ${wp(100)}px;
+  height: ${wp(60)}px;
 
   justify-content: center;
   align-items: center;
@@ -100,21 +106,41 @@ const BoldDescription = styled(Description)`
 `;
 
 const Button = styled.TouchableOpacity`
-  width: ${wp(32)}px;
-  height: ${hp(6)}px;
+  width: ${wp(36)}px;
+  height: ${hp(10)}px;
 
   justify-content: center;
   align-items: center;
 
+  border-radius: 8px;
+
+  ${() =>
+    Platform.OS === 'android'
+      ? `
+    elevation: 8;
+    `
+      : `
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  `}
+`;
+
+const NormalButton = styled(Button)`
+  background-color: #675d50;
+`;
+
+const KioskButton = styled(Button)`
   background-color: #abc4aa;
   border-color: #675d50;
-  border-width: 3px;
-  border-radius: 8px;
 `;
 
 const Label = styled.Text`
-  font-size: ${RFValue(12)}px;
-  font-family: SCDream4;
+  font-size: ${RFValue(18)}px;
+  color: white;
+  font-family: SCDream5;
+`;
+const KioskLabel = styled.Text`
+  font-size: ${RFValue(18)}px;
+  font-family: SCDream5;
 `;
 
 export default Information;

@@ -1,7 +1,6 @@
 import { HotOrIceSelectButton, ModalActionButton } from '@components/common/btn';
 import MenuOptionList from '@components/menu/MenuOptionList';
 import { useModal } from '@hooks/useModal';
-import format from 'pretty-format';
 import React, { useState } from 'react';
 import { Image, Modal } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -89,8 +88,6 @@ function SeniorOptionModal() {
     hideModal();
   };
 
-  console.log(format(temperature));
-
   return (
     <Modal visible={modal.visible} transparent={true} animationType="slide" onRequestClose={hideModal}>
       <SeniorModalTemplate>
@@ -112,21 +109,10 @@ function SeniorOptionModal() {
                 <AntDesign name={'plus'} size={RFValue(24)} color={'#F3DEBA'} onPress={increaseCounter} />
               </QunatityOptionView>
               <OptionButtonView>
-                {selectedItem.hotOrIced === 'HOT' ? (
-                  <>
-                    <HotOrIceSelectButton option="HOT" label="뜨거운거" />
-                    <HotOrIceSelectButton option="DISABLE" label="차가운거" />
-                  </>
-                ) : selectedItem.hotOrIced === 'ICE' ? (
-                  <>
-                    <HotOrIceSelectButton option="DISABLE" label="뜨거운거" />
-                    <HotOrIceSelectButton option="ICE" label="차가운거" />
-                  </>
+                {modalTemperature === 'HOT' ? (
+                  <HotOrIceSelectButton option="HOT" label="뜨거운거" />
                 ) : (
-                  <>
-                    <HotOrIceSelectButton option="HOT" label="뜨거운거" />
-                    <HotOrIceSelectButton option="ICE" label="차가운거" />
-                  </>
+                  <HotOrIceSelectButton option="ICE" label="차가운거" />
                 )}
               </OptionButtonView>
             </MenuOptionView>
@@ -212,9 +198,10 @@ const QuantityLabel = styled.Text`
 const OptionButtonView = styled.View`
   width: 100%;
   height: 30%;
+
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
 `;
 
 const ButtonSection = styled.View`

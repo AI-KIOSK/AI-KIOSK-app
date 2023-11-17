@@ -167,7 +167,7 @@ const OrderButton = styled.TouchableOpacity`
 `;
 
 const ButtonLabel = styled.Text`
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(14)}px;
   font-family: SCDream6;
 `;
 

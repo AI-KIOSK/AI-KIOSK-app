@@ -29,6 +29,7 @@ export default function HotOrIceSelectButton({ option, label }) {
   };
 
   // Container의 색상을 modalTemperature와 option에 따라 동적으로 설정
+  console.log(modalTemperature, option);
   const getContainerColor = () => {
     if (modalTemperature === 'ICE' && option === 'ICE') {
       return '#265183'; // ICE 선택 시 파란색
