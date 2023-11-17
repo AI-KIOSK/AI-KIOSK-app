@@ -2,8 +2,8 @@ import { ModalActionButton } from '@components/common/btn';
 import { useModal } from '@hooks/useModal';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import React from 'react';
-import { Modal } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Modal, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { capturedImage } from 'recoil/auth/atom';
@@ -17,11 +17,14 @@ function CheckPhotoModal(img) {
   const [user, setUser] = useRecoilState(userInfo);
   const navigation = useNavigation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const onPressConfirm = () => {
     // axios.get
     // API로 유저 정보 받아오기
 
     console.log(`image: ${capturedPhoto.width}`);
+    setIsLoading(true);
     axios
       .post('https://ai.cloudyong.store', {
         img: capturedPhoto.base64,
@@ -30,7 +33,7 @@ function CheckPhotoModal(img) {
         const {
           data: { age, gender, nationality },
         } = res;
-
+        setIsLoading(false);
         switch (nationality) {
           case 'EASTERN':
             if (age !== '노년') navigation.navigate('youngmanHome', { age, gender });
@@ -46,21 +49,34 @@ function CheckPhotoModal(img) {
       })
       .catch((err) => {
         console.log(err.response);
+        setIsLoading(false);
       });
   };
 
   return (
     <Modal visible={modal.visible} transparent={true} animationType="slide" onRequestClose={hideModal}>
       <ModalTemplate>
-        <Container>
-          <ImagePreviewContainer>
-            <ImagePreview source={{ uri: capturedPhoto['uri'] }} />
-          </ImagePreviewContainer>
-          <ButtonSection>
-            <ModalActionButton title={'취소'} width={wp(30)} height={hp(6)} color={'cancel'} onPress={hideModal} />
-            <ModalActionButton title={'KIOSK 시작'} width={wp(30)} height={hp(6)} color={''} onPress={onPressConfirm} />
-          </ButtonSection>
-        </Container>
+        {isLoading ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size={'large'} color={'black'} />
+          </View>
+        ) : (
+          <Container>
+            <ImagePreviewContainer>
+              <ImagePreview source={{ uri: capturedPhoto['uri'] }} />
+            </ImagePreviewContainer>
+            <ButtonSection>
+              <ModalActionButton title={'취소'} width={wp(30)} height={hp(6)} color={'cancel'} onPress={hideModal} />
+              <ModalActionButton
+                title={'KIOSK 시작'}
+                width={wp(30)}
+                height={hp(6)}
+                color={''}
+                onPress={onPressConfirm}
+              />
+            </ButtonSection>
+          </Container>
+        )}
       </ModalTemplate>
     </Modal>
   );
