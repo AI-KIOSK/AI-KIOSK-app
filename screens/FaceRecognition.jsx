@@ -1,12 +1,12 @@
 import CheckPhotoModal from '@components/modal/common/CheckPhotoModal';
-import { useModal } from '@hooks/useModal';
 import useAudio from '@hooks/useAudio';
+import { useModal } from '@hooks/useModal';
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Text, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRecoilState } from 'recoil';
 import { capturedImage } from 'recoil/auth/atom';
 import styled from 'styled-components';

@@ -1,8 +1,8 @@
 import { MenuCard } from '@components/menu/common';
-import { useModal } from '@hooks/useModal';
 import { useFetch } from '@hooks/useFecth';
 import useGpt from '@hooks/useGpt';
 import useMenu from '@hooks/useMenu';
+import { useModal } from '@hooks/useModal';
 import { fetchMenus } from 'api/fetch';
 import React, { useMemo } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';

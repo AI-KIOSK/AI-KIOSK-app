@@ -4,10 +4,7 @@ import format from 'pretty-format';
 import { useEffect, useState } from 'react';
 
 const useGpt = () => {
-  // const { age, gender } = useRoute().params;
-
-  const age = '10대';
-  const gender = '남성';
+  const { age, gender } = useRoute().params;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
