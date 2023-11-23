@@ -11,13 +11,14 @@ import { phoneNumber } from 'recoil/auth/atom';
 import { onForeigner } from 'recoil/common/Foreigner';
 import { ShoppingList } from 'recoil/menu/ShoppingList';
 import styled from 'styled-components';
-function Information() {
+function DeveloperMode() {
   const { navigate } = useNavigation();
   const [shoppingList, setShoppingList] = useRecoilState(ShoppingList);
   const [phone, setPhone] = useRecoilState(phoneNumber);
   const { resetOrder, resetRequest } = useOrder();
   const [Foreigner, setForeigner] = useRecoilState(onForeigner);
   const { play, isLoading } = useAudio(require('../assets/audio/main.mp3'));
+  const navigation = useNavigation();
   useFocusEffect(
     useCallback(() => {
       resetOrder();
@@ -28,17 +29,6 @@ function Information() {
     }, [setShoppingList, setPhone]),
   );
 
-  // useEffect(() => {
-  //   async function playSound() {
-  //     console.log('Loading Sound');
-  //     const { sound } = await Audio.Sound.createAsync(require('../assets/audio/main.mp3'));
-
-  //     console.log('Playing Sound');
-  //     await sound.playAsync();
-  //   }
-  //   playSound();
-  // }, []);
-
   useEffect(() => {
     if (isLoading) play();
   }, [isLoading, play]);
@@ -47,30 +37,30 @@ function Information() {
     <Container>
       <ImageContainer>
         <Info source={require('@assets/logo.png')} resizeMode="contain" />
-        <SecretBtn onPress={() => navigate('developerMode')} />
+        <SecretBtn onPress={() => navigate('information')} />
       </ImageContainer>
-      <NormalButton onPress={() => navigate('home')}>
-        <Label>일반 키오스크</Label>
-        <Label>사용하기</Label>
-      </NormalButton>
+      <KioskButton onPress={() => navigate('home')}>
+        <KioskLabel>일반 키오스크</KioskLabel>
+        <KioskLabel>사용하기</KioskLabel>
+      </KioskButton>
       <KioskButton onPress={() => navigate('camera')}>
         <KioskLabel>AI Kiosk</KioskLabel>
         <KioskLabel>사용하기</KioskLabel>
       </KioskButton>
 
-      {/* <Button onPress={() => navigate('seniorHome')}>
-        <Label>노인 키오스크</Label>
-        <Label>사용하기</Label>
-      </Button> */}
+      <KioskButton onPress={() => navigation.navigate('seniorHome', { age: '청년층', gender: '남성' })}>
+        <KioskLabel>노인 키오스크</KioskLabel>
+        <KioskLabel>사용하기</KioskLabel>
+      </KioskButton>
 
-      {/* <Button onPress={() => navigate('youngmanHome')}>
-        <Label>청년 키오스크</Label>
-        <Label>test</Label>
-      </Button>
-      <Button onPress={() => navigate('foreignerHome')}>
-        <Label>Foreigner KIOSK</Label>
-        <Label>test</Label>
-      </Button> */}
+      <KioskButton onPress={() => navigation.navigate('youngmanHome', { age: '청년층', gender: '남성' })}>
+        <KioskLabel>청년 키오스크</KioskLabel>
+        <KioskLabel>test</KioskLabel>
+      </KioskButton>
+      <KioskButton onPress={() => navigation.navigate('foreignerHome', { age: '청년층', gender: '남성' })}>
+        <KioskLabel>Foreigner KIOSK</KioskLabel>
+        <KioskLabel>test</KioskLabel>
+      </KioskButton>
     </Container>
   );
 }
@@ -78,13 +68,7 @@ function Information() {
 const Container = styled.View`
   flex: 1;
 
-  /* background-color: #f5e9d9; */
-  /* background-color: #f0f0f0; */
   background-color: #a9907e;
-  /* background-color: white; */
-
-  /* background-color: #9d9d9d; */
-  /* background-color: #675d50; */
   justify-content: space-around;
   align-content: space-around;
   flex-direction: row;
@@ -162,4 +146,4 @@ const KioskLabel = styled.Text`
   font-family: SCDream5;
 `;
 
-export default Information;
+export default DeveloperMode;

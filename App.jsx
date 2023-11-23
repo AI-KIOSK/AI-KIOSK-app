@@ -4,6 +4,7 @@ import HomeHeader from '@components/common/header/HomeHeader';
 import YoungmanHeader from '@components/common/header/YoungmanHeader';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import DeveloperMode from '@screens/DeveloperMode';
 import FaceRecognition from '@screens/FaceRecognition';
 import ForeignerHome from '@screens/ForeignerHome';
 import Home from '@screens/Home';
@@ -41,6 +42,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="information" component={Information} options={{ headerShown: false }} />
+            <Stack.Screen name="developerMode" component={DeveloperMode} options={{ headerShown: false }} />
             <Stack.Screen name="home" component={Home} options={{ header: () => <HomeHeader /> }} />
             <Stack.Screen name="camera" component={FaceRecognition} />
             <Stack.Screen name="seniorHome" component={SeniorHome} options={{ header: () => <SeniorHeader /> }} />

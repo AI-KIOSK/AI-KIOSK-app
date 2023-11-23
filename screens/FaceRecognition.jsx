@@ -13,7 +13,7 @@ import styled from 'styled-components';
 
 function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
-  const [type] = useState(Camera.Constants.Type.front);
+  const [type] = useState(Camera.Constants.Type.back);
   const [capturedPhoto, setCapturedPhoto] = useRecoilState(capturedImage);
   const { play, isLoading } = useAudio(require('../assets/audio/photo.mp3'));
 

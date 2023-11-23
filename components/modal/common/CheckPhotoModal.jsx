@@ -23,7 +23,7 @@ function CheckPhotoModal(img) {
     // axios.get
     // API로 유저 정보 받아오기
 
-    console.log(`image: ${capturedPhoto.width}`);
+    console.log(`image: ${capturedPhoto.width}, ${capturedPhoto.height}`);
     setIsLoading(true);
     axios
       .post('https://ai.cloudyong.store', {
